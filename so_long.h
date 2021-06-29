@@ -26,6 +26,9 @@ typedef struct	s_data
 
 	int		img_width;
 	int		img_height;
+
+	int		shift_x;
+	int		shift_y;
 }	t_data;
 
 #endif
