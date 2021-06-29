@@ -1,7 +1,8 @@
 NAME	=	so_long
 
-SRCS	=	test.c
+SRCS	=	main.c
 OBJS	=	$(SRCS:%.c=%.o)
+INCLUDE	=	so_long.h
 
 CC		=	gcc
 #CFLAGS	=	-c -Wall -Werror -Wextra -g3 #(exclude -c?)
@@ -12,8 +13,8 @@ MLXLIB	=	$(MLXDIR)/libmlx.a
 
 all : $(MLXLIB) $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) -o $@ $(OBJS) $(MLX)
+$(NAME): $(OBJS) $(INCLUDE)
+	$(CC) -o $@ $(SRCS) $(MLX) #must be (OBJS)?
 
 $(MLXLIB):
 	make -C $(MLXDIR)/
