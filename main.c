@@ -9,15 +9,6 @@
 #include "so_long.h"
 
 /*
-** Keypress will close window
-*/
-/* SEG FAULT with mlx_xpm_file_to_image
-int		close(int keycode, t_data *vars)
-{
-	mlx_destroy_window(vars->mlx, vars->win);
-}*/
-
-/*
 ** What??
 */
 int		render_next_frame(t_data *vars)

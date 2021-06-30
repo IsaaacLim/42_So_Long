@@ -17,12 +17,24 @@ void	my_mlx_pixel_put(t_data *vars, int x, int y, int color)
 }
 
 /*
+** Keypress will close window
+*/
+void	ft_close_window(t_data *vars)
+{
+	printf("\n");
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit (0);
+}
+
+/*
 ** Hooking intercepts functions calls, messages ot events
 ** keycode follows ASCII [prtinf("%d", keycode) for more]
 */
 int		ft_wasd(int keycode, t_data *vars)
 {
 	printf("key_hook: %d", keycode);
+	if (keycode == 65307)
+		ft_close_window(vars);
 	if (keycode == 119) //w
 		vars->shift_y -= 10;
 	if (keycode == 97) //a
@@ -31,7 +43,7 @@ int		ft_wasd(int keycode, t_data *vars)
 		vars->shift_y += 10;
 	if (keycode == 100) //d
 		vars->shift_x += 10;
-	printf(" shift_x: %d shift_y: %d\n", vars->shift_x, vars->shift_y);
+	printf("\tkey: %c shift_x: %d shift_y: %d\n", keycode, vars->shift_x, vars->shift_y);
 	mlx_clear_window(vars->mlx, vars->win);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->shift_x, vars->shift_y);
 	return (0);
