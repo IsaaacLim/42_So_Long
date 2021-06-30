@@ -44,13 +44,7 @@ void	ft_cover_trails(t_data *vars)
 }
 void	ft_character(t_data *vars)
 {
-	char	*player = "./player.xpm";
-	char	*player2= "./player.xpm";
-
-
-	vars->player = mlx_xpm_file_to_image(vars->mlx, player, &vars->player_width, &vars->player_height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
-
 	//ft_cover_trails(vars);
 }
 /*
@@ -78,12 +72,26 @@ int		ft_wasd(int keycode, t_data *vars)
 	return (0);
 }
 
+int		ft_mouse(int button, int x, int y, t_data *vars)
+{
+	// int x;
+	// int y;
+	mlx_mouse_get_pos(vars->mlx, vars->win, &x, &y);
+	printf("pos:%d %d %d \n", button, x, y);
+	//if (button == 1 && (x >= 593 && x <= 640) && (y >= -30 && y <= 0))
+	if (button == 1 && (x >= 593 && x <= 640) && (y >= 20 && y <= 40))
+		ft_close_window(vars);
+	return (0);
+}
 
 int		ft_control(t_data *vars)
 {
-	//char	*img_m = "./test20.xpm";
+	char	*player = "./player.xpm";
+
+	vars->player = mlx_xpm_file_to_image(vars->mlx, player, &vars->player_width, &vars->player_height);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
 
 	// draw_square(vars);
-	//vars->img = mlx_xpm_file_to_image(vars->mlx, img_m, &vars->img_width, &vars->img_height);
 	mlx_key_hook(vars->win, ft_wasd, vars); //Key press will call key_hook()
+	mlx_mouse_hook(vars->win, ft_mouse, vars);
 }

@@ -44,7 +44,13 @@ void	ft_background(t_data *vars)
 		x += vars->img_width;
 	}
 }
-
+/*
+int close (int keycode, t_data *vars)
+{
+	ft_close_window(vars);
+	exit (0);
+}
+*/
 int main(void)
 {
 	t_data	vars;
@@ -70,6 +76,7 @@ int main(void)
 	//draw_square(&vars); //img = square
 	//mlx_put_image_to_window(vars.mlx, vars.win, vars.img, vars.shift_x, vars.shift_y);
 	ft_control(&vars);
+	//mlx_hook(vars.win, 17, 1L<<8, close, &vars); //SEG FAULT
 	
 	mlx_loop(vars.mlx);
 }
