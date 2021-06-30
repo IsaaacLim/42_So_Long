@@ -26,6 +26,26 @@ void	ft_close_window(t_data *vars)
 	exit (0);
 }
 
+void	ft_character(t_data *vars)
+{
+	char	*player = "./player.xpm";
+	/*int		x = 0;
+	int		y = 0;
+
+	while (x < vars->player_width)
+		x += 32;
+	while (y < vars->player_height)
+		y += 32;
+	*/
+	vars->player = mlx_xpm_file_to_image(vars->mlx, player, &vars->player_width, &vars->player_height);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
+	/*mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x, y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x - 32, y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x + 32, y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x, y - 32);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x, y + 32);
+	*/
+}
 /*
 ** Hooking intercepts functions calls, messages ot events
 ** keycode follows ASCII [prtinf("%d", keycode) for more]
@@ -44,8 +64,10 @@ int		ft_wasd(int keycode, t_data *vars)
 	if (keycode == 100) //d
 		vars->shift_x += 10;
 	printf("\tkey: %c shift_x: %d shift_y: %d\n", keycode, vars->shift_x, vars->shift_y);
-	mlx_clear_window(vars->mlx, vars->win);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->shift_x, vars->shift_y);
+	//mlx_clear_window(vars->mlx, vars->win);
+	//ft_background(vars);
+	ft_character(vars);
+	// mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->shift_x, vars->shift_y);
 	return (0);
 }
 
@@ -57,6 +79,4 @@ int		ft_control(t_data *vars)
 	// draw_square(vars);
 	//vars->img = mlx_xpm_file_to_image(vars->mlx, img_m, &vars->img_width, &vars->img_height);
 	mlx_key_hook(vars->win, ft_wasd, vars); //Key press will call key_hook()
-
-	
 }

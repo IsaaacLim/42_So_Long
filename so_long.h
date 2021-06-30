@@ -25,14 +25,21 @@ typedef struct	s_data
 	int		line_length;
 	int		endian;
 
+	void	*background;
+	
 	int		img_width;
 	int		img_height;
 
+	void	*player;
+	int		player_width;
+	int		player_height;
+	
 	int		shift_x;
 	int		shift_y;
 }	t_data;
 
 void	my_mlx_pixel_put(t_data *vars, int x, int y, int color);
+void	ft_background(t_data *vars);
 void	ft_close_window(t_data *vars);
 int		ft_control(t_data *vars);
 
