@@ -31,4 +31,10 @@ typedef struct	s_data
 	int		shift_y;
 }	t_data;
 
+void	my_mlx_pixel_put(t_data *vars, int x, int y, int color);
+int		ft_control(t_data *vars);
+
+//Other Functions
+void	draw_square(t_data *vars);
+
 #endif

@@ -4,7 +4,7 @@ TEST	=	test
 TEST_S	=	test.c
 TEST_O	=	$(TEST_S:%.c=%.o)
 
-SRCS	=	main.c
+SRCS	=	main.c controls.c extra_func.c
 OBJS	=	$(SRCS:%.c=%.o)
 INCLUDE	=	so_long.h
 
@@ -37,11 +37,12 @@ $(TEST): $(TEST_O)
 
 clean:
 	rm -f $(OBJS)
+	rm -f $(TEST_O)
 
 fclean: clean
 	make clean -C $(MLXDIR)/
 	rm -f $(NAME)
-	rm -f $(TEST_O) $(TEST)
+	rm -f $(TEST)
 #TEMP
 
 re: fclean all
