@@ -43,7 +43,6 @@ void	ft_background(t_data *vars)
 		}
 		x += vars->img_width;
 	}
-
 }
 
 int main(void)
@@ -60,8 +59,7 @@ int main(void)
 
 	vars.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
 
-	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length,
-		 &vars.endian);
+	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	
 	// mlx_hook(vars.win, 04, 1L<<2, close, &vars); //event, mask (not sure how to use it yet)
 

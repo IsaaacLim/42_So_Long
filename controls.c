@@ -26,25 +26,32 @@ void	ft_close_window(t_data *vars)
 	exit (0);
 }
 
+void	ft_cover_trails(t_data *vars)
+{
+	/*
+	char	*img_bg = "./grass_tile.xpm";
+	int		x = vars->shift_x;
+	int		y = vars->shift_y;
+
+	vars->background = mlx_xpm_file_to_image(vars->mlx, img_bg, &vars->img_width, &vars->img_height);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, x, y);
+	
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, x - 32, y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, x + 32, y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, x, y - 32);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, x, y + 32);
+	*/
+}
 void	ft_character(t_data *vars)
 {
 	char	*player = "./player.xpm";
-	/*int		x = 0;
-	int		y = 0;
+	char	*player2= "./player.xpm";
 
-	while (x < vars->player_width)
-		x += 32;
-	while (y < vars->player_height)
-		y += 32;
-	*/
+
 	vars->player = mlx_xpm_file_to_image(vars->mlx, player, &vars->player_width, &vars->player_height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
-	/*mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x, y);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x - 32, y);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x + 32, y);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x, y - 32);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, x, y + 32);
-	*/
+
+	//ft_cover_trails(vars);
 }
 /*
 ** Hooking intercepts functions calls, messages ot events

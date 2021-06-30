@@ -20,18 +20,17 @@ int	main(void)
 	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello World!");
 	
 	vars.img = mlx_new_image(vars.mlx, 640, 480);
+	//vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
+	//my_mlx_pixel_put(&vars, 5, 5, 0x00FF0000);
 
-	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length,
-		 &vars.endian);
-	
-	my_mlx_pixel_put(&vars, 5, 5, 0x00FF0000);
-
-	vars.img = mlx_xpm_file_to_image(vars.mlx, img_m, &vars.img_width, &vars.img_height);
-	//vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length,
-	//	 &vars.endian);
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
+	//vars.img = mlx_xpm_file_to_image(vars.mlx, img_m, &vars.img_width, &vars.img_height);
+	//mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 	
 	vars.img = mlx_xpm_file_to_image(vars.mlx, img_s, &vars.img_width, &vars.img_height);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
+	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
+	
+	my_mlx_pixel_put(&vars, 5, 5, 0x00FF0000);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 	
 
