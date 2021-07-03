@@ -22,7 +22,12 @@ void	my_mlx_pixel_put(t_data *vars, int x, int y, int color)
 void	ft_close_window(t_data *vars)
 {
 	printf("\n");
+	mlx_destroy_image(vars->mlx, vars->img);
+	mlx_destroy_image(vars->mlx, vars->player);
+	mlx_destroy_image(vars->mlx, vars->background);
 	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
 	exit (0);
 }
 
