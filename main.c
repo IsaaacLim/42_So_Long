@@ -56,6 +56,7 @@ int main(void)
 	t_data	vars;
 	vars.shift_x = 0;
 	vars.shift_y = 0;
+	vars.mask_start = true;
 	char	*img_s = "./test20.xpm";
 	
 	

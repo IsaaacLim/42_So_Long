@@ -3,10 +3,11 @@
 
 # include <mlx.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <stdio.h> //remove 
 
-#define WIDTH 640
-#define HEIGHT 480
+#define WIDTH 96//640
+#define HEIGHT 96//480
 
 /*typedef struct	s_vars
 {
@@ -26,6 +27,11 @@ typedef struct	s_data
 	int		endian;
 
 	void	*background;
+	int		mask_x1;
+	int		mask_x2;
+	int		mask_y1;
+	int		mask_y2;
+	bool	mask_start;
 	
 	int		img_width;
 	int		img_height;
