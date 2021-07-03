@@ -33,31 +33,6 @@ void	ft_close_window(t_data *vars)
 
 void	ft_cover_trails(t_data *vars, int keycode)
 {
-	/*
-	if (vars->mask_start)
-	{
-		vars->mask_x = 0; // get this to be player start pos
-		vars->mask_y = 0;
-		vars->mask_start = false;
-	}
-
-	printf(" x: %d, y: %d\n", vars->mask_x, vars->mask_y);
-
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, vars->mask_x, vars->mask_y);
-
-	//New position if x_right
-	if (keycode == 100) //d
-		vars->mask_x = vars->shift_x / vars->img_width * vars->img_width; //leftside
-	//New position if x_left
-	else if (keycode == 97) //a
-	{
-		if (vars->shift_x % vars->img_width == 0)
-			vars->mask_x = vars->shift_x / vars->img_width * vars->img_width;
-		else
-			vars->mask_x = (vars->shift_x / vars->img_width + 1) * vars->img_width;
-	}
-	vars->mask_y = vars->shift_y / vars->img_height * vars->img_height;
-	*/
 	int start_postition;
 	start_postition = 0; // get this to be player start pos
 	if (vars->mask_start)
@@ -76,13 +51,14 @@ void	ft_cover_trails(t_data *vars, int keycode)
 	vars->mask_x2 = (vars->shift_x / vars->img_width + 1 ) * vars->img_width;
 	vars->mask_y1 = vars->shift_y / vars->img_height * vars->img_height;
 	vars->mask_y2 = (vars->shift_y / vars->img_height + 1) * vars->img_height;
-	printf(" x1: %d, x2: %d\n", vars->mask_x1, vars->mask_x2);
+	//printf(" x1: %d, x2: %d y1: %d, y2: %d\n", vars->mask_x1, vars->mask_x2, vars->mask_y2, vars->mask_y2);
 
 }
 void	ft_character(t_data *vars)
 {
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
 }
+
 /*
 ** Hooking intercepts functions calls, messages ot events
 ** keycode follows ASCII [prtinf("%d", keycode) for more]
@@ -92,20 +68,17 @@ int		ft_wasd(int keycode, t_data *vars)
 	printf("key_hook: %d", keycode);
 	if (keycode == 65307)
 		ft_close_window(vars);
-	if (keycode == 119) //w
+	if (keycode == 119 && vars->shift_y > 0) //w
 		vars->shift_y -= 8;
-	if (keycode == 97) //a
+	if (keycode == 97 && vars->shift_x > 0) //a
 		vars->shift_x -= 8;
-	if (keycode == 115) //s
+	if (keycode == 115 && vars->shift_y < (HEIGHT - vars->img_height)) //s
 		vars->shift_y += 8;
-	if (keycode == 100) //d
+	if (keycode == 100 && vars->shift_x < (WIDTH - vars->img_width)) //d
 		vars->shift_x += 8;
-	printf("\tkey: %c shift_x: %d shift_y: %d", keycode, vars->shift_x, vars->shift_y);
-	//mlx_clear_window(vars->mlx, vars->win);
-	//ft_background(vars);
+	printf("\tkey: %c shift_x: %d shift_y: %d\n", keycode, vars->shift_x, vars->shift_y);
 	ft_cover_trails(vars, keycode);
 	ft_character(vars);
-	// mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->shift_x, vars->shift_y);
 	return (0);
 }
 
@@ -115,8 +88,8 @@ int		ft_mouse(int button, int x, int y, t_data *vars)
 	// int y;
 	mlx_mouse_get_pos(vars->mlx, vars->win, &x, &y);
 	printf("pos:%d %d %d \n", button, x, y);
-	//if (button == 1 && (x >= 593 && x <= 640) && (y >= -30 && y <= 0))
-	if (button == 1 && (x >= 593 && x <= 640) && (y >= 20 && y <= 40))
+	//if (button == 1 && (x >= 593 && x <= 640) && (y >= -30 && y <= 0)) // 'X' postition
+	if (button == 1 && (x >= 593 && x <= 640) && (y >= 20 && y <= 40)) // one block below 'X'
 		ft_close_window(vars);
 	return (0);
 }
@@ -127,8 +100,6 @@ int		ft_control(t_data *vars)
 
 	vars->player = mlx_xpm_file_to_image(vars->mlx, player, &vars->player_width, &vars->player_height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
-
-	// draw_square(vars);
-	mlx_key_hook(vars->win, ft_wasd, vars); //Key press will call key_hook()
+	mlx_key_hook(vars->win, ft_wasd, vars);
 	mlx_mouse_hook(vars->win, ft_mouse, vars);
 }

@@ -16,4 +16,5 @@ void	draw_square(t_data *vars)
 		}
 		x++;
 	}
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, vars->shift_x, vars->shift_y); //vars->img??
 }

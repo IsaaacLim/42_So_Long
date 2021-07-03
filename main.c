@@ -56,26 +56,18 @@ int main(void)
 	t_data	vars;
 	vars.shift_x = 0;
 	vars.shift_y = 0;
-	vars.mask_start = true;
-	char	*img_s = "./test20.xpm";
-	
+	vars.mask_start = true;	
 	
 	vars.mlx = mlx_init();
-
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "So_Long!");
-
 	vars.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
-
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	
 	// mlx_hook(vars.win, 04, 1L<<2, close, &vars); //event, mask (not sure how to use it yet)
 
 	//mlx_loop_hook(vars.mlx, render_next_frame, &vars);//what???
-
-	//vars.img = mlx_xpm_file_to_image(vars.mlx, img_s, &vars.img_width, &vars.img_height); //img = pic	
 	ft_background(&vars);
 	//draw_square(&vars); //img = square
-	//mlx_put_image_to_window(vars.mlx, vars.win, vars.img, vars.shift_x, vars.shift_y);
 	ft_control(&vars);
 	//mlx_hook(vars.win, 17, 1L<<8, close, &vars); //SEG FAULT
 	
