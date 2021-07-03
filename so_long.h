@@ -6,8 +6,8 @@
 # include <stdbool.h>
 # include <stdio.h> //remove 
 
-#define WIDTH 96//640
-#define HEIGHT 96//480
+#define WIDTH 192//640
+#define HEIGHT 192//480
 
 /*typedef struct	s_vars
 {

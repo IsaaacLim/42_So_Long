@@ -22,9 +22,9 @@ void	my_mlx_pixel_put(t_data *vars, int x, int y, int color)
 void	ft_close_window(t_data *vars)
 {
 	printf("\n");
-	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_image(vars->mlx, vars->player);
 	mlx_destroy_image(vars->mlx, vars->background);
+	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
@@ -90,8 +90,15 @@ int		ft_mouse(int button, int x, int y, t_data *vars)
 	printf("pos:%d %d %d \n", button, x, y);
 	//if (button == 1 && (x >= 593 && x <= 640) && (y >= -30 && y <= 0)) // 'X' postition
 	if (button == 1 && (x >= 593 && x <= 640) && (y >= 20 && y <= 40)) // one block below 'X'
-		ft_close_window(vars);
+		ft_close_window(vars); //won't leak
 	return (0);
+}
+
+int		ft_redcross(int keycode, t_data *vars)
+{
+	printf("\nButton Keycode: %d\n", keycode);
+	//ft_close_window(vars); //seg fault with leaks
+	//exit (0); // no seg fault but leaking
 }
 
 int		ft_control(t_data *vars)
@@ -100,6 +107,7 @@ int		ft_control(t_data *vars)
 
 	vars->player = mlx_xpm_file_to_image(vars->mlx, player, &vars->player_width, &vars->player_height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
-	mlx_key_hook(vars->win, ft_wasd, vars);
-	mlx_mouse_hook(vars->win, ft_mouse, vars);
+	mlx_hook(vars->win, 2, 1L<<0, ft_wasd, vars); //similar to mlx_key_hook(vars->win, ft_wasd, vars);
+	mlx_hook(vars->win, 17, 1L<<2, ft_redcross, vars);
+	//mlx_mouse_hook(vars->win, ft_mouse, vars);
 }
