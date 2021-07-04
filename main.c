@@ -38,13 +38,13 @@ void	ft_background(t_data *vars)
 
 void	ft_xpm_file_to_image(t_data *vars)
 {
-	char	*background = "images/grass_tile.xpm";
-	char	*player = "images/player.xpm";
-	char	*enemy = "images/levi.xpm";
+	char	*bg = "images/grass_tile.xpm";
+	char	*pc = "images/player.xpm";
+	char	*en = "images/levi.xpm";
 
-	vars->bg.ptr = mlx_xpm_file_to_image(vars->mlx, background, &vars->bg.wth, &vars->bg.hgt);
-	vars->pc.ptr = mlx_xpm_file_to_image(vars->mlx, player, &vars->pc.wth, &vars->pc.hgt);
-	vars->en.ptr = mlx_xpm_file_to_image(vars->mlx, enemy, &vars->en.wth, &vars->en.hgt);
+	vars->bg.ptr = mlx_xpm_file_to_image(vars->mlx, bg, &vars->bg.wth, &vars->bg.hgt);
+	vars->pc.ptr = mlx_xpm_file_to_image(vars->mlx, pc, &vars->pc.wth, &vars->pc.hgt);
+	vars->en.ptr = mlx_xpm_file_to_image(vars->mlx, en, &vars->en.wth, &vars->en.hgt);
 
 }
 
@@ -62,16 +62,13 @@ void	ft_init_img_position(t_data *vars)
 
 int main(int argc, char **argv)
 {
+	t_data	vars;
+	
 	if (argc != 2)
 	{
 		printf("Input a file\n");
 		return (0);
 	}
-	t_data	vars;
-
-	vars.mask_start = true;	
-
-	
 	ft_getmap(argv[1]);
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "So_Long!");

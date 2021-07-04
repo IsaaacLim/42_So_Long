@@ -9,8 +9,8 @@
 
 # include <stdio.h> //remove 
 
-#define WIDTH 192//640
-#define HEIGHT 192//480
+# define WIDTH 192//640
+# define HEIGHT 192//480
 
 struct	s_img
 {
@@ -29,20 +29,18 @@ struct	s_img
 	int		y2;
 };
 
-typedef struct	s_data
+typedef struct s_data
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	struct s_img bg;
-	struct s_img pc;
-	struct s_img en;
-
-	bool	mask_start;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	struct s_img	bg;
+	struct s_img	pc;
+	struct s_img	en;
 }	t_data;
 
 //Read file -> Get map

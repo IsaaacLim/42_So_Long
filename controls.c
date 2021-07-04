@@ -18,7 +18,6 @@ void	ft_close_window(t_data *vars)
 
 void	ft_cover_trails(t_data *vars, int keycode)
 {
-
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->bg.x, vars->bg.y);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->bg.x2, vars->bg.y);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->bg.x, vars->bg.y2);
