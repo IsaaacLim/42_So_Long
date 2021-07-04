@@ -51,13 +51,19 @@ int close (int keycode, t_data *vars)
 	exit (0);
 }
 */
-int main(void)
+int main(int argc, char **argv)
 {
+	if (argc != 2)
+	{
+		printf("Input a file\n");
+		return (0);
+	}
 	t_data	vars;
 	vars.shift_x = 0;
 	vars.shift_y = 0;
 	vars.mask_start = true;	
 	
+	ft_getmap(argv[1]);
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "So_Long!");
 	vars.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);

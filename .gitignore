@@ -1,3 +1,7 @@
+a.out
 *.o
+*.a
+*.gch
 so_long
 test
+

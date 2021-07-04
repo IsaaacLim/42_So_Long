@@ -4,7 +4,7 @@ TEST	=	test
 TEST_S	=	test.c
 TEST_O	=	$(TEST_S:%.c=%.o)
 
-SRCS	=	main.c controls.c extra_func.c
+SRCS	=	main.c controls.c extra_func.c ft_readfile.c
 OBJS	=	$(SRCS:%.c=%.o)
 INCLUDE	=	so_long.h
 
@@ -15,11 +15,17 @@ MLX		=	-L. -lmlx -lm -lbsd -lX11 -lXext
 MLXDIR	=	mlx_linux
 MLXLIB	=	$(MLXDIR)/libmlx.a
 
-all : $(MLXLIB) $(NAME) $(TEST)
+GNLDIR	=	GetNextLine
+GNL		=	$(GNLDIR)/GNL.a
+
+all : $(GNL) $(MLXLIB) $(NAME) $(TEST)
 
 $(NAME): $(OBJS) $(INCLUDE)
-	$(CC) -o $@ $(SRCS) $(MLX) 
+	$(CC) $(SRCS) $(MLX) $(GNL) -o $@ 
 #must be (OBJS)?
+
+$(GNL):
+	make -C $(GNLDIR)
 
 $(MLXLIB):
 	make -C $(MLXDIR)/

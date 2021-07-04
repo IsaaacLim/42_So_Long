@@ -44,6 +44,9 @@ typedef struct	s_data
 	int		shift_y;
 }	t_data;
 
+//Read file -> Get map
+void	ft_getmap(char *file);
+
 void	my_mlx_pixel_put(t_data *vars, int x, int y, int color);
 void	ft_background(t_data *vars);
 void	ft_close_window(t_data *vars);
