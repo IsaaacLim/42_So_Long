@@ -18,11 +18,17 @@ MLXLIB	=	$(MLXDIR)/libmlx.a
 GNLDIR	=	GetNextLine
 GNL		=	$(GNLDIR)/GNL.a
 
-all : $(GNL) $(MLXLIB) $(NAME) $(TEST)
+LIBDIR	=	Libft
+LIBFT	=	$(LIBDIR)/libft.a
+
+all : $(LIBFT) $(GNL) $(MLXLIB) $(NAME) $(TEST)
 
 $(NAME): $(OBJS) $(INCLUDE)
-	$(CC) $(SRCS) $(MLX) $(GNL) -o $@ 
+	$(CC) $(SRCS) $(MLX) $(GNL) $(LIBFT) -o $@ 
 #must be (OBJS)?
+
+$(LIBFT):
+	make -C $(LIBDIR)
 
 $(GNL):
 	make -C $(GNLDIR)

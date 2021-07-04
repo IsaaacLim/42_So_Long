@@ -1,10 +1,10 @@
 NAME	=	GNL.a
 
-SRCS	=	get_next_line.c	get_next_line_utils.c
+SRCS	=	get_next_line.c
 OBJS	=	$(SRCS:.c=.o)
 
 CC		=	gcc
-CFLAGS	=	-c -Wall -Werror -Wextra
+CFLAGS	=	-c -Wall -Werror -Wextra -I
 
 all:	$(NAME)
 
