@@ -13,9 +13,7 @@
 
 int		render_next_frame(t_data *vars)
 {
-	int y = 96;
-	
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.X, y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.X, vars->en.Y);
 	if (vars->en.X < WIDTH - 32)
 	 	vars->en.X += 0.05;
 }
@@ -50,6 +48,18 @@ void	ft_xpm_file_to_image(t_data *vars)
 
 }
 
+void	ft_init_img_position(t_data *vars)
+{
+	vars->pc.x = 0;
+	vars->pc.y = 0;
+	vars->en.X = 0;
+	vars->en.Y = 96;
+	vars->bg.x = vars->pc.x * vars->bg.wth;
+	vars->bg.x2 = (vars->pc.x + 1) * vars->bg.wth;
+	vars->bg.y = vars->pc.y * vars->bg.hgt;
+	vars->bg.y2 = (vars->pc.y + 1) * vars->bg.hgt;
+}
+
 int main(int argc, char **argv)
 {
 	if (argc != 2)
@@ -58,10 +68,9 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	t_data	vars;
-	vars.pc.x = 0;
-	vars.pc.y = 0;
+
 	vars.mask_start = true;	
-	vars.en.X = 0;
+
 	
 	ft_getmap(argv[1]);
 	vars.mlx = mlx_init();
@@ -70,7 +79,7 @@ int main(int argc, char **argv)
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_xpm_file_to_image(&vars);
 	ft_background(&vars);
-	
+	ft_init_img_position(&vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	//draw_square(&vars); //img = square
 	ft_control(&vars);

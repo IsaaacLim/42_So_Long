@@ -18,31 +18,22 @@ void	ft_close_window(t_data *vars)
 
 void	ft_cover_trails(t_data *vars, int keycode)
 {
-	int start_postition;
-	start_postition = 0; // get this to be player start pos
-	if (vars->mask_start)
-	{
-		vars->mask_x1 = start_postition * vars->bg.wth;
-		vars->mask_x2 = (start_postition + 1) * vars->bg.wth;
-		vars->mask_y1 = start_postition * vars->bg.hgt;
-		vars->mask_y2 = (start_postition + 1) * vars->bg.hgt;
-		vars->mask_start = false;
-	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->mask_x1, vars->mask_y1);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->mask_x2, vars->mask_y1);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->mask_x1, vars->mask_y2);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->mask_x2, vars->mask_y2);
-	vars->mask_x1 = vars->pc.x / vars->bg.wth * vars->bg.wth;
+
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->bg.x, vars->bg.y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->bg.x2, vars->bg.y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->bg.x, vars->bg.y2);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->bg.x2, vars->bg.y2);
+	vars->bg.x = vars->pc.x / vars->bg.wth * vars->bg.wth;
 	if (((vars->pc.x / vars->bg.wth + 1 ) * vars->bg.wth) < WIDTH)
-		vars->mask_x2 = (vars->pc.x / vars->bg.wth + 1 ) * vars->bg.wth;
+		vars->bg.x2 = (vars->pc.x / vars->bg.wth + 1 ) * vars->bg.wth;
 	else
-		vars->mask_x2 = vars->mask_x1;
-	vars->mask_y1 = vars->pc.y / vars->bg.hgt * vars->bg.hgt;
+		vars->bg.x2 = vars->bg.x;
+	vars->bg.y = vars->pc.y / vars->bg.hgt * vars->bg.hgt;
 	if (((vars->pc.y / vars->bg.hgt + 1) * vars->bg.hgt) < HEIGHT)
-		vars->mask_y2 = (vars->pc.y / vars->bg.hgt + 1) * vars->bg.hgt;
+		vars->bg.y2 = (vars->pc.y / vars->bg.hgt + 1) * vars->bg.hgt;
 	else
-		vars->mask_y2 = vars->mask_y1;
-	//printf(" x1: %d, x2: %d y1: %d, y2: %d\n", vars->mask_x1, vars->mask_x2, vars->mask_y2, vars->mask_y2);
+		vars->bg.y2 = vars->bg.y;
+	//printf(" x1: %d, x2: %d y1: %d, y2: %d\n", vars->bg.x, vars->bg.x2, vars->bg.y2, vars->bg.y2);
 
 }
 void	ft_character(t_data *vars)

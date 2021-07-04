@@ -25,6 +25,8 @@ struct	s_img
 		int		y;
 		float	Y;
 	};
+	int		x2;
+	int		y2;
 };
 
 typedef struct	s_data
@@ -40,10 +42,6 @@ typedef struct	s_data
 	struct s_img pc;
 	struct s_img en;
 
-	int		mask_x1;
-	int		mask_x2;
-	int		mask_y1;
-	int		mask_y2;
 	bool	mask_start;
 }	t_data;
 
