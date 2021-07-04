@@ -12,45 +12,39 @@
 #define WIDTH 192//640
 #define HEIGHT 192//480
 
-/*typedef struct	s_vars
+struct	s_img
 {
-	void	*mlx;
-	void	*win;
-}	t_vars;
-*/
+	void	*ptr;
+	int		wth;
+	int		hgt;
+	union {
+		int		x;
+		float	X;
+	};
+	union {
+		int		y;
+		float	Y;
+	};
+};
+
 typedef struct	s_data
 {
 	void	*mlx;
 	void	*win;
-
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	struct s_img bg;
+	struct s_img pc;
+	struct s_img en;
 
-	void	*background;
 	int		mask_x1;
 	int		mask_x2;
 	int		mask_y1;
 	int		mask_y2;
 	bool	mask_start;
-	
-	int		img_width;
-	int		img_height;
-
-	void	*player;
-	int		player_width;
-	int		player_height;
-	
-	int		shift_x;
-	int		shift_y;
-
-	void	*enemy;
-	int		enemy_width;
-	int		enemy_height; //create width and height then union for player, enemy
-	float	test_x;
-
 }	t_data;
 
 //Read file -> Get map

@@ -22,9 +22,9 @@ void	my_mlx_pixel_put(t_data *vars, int x, int y, int color)
 void	ft_close_window(t_data *vars)
 {
 	printf("\n");
-	mlx_destroy_image(vars->mlx, vars->enemy);
-	mlx_destroy_image(vars->mlx, vars->player);
-	mlx_destroy_image(vars->mlx, vars->background);
+	mlx_destroy_image(vars->mlx, vars->en.ptr);
+	mlx_destroy_image(vars->mlx, vars->pc.ptr);
+	mlx_destroy_image(vars->mlx, vars->bg.ptr);
 	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);
@@ -38,24 +38,24 @@ void	ft_cover_trails(t_data *vars, int keycode)
 	start_postition = 0; // get this to be player start pos
 	if (vars->mask_start)
 	{
-		vars->mask_x1 = start_postition * vars->img_width;
-		vars->mask_x2 = (start_postition + 1) * vars->img_width;
-		vars->mask_y1 = start_postition * vars->img_height;
-		vars->mask_y2 = (start_postition + 1) * vars->img_height;
+		vars->mask_x1 = start_postition * vars->bg.wth;
+		vars->mask_x2 = (start_postition + 1) * vars->bg.wth;
+		vars->mask_y1 = start_postition * vars->bg.hgt;
+		vars->mask_y2 = (start_postition + 1) * vars->bg.hgt;
 		vars->mask_start = false;
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, vars->mask_x1, vars->mask_y1);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, vars->mask_x2, vars->mask_y1);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, vars->mask_x1, vars->mask_y2);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, vars->mask_x2, vars->mask_y2);
-	vars->mask_x1 = vars->shift_x / vars->img_width * vars->img_width;
-	if (((vars->shift_x / vars->img_width + 1 ) * vars->img_width) < WIDTH)
-		vars->mask_x2 = (vars->shift_x / vars->img_width + 1 ) * vars->img_width;
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->mask_x1, vars->mask_y1);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->mask_x2, vars->mask_y1);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->mask_x1, vars->mask_y2);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->mask_x2, vars->mask_y2);
+	vars->mask_x1 = vars->pc.x / vars->bg.wth * vars->bg.wth;
+	if (((vars->pc.x / vars->bg.wth + 1 ) * vars->bg.wth) < WIDTH)
+		vars->mask_x2 = (vars->pc.x / vars->bg.wth + 1 ) * vars->bg.wth;
 	else
 		vars->mask_x2 = vars->mask_x1;
-	vars->mask_y1 = vars->shift_y / vars->img_height * vars->img_height;
-	if (((vars->shift_y / vars->img_height + 1) * vars->img_height) < HEIGHT)
-		vars->mask_y2 = (vars->shift_y / vars->img_height + 1) * vars->img_height;
+	vars->mask_y1 = vars->pc.y / vars->bg.hgt * vars->bg.hgt;
+	if (((vars->pc.y / vars->bg.hgt + 1) * vars->bg.hgt) < HEIGHT)
+		vars->mask_y2 = (vars->pc.y / vars->bg.hgt + 1) * vars->bg.hgt;
 	else
 		vars->mask_y2 = vars->mask_y1;
 	//printf(" x1: %d, x2: %d y1: %d, y2: %d\n", vars->mask_x1, vars->mask_x2, vars->mask_y2, vars->mask_y2);
@@ -63,7 +63,7 @@ void	ft_cover_trails(t_data *vars, int keycode)
 }
 void	ft_character(t_data *vars)
 {
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x, vars->pc.y);
 }
 
 /*
@@ -75,15 +75,15 @@ int		ft_wasd(int keycode, t_data *vars)
 	printf("key_hook: %d", keycode);
 	if (keycode == 65307)
 		ft_close_window(vars);
-	if (keycode == 119 && vars->shift_y > 0) //w
-		vars->shift_y -= 8;
-	if (keycode == 97 && vars->shift_x > 0) //a
-		vars->shift_x -= 8;
-	if (keycode == 115 && vars->shift_y < (HEIGHT - vars->img_height)) //s
-		vars->shift_y += 8;
-	if (keycode == 100 && vars->shift_x < (WIDTH - vars->img_width)) //d
-		vars->shift_x += 8;
-	printf("\tkey: %c shift_x: %d shift_y: %d\n", keycode, vars->shift_x, vars->shift_y);
+	if (keycode == 119 && vars->pc.y > 0) //w
+		vars->pc.y -= 8;
+	if (keycode == 97 && vars->pc.x > 0) //a
+		vars->pc.x -= 8;
+	if (keycode == 115 && vars->pc.y < (HEIGHT - vars->pc.hgt)) //s
+		vars->pc.y += 8;
+	if (keycode == 100 && vars->pc.x < (WIDTH - vars->pc.wth)) //d
+		vars->pc.x += 8;
+	printf("\tkey: %c pc.x: %d pc.y: %d\n", keycode, vars->pc.x, vars->pc.y);
 	ft_cover_trails(vars, keycode);
 	ft_character(vars);
 	return (0);
@@ -110,10 +110,7 @@ int		ft_redcross(int keycode, t_data *vars)
 
 int		ft_control(t_data *vars)
 {
-	char	*player = "./player.xpm";
-
-	vars->player = mlx_xpm_file_to_image(vars->mlx, player, &vars->player_width, &vars->player_height);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x, vars->pc.y);
 	mlx_hook(vars->win, 2, 1L<<0, ft_wasd, vars); //similar to mlx_key_hook(vars->win, ft_wasd, vars);
 	mlx_hook(vars->win, 17, 1L<<2, ft_redcross, vars);
 	//mlx_mouse_hook(vars->win, ft_mouse, vars);
