@@ -21,10 +21,13 @@ GNL		=	$(GNLDIR)/GNL.a
 LIBDIR	=	Libft
 LIBFT	=	$(LIBDIR)/libft.a
 
-all : $(LIBFT) $(GNL) $(MLXLIB) $(NAME) $(TEST)
+PRINTFDIR	=	Printf
+PRINTF		=	$(PRINTFDIR)/libftprintf.a
+
+all : $(LIBFT) $(PRINTFDIR) $(GNL) $(MLXLIB) $(NAME) $(TEST)
 
 $(NAME): $(OBJS) $(INCLUDE)
-	$(CC) $(SRCS) $(MLX) $(GNL) $(LIBFT) -o $@ 
+	$(CC) $(SRCS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
 #must be (OBJS)?
 
 $(LIBFT):
@@ -33,19 +36,14 @@ $(LIBFT):
 $(GNL):
 	make -C $(GNLDIR)
 
+$(PRINTF):
+	make -C $(PRINTFDIR)
+
 $(MLXLIB):
 	make -C $(MLXDIR)/
 
 $(TEST): $(TEST_O)
 	$(CC) -o $@ $(TEST_S) $(MLX)
-
-# From 42Docs > Getting Started
-## To link with the required internal Linux API
-#$(NAME): $(OBJS)
-#	$(CC) -Lmlx_linux -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-## For object files (Doesn't seem to matter if it's used/not)
-#%.o: %.c
-#	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
@@ -57,6 +55,8 @@ fclean: clean
 	rm -f $(TEST)
 	make fclean -C $(LIBDIR)
 	make fclean -C $(GNLDIR)
+	make fclean -C $(PRINTFDIR)
+#REMOVE TEST
 
 re: fclean all
 

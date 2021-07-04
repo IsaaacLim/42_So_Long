@@ -1,6 +1,6 @@
+#include "so_long.h"
 #include "./GetNextLine/get_next_line.h"
 #include <fcntl.h>
-#include <stdio.h> //remove
 
 void ft_readfile(char *file)
 {
@@ -10,16 +10,16 @@ void ft_readfile(char *file)
 
 	fd = open(file, O_RDONLY);
 	ret = get_next_line(fd, &line);
-	printf("Map:\n");
+	ft_printf("Map:\n");
 	while (ret > 0)
 	{
-		printf("%s\n", line);
+		ft_printf("%s\n", line);
 		free(line);
 		ret = get_next_line(fd, &line);
 	}
 	free(line);
 	if (ret == -1)
-		printf("Read file error\n");
+		ft_printf("Read file error\n");
 	close(fd);
 }
 

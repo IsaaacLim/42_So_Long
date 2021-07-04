@@ -4,6 +4,9 @@
 # include <mlx.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include "Libft/libft.h"
+# include "Printf/includes/ft_printf.h"
+
 # include <stdio.h> //remove 
 
 #define WIDTH 192//640
