@@ -1,22 +1,6 @@
 #include "so_long.h"
 
 /*
-** For Drawing
-** Mimic the mlx_pixel_put but made it faster
-** offset - Bytes are not aligned, hence line_length differs from window width
-** color - 0x00FF0000 is hex rep of ARGB(0,255,0,0)
-*/
-void	my_mlx_pixel_put(t_data *vars, int x, int y, int color)
-{
-	char	*dst;
-	int		offset;
-
-	offset = y * vars->line_length + x * (vars->bits_per_pixel / 8); //bbp = 32
-	dst = vars->addr + offset;
-	*(unsigned int *)dst = color;
-}
-
-/*
 ** Keypress will close window
 */
 void	ft_close_window(t_data *vars)
