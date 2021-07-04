@@ -21,10 +21,14 @@
 
 int	mlx_X_error;
 
+/*
+** added int x to silence gcc warning
+*/
 int	shm_att_pb(Display *d,XErrorEvent *ev)
 {
+  int x;
   if (ev->request_code==146 && ev->minor_code==X_ShmAttach)
-    write(2,WARN_SHM_ATTACH,strlen(WARN_SHM_ATTACH));
+    x = write(2,WARN_SHM_ATTACH,strlen(WARN_SHM_ATTACH));
   mlx_X_error = 1;
 }
 

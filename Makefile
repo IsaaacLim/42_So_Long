@@ -55,7 +55,8 @@ fclean: clean
 	make clean -C $(MLXDIR)/
 	rm -f $(NAME)
 	rm -f $(TEST)
-#TEMP
+	make fclean -C $(LIBDIR)
+	make fclean -C $(GNLDIR)
 
 re: fclean all
 
