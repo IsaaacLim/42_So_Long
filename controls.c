@@ -103,7 +103,7 @@ int		ft_redcross(int keycode, t_data *vars)
 
 int		ft_control(t_data *vars)
 {
-	char	*player = "./ff.xpm";
+	char	*player = "./player.xpm";
 
 	vars->player = mlx_xpm_file_to_image(vars->mlx, player, &vars->player_width, &vars->player_height);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player, vars->shift_x, vars->shift_y);
