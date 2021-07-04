@@ -22,6 +22,7 @@ void	my_mlx_pixel_put(t_data *vars, int x, int y, int color)
 void	ft_close_window(t_data *vars)
 {
 	printf("\n");
+	mlx_destroy_image(vars->mlx, vars->enemy);
 	mlx_destroy_image(vars->mlx, vars->player);
 	mlx_destroy_image(vars->mlx, vars->background);
 	mlx_destroy_image(vars->mlx, vars->img);
@@ -48,9 +49,15 @@ void	ft_cover_trails(t_data *vars, int keycode)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, vars->mask_x1, vars->mask_y2);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->background, vars->mask_x2, vars->mask_y2);
 	vars->mask_x1 = vars->shift_x / vars->img_width * vars->img_width;
-	vars->mask_x2 = (vars->shift_x / vars->img_width + 1 ) * vars->img_width;
+	if (((vars->shift_x / vars->img_width + 1 ) * vars->img_width) < WIDTH)
+		vars->mask_x2 = (vars->shift_x / vars->img_width + 1 ) * vars->img_width;
+	else
+		vars->mask_x2 = vars->mask_x1;
 	vars->mask_y1 = vars->shift_y / vars->img_height * vars->img_height;
-	vars->mask_y2 = (vars->shift_y / vars->img_height + 1) * vars->img_height;
+	if (((vars->shift_y / vars->img_height + 1) * vars->img_height) < HEIGHT)
+		vars->mask_y2 = (vars->shift_y / vars->img_height + 1) * vars->img_height;
+	else
+		vars->mask_y2 = vars->mask_y1;
 	//printf(" x1: %d, x2: %d y1: %d, y2: %d\n", vars->mask_x1, vars->mask_x2, vars->mask_y2, vars->mask_y2);
 
 }

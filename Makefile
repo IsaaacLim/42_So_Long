@@ -43,7 +43,7 @@ $(MLXLIB):
 	make -C $(MLXDIR)/
 
 $(TEST): $(TEST_O)
-	$(CC) -o $@ $(TEST_S) $(MLX)
+	$(CC) $(TEST_S) $(MLX) $(LIBFT) -o $@
 
 clean:
 	rm -f $(OBJS)

@@ -45,6 +45,12 @@ typedef struct	s_data
 	
 	int		shift_x;
 	int		shift_y;
+
+	void	*enemy;
+	int		enemy_width;
+	int		enemy_height; //create width and height then union for player, enemy
+	float	test_x;
+
 }	t_data;
 
 //Read file -> Get map
