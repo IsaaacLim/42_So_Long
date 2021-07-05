@@ -50,8 +50,8 @@ void	ft_xpm_file_to_image(t_data *vars)
 
 void	ft_init_img_position(t_data *vars)
 {
-	vars->pc.x = 0;
-	vars->pc.y = 0;
+	// vars->pc.x = 0;
+	// vars->pc.y = 0;
 	vars->en.X = 0;
 	vars->en.Y = 96;
 	vars->bg.x = vars->pc.x * vars->bg.wth;
@@ -73,10 +73,12 @@ int main(int argc, char **argv)
 		ft_error("Input '.ber' file", 0, &vars);
 	ft_get_map(&vars, argv[1]);
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "So_Long!");
-	vars.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
-	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_xpm_file_to_image(&vars);
+	vars.win_wth = vars.map_wth * vars.bg.wth;
+	vars.win_hgt = vars.map_hgt * vars.bg.hgt;
+	vars.win = mlx_new_window(vars.mlx, vars.win_wth, vars.win_hgt, "So_Long!");
+	vars.img = mlx_new_image(vars.mlx, vars.win_wth, vars.win_hgt);
+	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_background(&vars);
 	ft_init_img_position(&vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);

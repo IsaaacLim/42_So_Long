@@ -68,7 +68,7 @@ int		ft_redcross(int keycode, t_data *vars)
 
 int		ft_control(t_data *vars)
 {
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x, vars->pc.y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x * vars->bg.wth, vars->pc.y * vars->bg.hgt);
 	mlx_hook(vars->win, 2, 1L<<0, ft_wasd, vars); //similar to mlx_key_hook(vars->win, ft_wasd, vars);
 	mlx_hook(vars->win, 17, 1L<<2, ft_redcross, vars);
 	//mlx_mouse_hook(vars->win, ft_mouse, vars);

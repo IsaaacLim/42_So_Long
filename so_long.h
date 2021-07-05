@@ -39,7 +39,11 @@ typedef struct s_data
 	int				line_length;
 	int				endian;
 	char			**matrix;
+	int				win_wth;
+	int				win_hgt;
 	int				map_hgt;
+	int				map_wth;
+	int				items;
 	struct s_img	bg;
 	struct s_img	pc;
 	struct s_img	en;

@@ -5,37 +5,40 @@
 static void ft_verify_map(t_data *vars, int i, int j)
 {
 	bool has_exit;
-	bool has_collectible;
-	bool has_start_pos;
 	int x;
 	int y;
 
-	x = 0;
-	while (x < i)
+	vars->pc.x = 0;
+	vars->items = 0;
+	y = 0;
+	while (y < i)
 	{
-		y = 0;
-		while (y < j)
+		x = 0;
+		while (x < j)
 		{
-			if (x == 0 || x == i - 1 || y == 0 || y == j - 1)
+			if (y == 0 || y == i - 1 || x == 0 || x == j - 1)
 			{
-				if (vars->matrix[x][y] != '1')
+				if (vars->matrix[y][x] != '1')
 					ft_error("Map not surrounded by walls", 1, vars);
 			}
-			else if (!(ft_strchr("01CEP", vars->matrix[x][y])))
+			else if (!(ft_strchr("01CEP", vars->matrix[y][x])))
 				ft_error("Map contains invalid character", 1, vars);
-			if (vars->matrix[x][y] == 'E')
+			if (vars->matrix[y][x] == 'E')
 				has_exit = true;
-			if (vars->matrix[x][y] == 'C')
-				has_collectible = true;
-			if (vars->matrix[x][y] == 'P')
-				has_start_pos = true;
-			y++;
+			if (vars->matrix[y][x] == 'C')
+				vars->items++;
+			if (vars->matrix[y][x] == 'P')
+			{
+				vars->pc.y = y;
+				vars->pc.x = x;
+			}
+			x++;
 		}
-		x++;
+		y++;
 	}
-	if (!(has_exit && has_collectible && has_start_pos))
+	if (!(has_exit && vars->items > 0 && vars->pc.y > 0))
 		ft_error("Missing Exit/Collectible/Starting position", 1, vars);
-	if (x == y)
+	if (y == x)
 		ft_error("Map is square", 1, vars);
 }
 
@@ -57,6 +60,7 @@ static void ft_display_map(t_data *vars)
 		i++;
 		ft_printf("\n");
 	}
+	vars->map_wth = j;
 	ft_verify_map(vars, i, j);
 }
 
