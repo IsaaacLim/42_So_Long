@@ -2,6 +2,25 @@
 #include "./GetNextLine/get_next_line.h"
 #include <fcntl.h>
 
+static void ft_display_map(t_data *vars)
+{
+	int i;
+	int j;
+
+	i = 0;
+	ft_printf("Map:\n");
+	while (i < vars->map_hgt)
+	{
+		j = 0;
+		while (vars->matrix[i][j])
+		{
+			ft_printf("%c", vars->matrix[i][j]);
+			j++;
+		}
+		i++;
+		ft_printf("\n");
+	}
+}
 static void	ft_fill_matrix(char *file, char **matrix, int height)
 {
 	char	*line;	
@@ -56,4 +75,5 @@ void	ft_get_map(t_data *vars, char *file)
 		ft_error("Matrix malloc error");
 	ft_fill_matrix(file, vars->matrix, vars->map_hgt);
 	vars->matrix[vars->map_hgt] = NULL;
+	ft_display_map(vars);
 }

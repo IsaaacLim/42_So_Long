@@ -72,16 +72,7 @@ int main(int argc, char **argv)
 	ft_get_map(&vars, argv[1]);
 
 
-	for (int i = 0; i < vars.map_hgt; i++)
-	{
-		int j = 0;
-		while (vars.matrix[i][j])
-		{
-			ft_printf("%c", vars.matrix[i][j]);
-			j++;
-		}
-		ft_printf("\n");
-	}
+
 	
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "So_Long!");
