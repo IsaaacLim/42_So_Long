@@ -28,22 +28,28 @@ int		render_next_frame(t_data *vars)
 
 void	ft_background(t_data *vars)
 {
-	int		x;
-	int		y;
+	int	x;
+	int	y;
+	int	e;
 	
-	y = 0;
-	while (y < vars->map_hgt)
+	e = 0;
+	y = -1;
+	while (++y < vars->map_hgt)
 	{	
-		x = 0;
-		while (x < vars->map_wth)
+		x = -1;
+		while (++x < vars->map_wth)
 		{
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, x * vars->bg.wth, y * vars->bg.hgt);
 			if (vars->matrix[y][x] == '1')
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->wl.ptr, x * vars->wl.wth, y * vars->wl.hgt);
-			// else
-			x++;
+			else if (vars->matrix[y][x] == 'C')
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->clt.ptr, x * vars->clt.wth, y * vars->clt.hgt);
+			else if (vars->matrix[y][x] == 'E')
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, x * vars->ext.wth, y * vars->ext.hgt);
+			else if (e % 50 == 0)
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, x * vars->en.wth, y * vars->en.hgt);
+			e++;
 		}
-		y++;
 	}
 }
 
@@ -53,11 +59,15 @@ void	ft_xpm_file_to_image(t_data *vars)
 	char	*pc = "images/player.xpm";
 	char	*en = "images/levi.xpm";
 	char	*wl = "images/rock.xpm";
+	char	*ext = "images/dome.xpm";
+	char	*clt = "images/flower.xpm";
 
 	vars->bg.ptr = mlx_xpm_file_to_image(vars->mlx, bg, &vars->bg.wth, &vars->bg.hgt);
 	vars->pc.ptr = mlx_xpm_file_to_image(vars->mlx, pc, &vars->pc.wth, &vars->pc.hgt);
 	vars->en.ptr = mlx_xpm_file_to_image(vars->mlx, en, &vars->en.wth, &vars->en.hgt);
 	vars->wl.ptr = mlx_xpm_file_to_image(vars->mlx, wl, &vars->wl.wth, &vars->wl.hgt);
+	vars->ext.ptr = mlx_xpm_file_to_image(vars->mlx, ext, &vars->ext.wth, &vars->ext.hgt);
+	vars->clt.ptr = mlx_xpm_file_to_image(vars->mlx, clt, &vars->clt.wth, &vars->clt.hgt);
 }
 
 void	ft_init_mask_position(t_data *vars, struct s_img *chr)

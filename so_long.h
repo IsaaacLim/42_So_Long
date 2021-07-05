@@ -42,6 +42,8 @@ typedef struct s_data
 	struct s_img	pc;
 	struct s_img	en;
 	struct s_img	wl;
+	struct s_img	ext;
+	struct s_img	clt;
 }	t_data;
 
 //Read file -> Get map
