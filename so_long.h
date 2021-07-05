@@ -38,13 +38,16 @@ typedef struct s_data
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
+	char			**matrix;
+	int				map_hgt;
 	struct s_img	bg;
 	struct s_img	pc;
 	struct s_img	en;
 }	t_data;
 
 //Read file -> Get map
-void	ft_getmap(char *file);
+void	ft_get_map(t_data *vars, char *file);
+void	ft_free_matrix(char **matrix, int height);
 
 void	ft_background(t_data *vars);
 void	ft_close_window(t_data *vars);
@@ -55,3 +58,6 @@ void	draw_square(t_data *vars);
 void	my_mlx_pixel_put(t_data *vars, int x, int y, int color);
 
 #endif
+
+
+

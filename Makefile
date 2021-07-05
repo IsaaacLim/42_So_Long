@@ -4,7 +4,7 @@ TEST	=	test
 TEST_S	=	test.c
 TEST_O	=	$(TEST_S:%.c=%.o)
 
-SRCS	=	main.c controls.c extra_func.c ft_readfile.c
+SRCS	=	main.c controls.c extra_func.c ft_readfile.c exit.c
 OBJS	=	$(SRCS:%.c=%.o)
 INCLUDE	=	so_long.h
 
@@ -24,7 +24,7 @@ LIBFT	=	$(LIBDIR)/libft.a
 PRINTFDIR	=	Printf
 PRINTF		=	$(PRINTFDIR)/libftprintf.a
 
-all : $(LIBFT) $(PRINTFDIR) $(GNL) $(MLXLIB) $(NAME) $(TEST)
+all : $(LIBFT) $(PRINTF) $(GNL) $(MLXLIB) $(NAME) #$(TEST)
 
 $(NAME): $(OBJS) $(INCLUDE)
 	$(CC) $(SRCS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 

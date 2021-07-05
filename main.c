@@ -69,7 +69,20 @@ int main(int argc, char **argv)
 		printf("Input a file\n");
 		return (0);
 	}
-	ft_getmap(argv[1]);
+	ft_get_map(&vars, argv[1]);
+
+
+	for (int i = 0; i < vars.map_hgt; i++)
+	{
+		int j = 0;
+		while (vars.matrix[i][j])
+		{
+			ft_printf("%c", vars.matrix[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+	}
+	
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "So_Long!");
 	vars.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);

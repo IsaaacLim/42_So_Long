@@ -1,21 +1,5 @@
 #include "so_long.h"
 
-/*
-** Keypress will close window
-*/
-void	ft_close_window(t_data *vars)
-{
-	printf("\n");
-	mlx_destroy_image(vars->mlx, vars->en.ptr);
-	mlx_destroy_image(vars->mlx, vars->pc.ptr);
-	mlx_destroy_image(vars->mlx, vars->bg.ptr);
-	mlx_destroy_image(vars->mlx, vars->img);
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
-	free(vars->mlx);
-	exit (0);
-}
-
 void	ft_cover_trails(t_data *vars, int keycode)
 {
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, vars->bg.x, vars->bg.y);
