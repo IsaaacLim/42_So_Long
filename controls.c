@@ -7,7 +7,7 @@ void	ft_cover_trails(t_data *vars, struct s_img *chr)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x1, chr->mask_y2);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x2, chr->mask_y2);
 	chr->mask_x1 = chr->x / vars->bg.wth * vars->bg.wth;
-	if (((chr->x / vars->bg.wth + 1 ) * vars->bg.wth) < vars->win_wth) //if hit right wall
+	if (((chr->x / vars->bg.wth + 1 ) * vars->bg.wth) < vars->win_wth) //if not hit right wall
 		chr->mask_x2 = (chr->x / vars->bg.wth + 1 ) * vars->bg.wth;
 	else
 		chr->mask_x2 = vars->bg.x;
@@ -24,10 +24,6 @@ void	ft_character(t_data *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x, vars->pc.y);
 }
 
-/*
-** Hooking intercepts functions calls, messages ot events
-** keycode follows ASCII [prtinf("%d", keycode) for more]
-*/
 int	ft_ternary(int yes, int i, int j)
 {
 	if (yes)
@@ -35,6 +31,11 @@ int	ft_ternary(int yes, int i, int j)
 	else
 		return (j);
 }
+
+/*
+** Hooking intercepts functions calls, messages ot events
+** keycode follows ASCII [prtinf("%d", keycode) for more]
+*/
 int		ft_wasd(int keycode, t_data *vars)
 {
 	int x;
@@ -50,7 +51,12 @@ int		ft_wasd(int keycode, t_data *vars)
 	ft_printf("key_hook: %d", keycode);
 	if (keycode == 65307)
 		ft_close_window(vars);
-	if (keycode == 119 && vars->pc.y > 0 + vars->wl.hgt) //w
+	/*
+	** 1. Check if prev y_coord is already at top wall //can remove this
+	** 2. Check if new y_coord (ROUNDED DOWN) will hit a border with:
+	**		PREV x_coord (rounded down) else PREV x_coord (rounded up)
+	*/
+	if (keycode == 119)//&& vars->pc.y > 0 + vars->wl.hgt) //w
 	{
 		vars->pc.y -= 8;
 		if (vars->matrix[vars->pc.y / vars->pc.hgt][x] == '1')
@@ -66,6 +72,11 @@ int		ft_wasd(int keycode, t_data *vars)
 		else if (vars->matrix[y_rnd_up][vars->pc.x / vars->pc.wth] == '1')
 			vars->pc.x += 8;
 	}
+	/*
+	** 1. Check if prev y_coord is already at bottom wall //can remove this
+	** 2. Check if new y_coord (ROUNDED UP) will hit a border with:
+	**		prev x_coord (rounded down) else prev x_coord (rounded up)
+	*/
 	if (keycode == 115 && vars->pc.y < (vars->win_hgt - vars->wl.hgt - vars->pc.hgt)) //s
 	{
 		vars->pc.y += 8;
