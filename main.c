@@ -14,7 +14,7 @@
 int		render_next_frame(t_data *vars)
 {
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.X, vars->en.Y);
-	if (vars->en.X < WIDTH - 32)
+	if (vars->en.X < vars->win_wth - vars->en.wth)
 	 	vars->en.X += 0.05;
 }
 
@@ -23,16 +23,16 @@ void	ft_background(t_data *vars)
 	int		x;
 	int		y;
 	
-	x = 0;
-	while (x <= WIDTH - vars->bg.wth)
+	y = 0;
+	while (y <= vars->win_hgt - vars->bg.hgt)
 	{	
-		y = 0;
-		while (y <= HEIGHT - vars->bg.hgt)
+		x = 0;
+		while (x <= vars->win_wth - vars->bg.wth)
 		{
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, x, y);
-			y += vars->bg.hgt;
+			x += vars->bg.hgt;
 		}
-		x += vars->bg.wth;
+		y += vars->bg.wth;
 	}
 }
 
