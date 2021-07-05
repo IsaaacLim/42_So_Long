@@ -24,13 +24,12 @@ void	ft_close_window(t_data *vars)
 	exit (0);
 }
 
-void	ft_error(char *code)
+void	ft_error(char *code, int i, t_data *vars)
 {
-	if (ft_strncmp("Read file error", code, ft_strlen(code)) == 0)
-		ft_printf("%s\n", code);
-	else if (ft_strncmp("Matrix malloc error", code, ft_strlen(code)) == 0)
-		ft_printf("%s\n", code);
-	else if (ft_strncmp("Matrix fill error", code, ft_strlen(code)) == 0)
-		ft_printf("%s\n", code);
+	ft_printf("Error\n");
+	ft_printf("%s\n", code);
+	if (i == 1)
+		ft_free_matrix(vars->matrix, vars->map_hgt);
 	exit (0);
+	
 }

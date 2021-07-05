@@ -51,7 +51,7 @@ void	ft_free_matrix(char **matrix, int height);
 
 void	ft_background(t_data *vars);
 void	ft_close_window(t_data *vars);
-void	ft_error(char *code);
+void	ft_error(char *code, int i, t_data *vars);
 int		ft_control(t_data *vars);
 
 //Other Functions

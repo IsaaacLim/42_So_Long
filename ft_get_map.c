@@ -2,6 +2,43 @@
 #include "./GetNextLine/get_next_line.h"
 #include <fcntl.h>
 
+static void ft_verify_map(t_data *vars, int i, int j)
+{
+	bool has_exit;
+	bool has_collectible;
+	bool has_start_pos;
+	int x;
+	int y;
+
+	x = 0;
+	while (x < i)
+	{
+		y = 0;
+		while (y < j)
+		{
+			if (x == 0 || x == i - 1 || y == 0 || y == j - 1)
+			{
+				if (vars->matrix[x][y] != '1')
+					ft_error("Map not surrounded by walls", 1, vars);
+			}
+			else if (!(ft_strchr("01CEP", vars->matrix[x][y])))
+				ft_error("Map contains invalid character", 1, vars);
+			if (vars->matrix[x][y] == 'E')
+				has_exit = true;
+			if (vars->matrix[x][y] == 'C')
+				has_collectible = true;
+			if (vars->matrix[x][y] == 'P')
+				has_start_pos = true;
+			y++;
+		}
+		x++;
+	}
+	if (!(has_exit && has_collectible && has_start_pos))
+		ft_error("Missing Exit/Collectible/Starting position", 1, vars);
+	if (x == y)
+		ft_error("Map is square", 1, vars);
+}
+
 static void ft_display_map(t_data *vars)
 {
 	int i;
@@ -20,8 +57,10 @@ static void ft_display_map(t_data *vars)
 		i++;
 		ft_printf("\n");
 	}
+	ft_verify_map(vars, i, j);
 }
-static void	ft_fill_matrix(char *file, char **matrix, int height)
+
+static int	ft_fill_matrix(char *file, char **matrix, int height)
 {
 	char	*line;	
 	char	*column;
@@ -38,7 +77,7 @@ static void	ft_fill_matrix(char *file, char **matrix, int height)
 		if (!column)
 		{
 			ft_free_matrix(matrix, i);
-			ft_error("Matrix fill error");
+			return (-1);
 		}
 		matrix[i] = column;
 		i++;
@@ -47,8 +86,9 @@ static void	ft_fill_matrix(char *file, char **matrix, int height)
 	}
 	free(line);
 	if (ret == -1)
-		ft_error("Read file error");
+		return (-1);
 	close(fd);
+	return (1);
 }
 
 void	ft_get_map(t_data *vars, char *file)
@@ -68,12 +108,13 @@ void	ft_get_map(t_data *vars, char *file)
 	}
 	free(line);
 	if (ret == -1)
-		ft_error("Read file error");
+		ft_error("Read file error", 0, vars);
 	close(fd);
 	vars->matrix = (char **)malloc(vars->map_hgt * (sizeof(char *) + 1));
 	if (!vars->matrix)
-		ft_error("Matrix malloc error");
-	ft_fill_matrix(file, vars->matrix, vars->map_hgt);
+		ft_error("Matrix malloc error", 0, vars);
+	if (!(ft_fill_matrix(file, vars->matrix, vars->map_hgt)))
+		ft_error("Matrix fill error", 0, vars);
 	vars->matrix[vars->map_hgt] = NULL;
 	ft_display_map(vars);
 }
