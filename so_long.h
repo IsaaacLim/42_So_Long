@@ -18,6 +18,7 @@ struct	s_img
 	int		mask_x2;
 	int		mask_y1;
 	int		mask_y2;
+	bool	mask_bot_right;
 	float	X;
 	float	Y;
 };
@@ -47,11 +48,16 @@ typedef struct s_data
 void	ft_get_map(t_data *vars, char *file);
 void	ft_free_matrix(char **matrix, int height);
 
+//MLX
 void	ft_background(t_data *vars);
 void	ft_close_window(t_data *vars);
 void	ft_error(char *code, int i, t_data *vars);
 int		ft_control(t_data *vars);
 void	ft_cover_trails(t_data *vars, struct s_img *chr);
+
+// Utils
+int		ft_ternary(int yes, int i, int j);
+
 //Other Functions
 void	draw_square(t_data *vars);
 void	my_mlx_pixel_put(t_data *vars, int x, int y, int color);

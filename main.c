@@ -63,9 +63,9 @@ void	ft_xpm_file_to_image(t_data *vars)
 void	ft_init_mask_position(t_data *vars, struct s_img *chr)
 {
 	chr->mask_x1 = chr->x * vars->bg.wth;
-	chr->mask_x2 = (chr->x + 1) * vars->bg.wth;
+	chr->mask_x2 = ft_ternary(vars->matrix[chr->y][chr->x + 1] != '1', (chr->x + 1 ) * vars->bg.wth, chr->mask_x1);
 	chr->mask_y1 = chr->y * vars->bg.hgt;
-	chr->mask_y2 = (chr->y + 1) * vars->bg.hgt;
+	chr->mask_y2 = ft_ternary(vars->matrix[chr->y + 1][chr->x] != '1', (chr->y + 1 ) * vars->bg.hgt, chr->mask_y1);
 }
 
 void	ft_init_img_position(t_data *vars)
@@ -74,7 +74,7 @@ void	ft_init_img_position(t_data *vars)
 	vars->en.y = 96;
 	vars->en.X = vars->en.x;
 	vars->en.Y = vars->en.y;
-	ft_init_mask_position(vars, &vars->en);
+	//ft_init_mask_position(vars, &vars->en);
 	ft_init_mask_position(vars, &vars->pc);
 }
 

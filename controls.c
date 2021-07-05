@@ -1,21 +1,40 @@
 #include "so_long.h"
 
+int	ft_ternary(int yes, int i, int j)
+{
+	if (yes)
+		return (i);
+	else
+		return (j);
+}
+
+
 void	ft_cover_trails(t_data *vars, struct s_img *chr)
 {
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x1, chr->mask_y1);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x2, chr->mask_y1);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x1, chr->mask_y2);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x2, chr->mask_y2);
-	chr->mask_x1 = chr->x / vars->bg.wth * vars->bg.wth;
-	if (((chr->x / vars->bg.wth + 1 ) * vars->bg.wth) < vars->win_wth) //if not hit right wall
-		chr->mask_x2 = (chr->x / vars->bg.wth + 1 ) * vars->bg.wth;
-	else
-		chr->mask_x2 = vars->bg.x;
-	chr->mask_y1 = chr->y / vars->bg.hgt * vars->bg.hgt;
-	if (((chr->y / vars->bg.hgt + 1) * vars->bg.hgt) < vars->win_hgt) //if hit bottom wall
-		chr->mask_y2 = (chr->y / vars->bg.hgt + 1) * vars->bg.hgt;
-	else
-		chr->mask_y2 = chr->mask_y1;
+	int mtx_x;
+	int mtx_y;
+
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x1, chr->mask_y1); // Prev Top left
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x2, chr->mask_y1); // Prev Top right
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x1, chr->mask_y2); // Prev Bottom left
+	if (chr->mask_bot_right)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x2, chr->mask_y2); // Prev Bottom right
+	
+	mtx_x = chr->x / chr->wth;
+	mtx_y = chr->y / chr->hgt;
+	chr->mask_bot_right = true;
+	chr->mask_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
+	/*
+	** for left movement, if new x_coord rounded down + 1 != wall, cover up right side
+	*/
+	chr->mask_x2 = ft_ternary(vars->matrix[mtx_y][mtx_x + 1] != '1', (mtx_x + 1) * vars->bg.wth, chr->mask_x1);
+	chr->mask_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
+	/*
+	** for up movement, if new y_coord rounded down + 1 != wall, cover up bottom
+	*/
+	chr->mask_y2 = ft_ternary(vars->matrix[mtx_y + 1][mtx_x] != '1', (mtx_y + 1) * vars->bg.hgt, chr->mask_y1);
+	if (vars->matrix[mtx_y + 1][mtx_x + 1] == '1') // for Bottom right masking
+		chr->mask_bot_right = false;
 }
 
 void	ft_character(t_data *vars)
@@ -24,13 +43,6 @@ void	ft_character(t_data *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x, vars->pc.y);
 }
 
-int	ft_ternary(int yes, int i, int j)
-{
-	if (yes)
-		return (i);
-	else
-		return (j);
-}
 
 /*
 ** Hooking intercepts functions calls, messages ot events
@@ -63,6 +75,7 @@ int		ft_wasd(int keycode, t_data *vars)
 			vars->pc.y += 8;
 		else if (vars->matrix[vars->pc.y / vars->pc.hgt][x_rnd_up] == '1')
 			vars->pc.y += 8;
+		y = vars->pc.y / vars->pc.hgt; //just for logging
 	}
 	if (keycode == 97 && vars->pc.x > 0 + vars->wl.wth) //a
 	{
@@ -71,6 +84,7 @@ int		ft_wasd(int keycode, t_data *vars)
 			vars->pc.x += 8;
 		else if (vars->matrix[y_rnd_up][vars->pc.x / vars->pc.wth] == '1')
 			vars->pc.x += 8;
+		x = vars->pc.x / vars->pc.wth; // just for logging
 	}
 	/*
 	** 1. Check if prev y_coord is already at bottom wall //can remove this
