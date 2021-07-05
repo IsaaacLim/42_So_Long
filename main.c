@@ -39,7 +39,7 @@ void	ft_background(t_data *vars)
 		{
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, x * vars->bg.wth, y * vars->bg.hgt);
 			if (vars->matrix[y][x] == '1')
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->wl.ptr, x * vars->bg.wth, y * vars->bg.hgt);
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->wl.ptr, x * vars->wl.wth, y * vars->wl.hgt);
 			// else
 			x++;
 		}
@@ -99,7 +99,7 @@ int main(int argc, char **argv)
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_background(&vars);
 	ft_init_img_position(&vars);
-	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
+	//mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	ft_control(&vars);
 	mlx_loop(vars.mlx);
 }
