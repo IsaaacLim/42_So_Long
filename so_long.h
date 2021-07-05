@@ -7,26 +7,19 @@
 # include "Libft/libft.h"
 # include "Printf/includes/ft_printf.h"
 
-# include <stdio.h> //remove 
-
-# define WIDTH 192//640
-# define HEIGHT 192//480
-
 struct	s_img
 {
 	void	*ptr;
 	int		wth;
 	int		hgt;
-	union {
-		int		x;
-		float	X;
-	};
-	union {
-		int		y;
-		float	Y;
-	};
-	int		x2;
-	int		y2;
+	int		x;
+	int		y;
+	int		mask_x1;
+	int		mask_x2;
+	int		mask_y1;
+	int		mask_y2;
+	float	X;
+	float	Y;
 };
 
 typedef struct s_data
@@ -47,6 +40,7 @@ typedef struct s_data
 	struct s_img	bg;
 	struct s_img	pc;
 	struct s_img	en;
+	struct s_img	wl;
 }	t_data;
 
 //Read file -> Get map
@@ -57,7 +51,7 @@ void	ft_background(t_data *vars);
 void	ft_close_window(t_data *vars);
 void	ft_error(char *code, int i, t_data *vars);
 int		ft_control(t_data *vars);
-
+void	ft_cover_trails(t_data *vars, struct s_img *chr);
 //Other Functions
 void	draw_square(t_data *vars);
 void	my_mlx_pixel_put(t_data *vars, int x, int y, int color);

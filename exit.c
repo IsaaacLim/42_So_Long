@@ -12,11 +12,12 @@ void	ft_free_matrix(char **matrix, int height)
 
 void	ft_close_window(t_data *vars)
 {
-	printf("\n");
+	ft_printf("\n");
 	ft_free_matrix(vars->matrix, vars->map_hgt);
 	mlx_destroy_image(vars->mlx, vars->en.ptr);
 	mlx_destroy_image(vars->mlx, vars->pc.ptr);
 	mlx_destroy_image(vars->mlx, vars->bg.ptr);
+	mlx_destroy_image(vars->mlx, vars->wl.ptr);
 	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);

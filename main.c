@@ -13,9 +13,17 @@
 
 int		render_next_frame(t_data *vars)
 {
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.X, vars->en.Y);
-	if (vars->en.X < vars->win_wth - vars->en.wth)
-	 	vars->en.X += 0.05;
+	bool	end;
+	if (vars->en.x < vars->win_wth - vars->en.wth)
+		vars->en.X += 0.005;
+	else
+		end = true;
+	if ((int)vars->en.X % 8 == 0 && !end)
+	{
+		vars->en.x = (int)vars->en.X;
+		ft_cover_trails(vars, &vars->en);
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.x, vars->en.y);
+	}
 }
 
 void	ft_background(t_data *vars)
@@ -24,15 +32,18 @@ void	ft_background(t_data *vars)
 	int		y;
 	
 	y = 0;
-	while (y <= vars->win_hgt - vars->bg.hgt)
+	while (y < vars->map_hgt)
 	{	
 		x = 0;
-		while (x <= vars->win_wth - vars->bg.wth)
+		while (x < vars->map_wth)
 		{
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, x, y);
-			x += vars->bg.hgt;
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, x * vars->bg.wth, y * vars->bg.hgt);
+			if (vars->matrix[y][x] == '1')
+				mlx_put_image_to_window(vars->mlx, vars->win, vars->wl.ptr, x * vars->bg.wth, y * vars->bg.hgt);
+			// else
+			x++;
 		}
-		y += vars->bg.wth;
+		y++;
 	}
 }
 
@@ -41,23 +52,30 @@ void	ft_xpm_file_to_image(t_data *vars)
 	char	*bg = "images/grass_tile.xpm";
 	char	*pc = "images/player.xpm";
 	char	*en = "images/levi.xpm";
+	char	*wl = "images/rock.xpm";
 
 	vars->bg.ptr = mlx_xpm_file_to_image(vars->mlx, bg, &vars->bg.wth, &vars->bg.hgt);
 	vars->pc.ptr = mlx_xpm_file_to_image(vars->mlx, pc, &vars->pc.wth, &vars->pc.hgt);
 	vars->en.ptr = mlx_xpm_file_to_image(vars->mlx, en, &vars->en.wth, &vars->en.hgt);
+	vars->wl.ptr = mlx_xpm_file_to_image(vars->mlx, wl, &vars->wl.wth, &vars->wl.hgt);
+}
 
+void	ft_init_mask_position(t_data *vars, struct s_img *chr)
+{
+	chr->mask_x1 = chr->x * vars->bg.wth;
+	chr->mask_x2 = (chr->x + 1) * vars->bg.wth;
+	chr->mask_y1 = chr->y * vars->bg.hgt;
+	chr->mask_y2 = (chr->y + 1) * vars->bg.hgt;
 }
 
 void	ft_init_img_position(t_data *vars)
 {
-	// vars->pc.x = 0;
-	// vars->pc.y = 0;
-	vars->en.X = 0;
-	vars->en.Y = 96;
-	vars->bg.x = vars->pc.x * vars->bg.wth;
-	vars->bg.x2 = (vars->pc.x + 1) * vars->bg.wth;
-	vars->bg.y = vars->pc.y * vars->bg.hgt;
-	vars->bg.y2 = (vars->pc.y + 1) * vars->bg.hgt;
+	vars->en.x = 0;
+	vars->en.y = 96;
+	vars->en.X = vars->en.x;
+	vars->en.Y = vars->en.y;
+	ft_init_mask_position(vars, &vars->en);
+	ft_init_mask_position(vars, &vars->pc);
 }
 
 int main(int argc, char **argv)
@@ -66,7 +84,7 @@ int main(int argc, char **argv)
 	
 	if (argc != 2)
 	{
-		printf("Input a file\n");
+		ft_printf("Input a file\n");
 		return (0);
 	}
 	if (!(ft_strnstr(argv[1], ".ber", ft_strlen(argv[1]))))
@@ -82,8 +100,6 @@ int main(int argc, char **argv)
 	ft_background(&vars);
 	ft_init_img_position(&vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
-	//draw_square(&vars); //img = square
 	ft_control(&vars);
-	
 	mlx_loop(vars.mlx);
 }
