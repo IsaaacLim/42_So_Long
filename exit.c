@@ -23,3 +23,14 @@ void	ft_close_window(t_data *vars)
 	free(vars->mlx);
 	exit (0);
 }
+
+void	ft_error(char *code)
+{
+	if (ft_strncmp("Read file error", code, ft_strlen(code)) == 0)
+		ft_printf("%s\n", code);
+	else if (ft_strncmp("Matrix malloc error", code, ft_strlen(code)) == 0)
+		ft_printf("%s\n", code);
+	else if (ft_strncmp("Matrix fill error", code, ft_strlen(code)) == 0)
+		ft_printf("%s\n", code);
+	exit (0);
+}
