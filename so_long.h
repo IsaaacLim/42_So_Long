@@ -7,6 +7,8 @@
 # include "Libft/libft.h"
 # include "Printf/includes/ft_printf.h"
 
+# define SPEED 8
+
 struct	s_img
 {
 	void	*ptr;
@@ -59,6 +61,7 @@ void	ft_cover_trails(t_data *vars, struct s_img *chr);
 
 // Utils
 int		ft_ternary(int yes, int i, int j);
+int		ft_movement(int keycode, t_data *vars, struct s_img *obj);
 
 //Other Functions
 void	draw_square(t_data *vars);
