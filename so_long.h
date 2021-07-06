@@ -67,6 +67,7 @@ void	ft_cover_trails(t_data *vars, struct s_img *chr);
 int		ft_ternary(int yes, int i, int j);
 int		ft_movement(int keycode, t_data *vars, struct s_img *obj);
 int		ft_movement_en(t_data *vars, struct s_img *obj, int code);
+bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en);
 
 //Other Functions
 void	draw_square(t_data *vars);

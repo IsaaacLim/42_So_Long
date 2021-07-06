@@ -91,12 +91,12 @@ void	ft_data_log(t_data *vars, int y, int x)
 	ft_printf(" Move Count: %d Items: %d", vars->pc.count, vars->items);
 	ft_printf(" y:%d x:%d \npc.y:%d \tpc.x:%d\n", y, x, vars->pc.y, vars->pc.x);
 	ft_contact_collectible(vars, y, x);
-	gameover = ft_contact_enemy(vars, vars->pc, vars->en);
-	if (gameover)
-	{
-		ft_printf("GAME OVER\n");
-		vars->ended = true;
-	}
+	// gameover = ft_contact_enemy(vars, vars->pc, vars->en);
+	// if (gameover)
+	// {
+	// 	ft_printf("GAME OVER\n");
+	// 	vars->ended = true;
+	// }
 	if (vars->matrix[y][x] == 'E' && vars->items == 0)
 	{
 		ft_printf("YOU WON with -%d- steps\n", vars->pc.count);

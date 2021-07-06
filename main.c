@@ -13,12 +13,19 @@
 
 int	ft_enemy_1(t_data *vars)
 {
+	bool gameover;
 	static int x;
 
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.x, vars->en.y);
-	// x += 1;
-	// if (x % 661 == 0 && !vars->ended)
-	// 	ft_movement_en(vars, &vars->en, 1);
+	x += 1;
+	if (x % 661 == 0 && !vars->ended)
+		ft_movement_en(vars, &vars->en, 1);
+	gameover = ft_contact_enemy(vars, vars->pc, vars->en);
+	if (gameover)
+	{
+		ft_printf("GAME OVER\n");
+		vars->ended = true;
+	}
 }
 
 void	ft_background(t_data *vars)
