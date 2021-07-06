@@ -11,32 +11,40 @@ int	ft_ternary(int yes, int i, int j)
 
 void	ft_cover_trails(t_data *vars, struct s_img *obj)
 {
-	int mtx_x;
 	int mtx_y;
+	int mtx_x;
 
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y1); // Prev Top left
+	mtx_y = obj->mask_y1 / obj->hgt;
+	mtx_x = obj->mask_x1 / obj->wth;
+	if (vars->matrix[mtx_y][mtx_x] != 'E')//if top left door
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y1); // Prev Top left
+	else
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->mask_x1, obj->mask_y1);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x2, obj->mask_y1); // Prev Top right
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y2); // Prev Bottom left
+	if (vars->matrix[obj->mask_y2 / obj->hgt][mtx_x] != 'E') //if bottom left door
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y2); // Prev Bottom left
+	else
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->mask_x1, obj->mask_y2);
 	if (obj->mask_bot_right)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x2, obj->mask_y2); // Prev Bottom right
 	
 	mtx_x = obj->x / obj->wth;
 	mtx_y = obj->y / obj->hgt;
 	obj->mask_bot_right = true;
+	// if (vars->matrix[mtx_y][mtx_x] != 'E')
 	obj->mask_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
 	/*
 	** for left movement, if new x_coord rounded down + 1 != wall, cover up right side
 	*/
-	// obj->mask_x2 = ft_ternary(vars->matrix[mtx_y][mtx_x + 1] != '1', (mtx_x + 1) * vars->bg.wth, obj->mask_x1);
 	if (ft_strchr("C1E", vars->matrix[mtx_y][mtx_x + 1]))
 		obj->mask_x2 = obj->mask_x1;
 	else
 		obj->mask_x2 = (mtx_x + 1) * vars->bg.wth;
+	
 	obj->mask_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
 	/*
 	** for up movement, if new y_coord rounded down + 1 != wall, cover up bottom
 	*/
-	// obj->mask_y2 = ft_ternary(vars->matrix[mtx_y + 1][mtx_x] != '1', (mtx_y + 1) * vars->bg.hgt, obj->mask_y1);
 	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x]))
 		obj->mask_y2 = obj->mask_y1;
 	else

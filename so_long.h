@@ -56,6 +56,8 @@ typedef struct s_data
 	struct s_img	en;
 	struct s_img	en1;
 	struct s_img	en2;
+	struct s_img	en3;
+	struct s_img	en4;
 	struct s_img	wl;
 	struct s_img	ext;
 	struct s_img	clt;
