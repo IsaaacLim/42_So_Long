@@ -16,11 +16,9 @@ int	ft_enemy_1(t_data *vars)
 	static int x;
 
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.x, vars->en.y);
-	x += 1;
-	if (x % 661 == 0)
-	{
-		ft_movement_en(vars, &vars->en, 1);
-	}
+	// x += 1;
+	// if (x % 661 == 0 && !vars->ended)
+	// 	ft_movement_en(vars, &vars->en, 1);
 }
 
 void	ft_background(t_data *vars)
@@ -79,8 +77,8 @@ void	ft_init_mask_position(t_data *vars, struct s_img *obj)
 
 void	ft_init_img_position(t_data *vars)
 {
-	vars->en.y = 2;
-	vars->en.x = 1;
+	vars->en.y = 3;
+	vars->en.x = 4;
 	vars->pc.count = 0;
 	ft_init_mask_position(vars, &vars->pc);
 	vars->en.mask_x1 = vars->en.x * vars->bg.wth;

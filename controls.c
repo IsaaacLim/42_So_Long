@@ -24,7 +24,6 @@ void	ft_cover_trails(t_data *vars, struct s_img *obj)
 	mtx_y = obj->y / obj->hgt;
 	obj->mask_bot_right = true;
 	obj->mask_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
-	
 	/*
 	** for left movement, if new x_coord rounded down + 1 != wall, cover up right side
 	*/
@@ -34,35 +33,22 @@ void	ft_cover_trails(t_data *vars, struct s_img *obj)
 	else
 		obj->mask_x2 = (mtx_x + 1) * vars->bg.wth;
 	obj->mask_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
-	
 	/*
 	** for up movement, if new y_coord rounded down + 1 != wall, cover up bottom
 	*/
 	// obj->mask_y2 = ft_ternary(vars->matrix[mtx_y + 1][mtx_x] != '1', (mtx_y + 1) * vars->bg.hgt, obj->mask_y1);
 	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x]))
-	{
-		ft_printf(" block ");
 		obj->mask_y2 = obj->mask_y1;
-	}
 	else
-	{
-		ft_printf(" free ");
 		obj->mask_y2 = (mtx_y + 1) * vars->bg.hgt;
-	}
-
-
 	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x + 1])) // for Bottom right masking
 		obj->mask_bot_right = false;
 }
 
 /*
-** Contact Collectible (slight touch)
-** 	if [y][x] == 'C'
-**	if [y][x_up]
-**	if [y_up][x]
-**	if [y_up][x_up]
+** Contact Collectible
+**	Conditions are for light contact 
 */
-
 void	ft_contact_collectible(t_data *vars, int y, int x)
 {
 	if (vars->matrix[y][x] == 'C')
@@ -77,15 +63,43 @@ void	ft_contact_collectible(t_data *vars, int y, int x)
 		return ;
 	vars->items--;
 }
+
+bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en)
+{
+	bool a;
+	bool b;
+	bool c;
+	bool d;
+
+	a = ((pc.x > en.x) && (pc.x < (en.x + en.wth)));
+	b = (((pc.x + pc.wth) > en.x) && ((pc.x + pc.wth) < (en.x + en.wth)));
+	c = ((pc.y > en.y) && (pc.y < (en.y + en.hgt)));
+	d = (((pc.y + pc.hgt) > en.y) && (pc.y + pc.hgt < (en.y + en.hgt)));
+	if ((a || b) && (c || d))
+		return (true);
+	else if ((a || b) && pc.y == en.y)
+		return (true);
+	else if ((c || d) && pc.x == en.x)
+		return (true);
+	else
+		return (false);
+}
 void	ft_data_log(t_data *vars, int y, int x)
 {
-	ft_printf(" Move Count: %d Items: %d", vars->pc.count, vars->items);
-	ft_printf(" x:%d y:%d pc.x:%d pc.y:%d\n", x, y, vars->pc.x, vars->pc.y);
+	bool gameover;
 
+	ft_printf(" Move Count: %d Items: %d", vars->pc.count, vars->items);
+	ft_printf(" y:%d x:%d \npc.y:%d \tpc.x:%d\n", y, x, vars->pc.y, vars->pc.x);
 	ft_contact_collectible(vars, y, x);
+	gameover = ft_contact_enemy(vars, vars->pc, vars->en);
+	if (gameover)
+	{
+		ft_printf("GAME OVER\n");
+		vars->ended = true;
+	}
 	if (vars->matrix[y][x] == 'E' && vars->items == 0)
 	{
-		ft_printf("EXITED IN -%d- steps\n", vars->pc.count);
+		ft_printf("YOU WON with -%d- steps\n", vars->pc.count);
 		vars->ended = true;
 	}
 
@@ -97,7 +111,7 @@ void	ft_data_log(t_data *vars, int y, int x)
 int		ft_wasd(int keycode, t_data *vars)
 {
 	int x;
-	int y;
+	int y; //maybe remove?
 
 	x = vars->pc.x / vars->pc.wth;
 	y = vars->pc.y / vars->pc.hgt;
