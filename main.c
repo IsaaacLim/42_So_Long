@@ -11,18 +11,34 @@
 
 #include "so_long.h"
 
-int	ft_enemy_1(t_data *vars)
+void	ft_en_move(t_data *vars, struct s_img *en)
 {
 	bool gameover;
-	static int x;
 
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.x, vars->en.y);
-	x += 1;
-	if (x % 661 == 0 && !vars->ended)
-		ft_movement_en(vars, &vars->en, 1);
-	gameover = ft_contact_enemy(vars, vars->pc, vars->en);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, en->x, en->y);
+	en->counter += 1;
+	if (en->counter % en->speed == 0 && !vars->ended)
+		ft_movement_en(vars, en);
+	gameover = ft_contact_enemy(vars, vars->pc, *en);
 	if (gameover)
 		vars->ended = true;
+
+}
+
+int	ft_en_loop(t_data *vars)
+{
+	ft_en_move(vars, &vars->en);
+	ft_en_move(vars, &vars->en2);
+	// bool gameover;
+	// static int x;
+
+	// mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.x, vars->en.y);
+	// x += 1;
+	// if (x % vars->en.speed == 0 && !vars->ended)
+	// 	ft_movement_en(vars, &vars->en);
+	// gameover = ft_contact_enemy(vars, vars->pc, vars->en);
+	// if (gameover)
+	// 	vars->ended = true;
 }
 
 void	ft_init_pc(t_data *vars)
@@ -43,15 +59,14 @@ void	ft_init_pc(t_data *vars)
 		(y + 1) * vars->bg.hgt, vars->pc.mask_y1);
 }
 
-void	ft_clone_en(t_data *vars, struct s_img *clone, int y, int x, char c)
+void	ft_en_clone(t_data *vars, struct s_img *en, int y, int x, char c)
 {
- 	clone->y = y;
-	clone->x = x;
-	clone->mask_x1 = clone->x * vars->bg.wth;
-	clone->mask_y1 = clone->y * vars->bg.hgt;
-	clone->y *= clone->hgt;
-	clone->x *= clone->wth;
-	clone->dir = c;
+	en->y = y * vars->en.hgt;
+	en->x = x * vars->en.wth;
+	en->mask_y1 = y * vars->bg.hgt;
+	en->mask_x1 = x * vars->bg.wth;
+	en->dir = c;
+	en->counter = 1;
 }
 
 void	ft_init_enemy(t_data *vars, int y, int x)
@@ -59,12 +74,21 @@ void	ft_init_enemy(t_data *vars, int y, int x)
 	static int count;
 
 	count++;
-	if (count > 1)
+	ft_printf("enemy count: %d\n", count);
+	if (count > 2)
 		return ;
+	if (count == 2)
+	{
+		ft_en_clone(vars, &vars->en, y, x, 'd');
+		vars->en.rank = count;
+		vars->en.speed = 661;
+	}
 	if (count == 1)
 	{
-		ft_clone_en(vars, &vars->en, y, x, 'd');
-		vars->en.rank = count;
+		ft_en_clone(vars, &vars->en2, y, x, 'd');
+		vars->en2.rank = count;
+		vars->en2.speed = 661;
+		ft_printf("clone 2\n");
 	}
 }
 
@@ -134,7 +158,7 @@ int main(int argc, char **argv)
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_background(&vars);
 	ft_init_pc(&vars);
-	mlx_loop_hook(vars.mlx, ft_enemy_1, &vars);
+	mlx_loop_hook(vars.mlx, ft_en_loop, &vars);
 	ft_control(&vars);
 	if (vars.ended)
 		ft_printf("GAME OVER\n");

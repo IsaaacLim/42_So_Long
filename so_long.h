@@ -11,11 +11,14 @@
 
 struct	s_img
 {
+	//both used
 	void	*ptr;
 	int		wth;
 	int		hgt;
 	int		x;
 	int		y;
+
+	//not sure
 	int		x_up;
 	int		y_up;
 	int		mask_x1;
@@ -25,8 +28,11 @@ struct	s_img
 	bool	mask_bot_right;
 	int		count;
 
+	//only en
 	char	dir; //en movement starting direction
 	int		rank; //en movement type
+	int		speed; //en movement speed
+	int		counter; // counter to execute a movement
 };
 
 typedef struct s_data
@@ -48,6 +54,8 @@ typedef struct s_data
 	struct s_img	bg;
 	struct s_img	pc;
 	struct s_img	en;
+	struct s_img	en1;
+	struct s_img	en2;
 	struct s_img	wl;
 	struct s_img	ext;
 	struct s_img	clt;
@@ -67,7 +75,7 @@ void	ft_cover_trails(t_data *vars, struct s_img *chr);
 // Utils
 int		ft_ternary(int yes, int i, int j);
 int		ft_movement_pc(int keycode, t_data *vars, struct s_img *obj);
-int		ft_movement_en(t_data *vars, struct s_img *obj, int code);
+int		ft_movement_en(t_data *vars, struct s_img *obj);
 bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en);
 
 //Other Functions

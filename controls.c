@@ -71,10 +71,10 @@ bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en)
 	bool c;
 	bool d;
 
-	a = ((pc.x > en.x) && (pc.x < (en.x + en.wth)));
-	b = (((pc.x + pc.wth) > en.x) && ((pc.x + pc.wth) < (en.x + en.wth)));
-	c = ((pc.y > en.y) && (pc.y < (en.y + en.hgt)));
-	d = (((pc.y + pc.hgt) > en.y) && (pc.y + pc.hgt < (en.y + en.hgt)));
+	a = ((pc.x > en.x) && (pc.x < (en.x + vars->en.wth)));
+	b = (((pc.x + pc.wth) > en.x) && ((pc.x + pc.wth) < (en.x + vars->en.wth)));
+	c = ((pc.y > en.y) && (pc.y < (en.y + vars->en.hgt)));
+	d = (((pc.y + pc.hgt) > en.y) && (pc.y + pc.hgt < (en.y + vars->en.hgt)));
 	if ((a || b) && (c || d))
 		return (true);
 	else if ((a || b) && pc.y == en.y)
