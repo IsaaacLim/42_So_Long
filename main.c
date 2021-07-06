@@ -77,13 +77,13 @@ void	ft_init_enemy(t_data *vars, int y, int x)
 	ft_printf("enemy count: %d\n", count);
 	if (count > 2)
 		return ;
-	if (count == 2)
-	{
-		ft_en_clone(vars, &vars->en, y, x, 'd');
-		vars->en.rank = count;
-		vars->en.speed = 661;
-	}
 	if (count == 1)
+	{
+		ft_en_clone(vars, &vars->en1, y, x, 'd');
+		vars->en1.rank = count;
+		vars->en1.speed = 661;
+	}
+	if (count == 2)
 	{
 		ft_en_clone(vars, &vars->en2, y, x, 'd');
 		vars->en2.rank = count;
