@@ -19,8 +19,7 @@ int	ft_enemy_1(t_data *vars)
 	x += 1;
 	if (x % 661 == 0)
 	{
-		ft_movement_en('d', vars, &vars->en);
-	 	// ft_c`over_trails(vars, &vars->en);
+		ft_movement_en(vars, &vars->en, 1);
 	}
 }
 
@@ -82,11 +81,11 @@ void	ft_init_img_position(t_data *vars)
 	vars->en.x = 1;
 	vars->pc.count = 0;
 	ft_init_mask_position(vars, &vars->pc);
-	// ft_init_mask_position(vars, &vars->en);
 	vars->en.mask_x1 = vars->en.x * vars->bg.wth;
 	vars->en.mask_y1 = vars->en.y * vars->bg.hgt;
 	vars->en.y *= vars->en.hgt;
 	vars->en.x *= vars->en.wth;
+	vars->en.dir = 'd';
 }
 
 int main(int argc, char **argv)

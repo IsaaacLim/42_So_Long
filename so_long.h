@@ -17,12 +17,13 @@ struct	s_img
 	int		x;
 	int		y;
 	int		mask_x1;
-	int		mask_x2;
 	int		mask_y1;
+	int		mask_x2;
 	int		mask_y2;
 	bool	mask_bot_right;
 	int		count;
-	bool	is_en;
+
+	char	dir;
 };
 
 typedef struct s_data
@@ -63,7 +64,7 @@ void	ft_cover_trails(t_data *vars, struct s_img *chr);
 // Utils
 int		ft_ternary(int yes, int i, int j);
 int		ft_movement(int keycode, t_data *vars, struct s_img *obj);
-int		ft_movement_en(int keycode, t_data *vars, struct s_img *obj);
+int		ft_movement_en(t_data *vars, struct s_img *obj, int code);
 
 //Other Functions
 void	draw_square(t_data *vars);
