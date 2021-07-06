@@ -1,5 +1,10 @@
 #include "so_long.h"
 
+/*
+** Simplified version of ft_movement. Only looks along its movement axis
+** Use this function by parsing different code number to have diff movements
+*/
+
 static int	ft_move_up(t_data *vars, struct s_img *obj, int code)
 {
 	int		y;

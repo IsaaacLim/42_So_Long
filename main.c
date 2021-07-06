@@ -22,9 +22,42 @@ int	ft_enemy_1(t_data *vars)
 		ft_movement_en(vars, &vars->en, 1);
 	gameover = ft_contact_enemy(vars, vars->pc, vars->en);
 	if (gameover)
-	{
-		ft_printf("GAME OVER\n");
 		vars->ended = true;
+}
+
+void	ft_init_pc(t_data *vars)
+{
+	vars->pc.count = 0;
+	vars->pc.x_up = vars->pc.x;
+	vars->pc.y_up = vars->pc.y;
+	vars->pc.mask_x1 = vars->pc.x * vars->bg.wth;
+	vars->pc.mask_x2 = ft_ternary(vars->matrix[vars->pc.y][vars->pc.x + 1] != '1', (vars->pc.x + 1 ) * vars->bg.wth, vars->pc.mask_x1);
+	vars->pc.mask_y1 = vars->pc.y * vars->bg.hgt;
+	vars->pc.mask_y2 = ft_ternary(vars->matrix[vars->pc.y + 1][vars->pc.x] != '1', (vars->pc.y + 1 ) * vars->bg.hgt, vars->pc.mask_y1);
+}
+
+void	ft_clone_en(t_data *vars, struct s_img *clone, int y, int x, char c)
+{
+ 	clone->y = y;
+	clone->x = x;
+	clone->mask_x1 = clone->x * vars->bg.wth;
+	clone->mask_y1 = clone->y * vars->bg.hgt;
+	clone->y *= clone->hgt;
+	clone->x *= clone->wth;
+	clone->dir = c;
+}
+
+void	ft_init_enemy(t_data *vars, int y, int x)
+{
+	static int count;
+
+	count++;
+	if (count > 1)
+		return ;
+	if (count == 1)
+	{
+		ft_clone_en(vars, &vars->en, y, x, 'd');
+		vars->en.rank = count;
 	}
 }
 
@@ -49,7 +82,8 @@ void	ft_background(t_data *vars)
 			else if (vars->matrix[y][x] == 'E')
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, x * vars->ext.wth, y * vars->ext.hgt);
 			else if (e % 50 == 0)
-				mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, x * vars->en.wth, y * vars->en.hgt);
+				ft_init_enemy(vars, y, x);
+				// mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, x * vars->en.wth, y * vars->en.hgt);
 			e++;
 		}
 	}
@@ -72,29 +106,6 @@ void	ft_xpm_file_to_image(t_data *vars)
 	vars->clt.ptr = mlx_xpm_file_to_image(vars->mlx, clt, &vars->clt.wth, &vars->clt.hgt);
 }
 
-void	ft_init_mask_position(t_data *vars, struct s_img *obj)
-{
-	obj->x_up = obj->x;
-	obj->y_up = obj->y;
-	obj->mask_x1 = obj->x * vars->bg.wth;
-	obj->mask_x2 = ft_ternary(vars->matrix[obj->y][obj->x + 1] != '1', (obj->x + 1 ) * vars->bg.wth, obj->mask_x1);
-	obj->mask_y1 = obj->y * vars->bg.hgt;
-	obj->mask_y2 = ft_ternary(vars->matrix[obj->y + 1][obj->x] != '1', (obj->y + 1 ) * vars->bg.hgt, obj->mask_y1);
-}
-
-void	ft_init_img_position(t_data *vars)
-{
-	vars->en.y = 3;
-	vars->en.x = 4;
-	vars->pc.count = 0;
-	ft_init_mask_position(vars, &vars->pc);
-	vars->en.mask_x1 = vars->en.x * vars->bg.wth;
-	vars->en.mask_y1 = vars->en.y * vars->bg.hgt;
-	vars->en.y *= vars->en.hgt;
-	vars->en.x *= vars->en.wth;
-	vars->en.dir = 'd';
-}
-
 int main(int argc, char **argv)
 {
 	t_data	vars;
@@ -104,7 +115,7 @@ int main(int argc, char **argv)
 		ft_printf("Input a file\n");
 		return (0);
 	}
-	if (!(ft_strnstr(argv[1], ".ber", ft_strlen(argv[1]))))
+	if (!(ft_strnstr(argv[1], ".ber", ft_strlen(argv[1])))) //.bergur
 		ft_error("Input '.ber' file", 0, &vars);
 	ft_get_map(&vars, argv[1]);
 	vars.mlx = mlx_init();
@@ -115,8 +126,10 @@ int main(int argc, char **argv)
 	vars.img = mlx_new_image(vars.mlx, vars.win_wth, vars.win_hgt);
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_background(&vars);
-	ft_init_img_position(&vars);
+	ft_init_pc(&vars);
 	mlx_loop_hook(vars.mlx, ft_enemy_1, &vars);
 	ft_control(&vars);
+	if (vars.ended)
+		ft_printf("GAME OVER\n");
 	mlx_loop(vars.mlx);
 }

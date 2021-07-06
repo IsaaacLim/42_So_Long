@@ -25,7 +25,8 @@ struct	s_img
 	bool	mask_bot_right;
 	int		count;
 
-	char	dir;
+	char	dir; //en movement starting direction
+	int		rank; //en movement type
 };
 
 typedef struct s_data
@@ -65,7 +66,7 @@ void	ft_cover_trails(t_data *vars, struct s_img *chr);
 
 // Utils
 int		ft_ternary(int yes, int i, int j);
-int		ft_movement(int keycode, t_data *vars, struct s_img *obj);
+int		ft_movement_pc(int keycode, t_data *vars, struct s_img *obj);
 int		ft_movement_en(t_data *vars, struct s_img *obj, int code);
 bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en);
 

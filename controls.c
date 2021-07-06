@@ -84,6 +84,7 @@ bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en)
 	else
 		return (false);
 }
+
 void	ft_data_log(t_data *vars, int y, int x)
 {
 	bool gameover;
@@ -119,9 +120,9 @@ int		ft_wasd(int keycode, t_data *vars)
 	if (keycode == 65307)
 		ft_close_window(vars);
 	if ((keycode == 119 || keycode == 115) && !vars->ended) // w / s
-		y = ft_movement(keycode, vars, &vars->pc);
+		y = ft_movement_pc(keycode, vars, &vars->pc);
 	if ((keycode == 97 || keycode == 100) && !vars->ended) // a / d
-		x = ft_movement(keycode, vars, &vars->pc);
+		x = ft_movement_pc(keycode, vars, &vars->pc);
 	ft_data_log(vars, y, x);
 	ft_cover_trails(vars, &vars->pc);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x, vars->pc.y);

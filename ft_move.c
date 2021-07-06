@@ -77,7 +77,7 @@ static int	ft_move_right(t_data *vars, struct s_img *obj)
 	return (x);
 }
 
-int	ft_movement(int keycode, t_data *vars, struct s_img *obj)
+int	ft_movement_pc(int keycode, t_data *vars, struct s_img *obj)
 {
 	if (keycode == 'w')
 		return (ft_move_up(vars, obj));
