@@ -59,21 +59,18 @@ static int	ft_move_down(t_data *vars, struct s_img *obj)
 static int	ft_move_right(t_data *vars, struct s_img *obj)
 {
 	int		y;
-	int		y_up;
 	int		x;
 	int		x_up;
-	char	crt;
-	char	nxt;
 
 	y = obj->y / obj->hgt;
-	y_up = ft_ternary((obj->y % obj->hgt) == 0, y, y + 1);
 	x = (obj->x + SPEED) / obj->wth;
 	x_up = ft_ternary(((obj->x + SPEED) % obj->wth) == 0, x, x + 1);
-	crt = vars->matrix[y][x_up];
-	nxt = vars->matrix[y_up][x_up];
-	if (ft_strchr("C1E", crt) || ft_strchr("C1E", nxt))
+	if (ft_strchr("C1E", vars->matrix[y][x_up]))
 		return (obj->x / obj->wth);
-	return ((obj->x += SPEED) / obj->wth);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y1);
+	obj->x += SPEED;
+	obj->mask_x1 = obj->x / obj->wth * obj->wth;
+	return (x);
 }
 
 int	ft_movement_en(int keycode, t_data *vars, struct s_img *obj)

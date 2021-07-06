@@ -9,32 +9,32 @@ int	ft_ternary(int yes, int i, int j)
 }
 
 
-void	ft_cover_trails(t_data *vars, struct s_img *chr)
+void	ft_cover_trails(t_data *vars, struct s_img *obj)
 {
 	int mtx_x;
 	int mtx_y;
 
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x1, chr->mask_y1); // Prev Top left
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x2, chr->mask_y1); // Prev Top right
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x1, chr->mask_y2); // Prev Bottom left
-	if (chr->mask_bot_right)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, chr->mask_x2, chr->mask_y2); // Prev Bottom right
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y1); // Prev Top left
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x2, obj->mask_y1); // Prev Top right
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y2); // Prev Bottom left
+	if (obj->mask_bot_right)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x2, obj->mask_y2); // Prev Bottom right
 	
-	mtx_x = chr->x / chr->wth;
-	mtx_y = chr->y / chr->hgt;
-	chr->mask_bot_right = true;
-	chr->mask_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
+	mtx_x = obj->x / obj->wth;
+	mtx_y = obj->y / obj->hgt;
+	obj->mask_bot_right = true;
+	obj->mask_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
 	/*
 	** for left movement, if new x_coord rounded down + 1 != wall, cover up right side
 	*/
-	chr->mask_x2 = ft_ternary(vars->matrix[mtx_y][mtx_x + 1] != '1', (mtx_x + 1) * vars->bg.wth, chr->mask_x1);
-	chr->mask_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
+	obj->mask_x2 = ft_ternary(vars->matrix[mtx_y][mtx_x + 1] != '1', (mtx_x + 1) * vars->bg.wth, obj->mask_x1);
+	obj->mask_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
 	/*
 	** for up movement, if new y_coord rounded down + 1 != wall, cover up bottom
 	*/
-	chr->mask_y2 = ft_ternary(vars->matrix[mtx_y + 1][mtx_x] != '1', (mtx_y + 1) * vars->bg.hgt, chr->mask_y1);
+	obj->mask_y2 = ft_ternary(vars->matrix[mtx_y + 1][mtx_x] != '1', (mtx_y + 1) * vars->bg.hgt, obj->mask_y1);
 	if (vars->matrix[mtx_y + 1][mtx_x + 1] == '1') // for Bottom right masking
-		chr->mask_bot_right = false;
+		obj->mask_bot_right = false;
 }
 
 void	ft_data_log(t_data *vars, int y, int x)
