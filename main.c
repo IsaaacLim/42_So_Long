@@ -84,6 +84,7 @@ void	ft_init_img_position(t_data *vars)
 	vars->en.y = 96;
 	vars->en.X = vars->en.x;
 	vars->en.Y = vars->en.y;
+	vars->pc.count = 0;
 	//ft_init_mask_position(vars, &vars->en);
 	ft_init_mask_position(vars, &vars->pc);
 }

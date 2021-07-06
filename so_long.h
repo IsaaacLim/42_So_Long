@@ -22,7 +22,10 @@ struct	s_img
 	int		mask_y2;
 	bool	mask_bot_right;
 	float	X;
-	float	Y;
+	union {
+		float	Y;
+		int		count;
+	};
 };
 
 typedef struct s_data
@@ -40,6 +43,7 @@ typedef struct s_data
 	int				map_hgt;
 	int				map_wth;
 	int				items;
+	bool			ended;
 	struct s_img	bg;
 	struct s_img	pc;
 	struct s_img	en;

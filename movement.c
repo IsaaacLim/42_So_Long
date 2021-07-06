@@ -18,10 +18,11 @@ static int	ft_move_up(t_data *vars, struct s_img *obj)
 	x = obj->x / obj->wth;
 	x_up = ft_ternary((obj->x % obj->wth) == 0, x, x + 1);
 	y = (obj->y - SPEED) / obj->hgt;
-	if (vars->matrix[y][x] != '1' && vars->matrix[y][x_up] != '1')
-		return ((obj->y -= SPEED) / obj->hgt);
-	else
+	if (vars->matrix[y][x] == '1' || vars->matrix[y][x_up] == '1')
 		return (obj->y / obj->hgt);
+	else
+		obj->count++;
+	return ((obj->y -= SPEED) / obj->hgt);
 }
 
 static int	ft_move_left(t_data *vars, struct s_img *obj)
@@ -33,10 +34,11 @@ static int	ft_move_left(t_data *vars, struct s_img *obj)
 	y = obj->y / obj->hgt;
 	y_up = ft_ternary((obj->y % obj->hgt) == 0, y, y + 1);
 	x = (obj->x - SPEED) / obj->wth;
-	if (vars->matrix[y][x] != '1' && vars->matrix[y_up][x] != '1')
-		return ((obj->x -= SPEED) / obj->wth);
-	else
+	if (vars->matrix[y][x] == '1' || vars->matrix[y_up][x] == '1')
 		return ((obj->x) / obj->wth);
+	else
+		obj->count++;
+	return ((obj->x -= SPEED) / obj->wth);
 }
 
 static int	ft_move_down(t_data *vars, struct s_img *obj)
@@ -50,10 +52,11 @@ static int	ft_move_down(t_data *vars, struct s_img *obj)
 	y_up = ft_ternary(((obj->y + SPEED) % obj->hgt) == 0, y, y + 1);
 	x = obj->x / obj->wth;
 	x_up = ft_ternary((obj->x % obj->wth) == 0, x, x + 1);
-	if (vars->matrix[y_up][x] != '1' && vars->matrix[y_up][x_up] != '1')
-		return ((obj->y += SPEED) / obj->hgt);
-	else
+	if (vars->matrix[y_up][x] == '1' || vars->matrix[y_up][x_up] == '1')
 		return (obj->y / obj->hgt);
+	else
+		obj->count++;
+	return ((obj->y += SPEED) / obj->hgt);
 }
 
 static int	ft_move_right(t_data *vars, struct s_img *obj)
@@ -67,10 +70,11 @@ static int	ft_move_right(t_data *vars, struct s_img *obj)
 	y_up = ft_ternary((obj->y % obj->hgt) == 0, y, y + 1);
 	x = (obj->x + SPEED) / obj->wth;
 	x_up = ft_ternary(((obj->x + SPEED) % obj->wth) == 0, x, x + 1);
-	if (vars->matrix[y][x_up] != '1' && vars->matrix[y_up][x_up] != '1')
-		return ((obj->x += SPEED) / obj->wth);
-	else
+	if (vars->matrix[y][x_up] == '1' || vars->matrix[y_up][x_up] == '1')
 		return (obj->x / obj->wth);
+	else
+		obj->count++;
+	return ((obj->x += SPEED) / obj->wth);
 }
 
 int	ft_movement(int keycode, t_data *vars, struct s_img *obj)
