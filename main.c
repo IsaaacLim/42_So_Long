@@ -27,13 +27,20 @@ int	ft_enemy_1(t_data *vars)
 
 void	ft_init_pc(t_data *vars)
 {
+	int y;
+	int x;
+
+	y = vars->pc.y;
+	x = vars->pc.x;
 	vars->pc.count = 0;
-	vars->pc.x_up = vars->pc.x;
-	vars->pc.y_up = vars->pc.y;
-	vars->pc.mask_x1 = vars->pc.x * vars->bg.wth;
-	vars->pc.mask_x2 = ft_ternary(vars->matrix[vars->pc.y][vars->pc.x + 1] != '1', (vars->pc.x + 1 ) * vars->bg.wth, vars->pc.mask_x1);
-	vars->pc.mask_y1 = vars->pc.y * vars->bg.hgt;
-	vars->pc.mask_y2 = ft_ternary(vars->matrix[vars->pc.y + 1][vars->pc.x] != '1', (vars->pc.y + 1 ) * vars->bg.hgt, vars->pc.mask_y1);
+	vars->pc.x_up = x;
+	vars->pc.y_up = y;
+	vars->pc.mask_x1 = x * vars->bg.wth;
+	vars->pc.mask_x2 = ft_ternary(vars->matrix[y][x + 1] != '1', 
+		(x + 1) * vars->bg.wth, vars->pc.mask_x1);
+	vars->pc.mask_y1 = y * vars->bg.hgt;
+	vars->pc.mask_y2 = ft_ternary(vars->matrix[y + 1][x] != '1', 
+		(y + 1) * vars->bg.hgt, vars->pc.mask_y1);
 }
 
 void	ft_clone_en(t_data *vars, struct s_img *clone, int y, int x, char c)
