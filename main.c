@@ -13,16 +13,14 @@
 
 int		render_next_frame(t_data *vars)
 {
-	bool	end;
-	if (vars->en.x < vars->win_wth - vars->en.wth)
-		vars->en.X += 0.005;
-	else
-		end = true;
-	if ((int)vars->en.X % 8 == 0 && !end)
+	static int x;
+
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.x, vars->en.y);
+	x += 1;
+	if (x % 661 == 0)
 	{
-		vars->en.x = (int)vars->en.X;
-		ft_cover_trails(vars, &vars->en);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, vars->en.x, vars->en.y);
+		ft_movement('d', vars, &vars->en);
+	 	ft_cover_trails(vars, &vars->en);
 	}
 }
 
@@ -70,23 +68,24 @@ void	ft_xpm_file_to_image(t_data *vars)
 	vars->clt.ptr = mlx_xpm_file_to_image(vars->mlx, clt, &vars->clt.wth, &vars->clt.hgt);
 }
 
-void	ft_init_mask_position(t_data *vars, struct s_img *chr)
+void	ft_init_mask_position(t_data *vars, struct s_img *obj)
 {
-	chr->mask_x1 = chr->x * vars->bg.wth;
-	chr->mask_x2 = ft_ternary(vars->matrix[chr->y][chr->x + 1] != '1', (chr->x + 1 ) * vars->bg.wth, chr->mask_x1);
-	chr->mask_y1 = chr->y * vars->bg.hgt;
-	chr->mask_y2 = ft_ternary(vars->matrix[chr->y + 1][chr->x] != '1', (chr->y + 1 ) * vars->bg.hgt, chr->mask_y1);
+	obj->mask_x1 = obj->x * vars->bg.wth;
+	obj->mask_x2 = ft_ternary(vars->matrix[obj->y][obj->x + 1] != '1', (obj->x + 1 ) * vars->bg.wth, obj->mask_x1);
+	obj->mask_y1 = obj->y * vars->bg.hgt;
+	obj->mask_y2 = ft_ternary(vars->matrix[obj->y + 1][obj->x] != '1', (obj->y + 1 ) * vars->bg.hgt, obj->mask_y1);
 }
 
 void	ft_init_img_position(t_data *vars)
 {
-	vars->en.x = 0;
-	vars->en.y = 96;
-	vars->en.X = vars->en.x;
-	vars->en.Y = vars->en.y;
+	vars->en.y = 2;
+	vars->en.x = 1;
 	vars->pc.count = 0;
-	//ft_init_mask_position(vars, &vars->en);
+	vars->en.count = 0;
 	ft_init_mask_position(vars, &vars->pc);
+	ft_init_mask_position(vars, &vars->en);
+	vars->en.y *= vars->en.hgt;
+	vars->en.x *= vars->en.wth;
 }
 
 int main(int argc, char **argv)
@@ -110,7 +109,7 @@ int main(int argc, char **argv)
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_background(&vars);
 	ft_init_img_position(&vars);
-	//mlx_loop_hook(vars.mlx, render_next_frame, &vars);
+	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	ft_control(&vars);
 	mlx_loop(vars.mlx);
 }

@@ -21,11 +21,7 @@ struct	s_img
 	int		mask_y1;
 	int		mask_y2;
 	bool	mask_bot_right;
-	float	X;
-	union {
-		float	Y;
-		int		count;
-	};
+	int		count;
 };
 
 typedef struct s_data
