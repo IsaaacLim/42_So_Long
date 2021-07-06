@@ -69,6 +69,8 @@ void	ft_xpm_file_to_image(t_data *vars)
 
 void	ft_init_mask_position(t_data *vars, struct s_img *obj)
 {
+	obj->x_up = obj->x;
+	obj->y_up = obj->y;
 	obj->mask_x1 = obj->x * vars->bg.wth;
 	obj->mask_x2 = ft_ternary(vars->matrix[obj->y][obj->x + 1] != '1', (obj->x + 1 ) * vars->bg.wth, obj->mask_x1);
 	obj->mask_y1 = obj->y * vars->bg.hgt;

@@ -16,6 +16,8 @@ struct	s_img
 	int		hgt;
 	int		x;
 	int		y;
+	int		x_up;
+	int		y_up;
 	int		mask_x1;
 	int		mask_y1;
 	int		mask_x2;

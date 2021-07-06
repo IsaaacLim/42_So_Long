@@ -24,19 +24,45 @@ void	ft_cover_trails(t_data *vars, struct s_img *obj)
 	mtx_y = obj->y / obj->hgt;
 	obj->mask_bot_right = true;
 	obj->mask_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
+	
 	/*
 	** for left movement, if new x_coord rounded down + 1 != wall, cover up right side
 	*/
-	obj->mask_x2 = ft_ternary(vars->matrix[mtx_y][mtx_x + 1] != '1', (mtx_x + 1) * vars->bg.wth, obj->mask_x1);
+	// obj->mask_x2 = ft_ternary(vars->matrix[mtx_y][mtx_x + 1] != '1', (mtx_x + 1) * vars->bg.wth, obj->mask_x1);
+	if (ft_strchr("C1E", vars->matrix[mtx_y][mtx_x + 1]))
+		obj->mask_x2 = obj->mask_x1;
+	else
+		obj->mask_x2 = (mtx_x + 1) * vars->bg.wth;
 	obj->mask_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
+	
 	/*
 	** for up movement, if new y_coord rounded down + 1 != wall, cover up bottom
 	*/
-	obj->mask_y2 = ft_ternary(vars->matrix[mtx_y + 1][mtx_x] != '1', (mtx_y + 1) * vars->bg.hgt, obj->mask_y1);
-	if (vars->matrix[mtx_y + 1][mtx_x + 1] == '1') // for Bottom right masking
+	// obj->mask_y2 = ft_ternary(vars->matrix[mtx_y + 1][mtx_x] != '1', (mtx_y + 1) * vars->bg.hgt, obj->mask_y1);
+	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x]))
+	{
+		ft_printf(" block ");
+		obj->mask_y2 = obj->mask_y1;
+	}
+	else
+	{
+		ft_printf(" free ");
+		obj->mask_y2 = (mtx_y + 1) * vars->bg.hgt;
+	}
+
+
+	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x + 1])) // for Bottom right masking
 		obj->mask_bot_right = false;
 }
 
+/*
+** Contact Collectible (slight touch)
+** 	if [y][x] == 'C'
+	if [y][x_up]
+	if [x_up][y]
+	if [y_up][x_up]
+
+*/
 void	ft_data_log(t_data *vars, int y, int x)
 {
 	ft_printf(" Move Count: %d Items: %d", vars->pc.count, vars->items);
