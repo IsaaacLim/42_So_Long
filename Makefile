@@ -4,7 +4,7 @@ TEST	=	test
 TEST_S	=	test.c
 TEST_O	=	$(TEST_S:%.c=%.o)
 
-SRCS	=	main.c controls.c extra_func.c ft_get_map.c movement.c exit.c
+SRCS	=	main.c controls.c extra_func.c ft_get_map.c ft_move.c ft_move_en.c exit.c
 OBJS	=	$(SRCS:%.c=%.o)
 INCLUDE	=	so_long.h
 

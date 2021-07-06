@@ -11,7 +11,7 @@
 
 #include "so_long.h"
 
-int		render_next_frame(t_data *vars)
+int	ft_enemy_1(t_data *vars)
 {
 	static int x;
 
@@ -19,7 +19,7 @@ int		render_next_frame(t_data *vars)
 	x += 1;
 	if (x % 661 == 0)
 	{
-		ft_movement('d', vars, &vars->en);
+		ft_movement_en('d', vars, &vars->en);
 	 	ft_cover_trails(vars, &vars->en);
 	}
 }
@@ -81,7 +81,6 @@ void	ft_init_img_position(t_data *vars)
 	vars->en.y = 2;
 	vars->en.x = 1;
 	vars->pc.count = 0;
-	vars->en.count = 0;
 	ft_init_mask_position(vars, &vars->pc);
 	ft_init_mask_position(vars, &vars->en);
 	vars->en.y *= vars->en.hgt;
@@ -109,7 +108,7 @@ int main(int argc, char **argv)
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_background(&vars);
 	ft_init_img_position(&vars);
-	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
+	mlx_loop_hook(vars.mlx, ft_enemy_1, &vars);
 	ft_control(&vars);
 	mlx_loop(vars.mlx);
 }
