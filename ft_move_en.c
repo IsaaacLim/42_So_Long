@@ -2,33 +2,41 @@
 
 static int	ft_move_up(t_data *vars, struct s_img *obj, int code)
 {
-	int 	x;
 	int		y;
+	int 	y_up;
+	int 	x;
 
-	x = obj->x / obj->wth;
 	y = (obj->y - SPEED) / obj->hgt;
+	x = obj->x / obj->wth;
 	if (ft_strchr("C1E", vars->matrix[y][x]))
+	{
+		if (code == 1)
+			obj->dir = 'a';
 		return (obj->y / obj->hgt);
+	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y1);
-	obj->mask_y2 = ft_ternary(((obj->y - SPEED) % obj->hgt) == 0, y, y + 1);
+	y_up = ft_ternary(((obj->y - SPEED) % obj->hgt) == 0, y, y + 1);
+	obj->mask_y1 = y_up * obj->hgt;
 	return ((obj->y -= SPEED) / obj->hgt);
 }
 
 static int	ft_move_left(t_data *vars, struct s_img *obj, int code)
 {
 	int 	y;
-	int 	y_up;
 	int 	x;
-	char	crt;
-	char	nxt;
+	int 	x_up;
 	
 	y = obj->y / obj->hgt;
-	y_up = ft_ternary((obj->y % obj->hgt) == 0, y, y + 1);
 	x = (obj->x - SPEED) / obj->wth;
-	crt = vars->matrix[y][x];
-	nxt = vars->matrix[y_up][x];
-	if (ft_strchr("C1E", crt) || ft_strchr("C1E", nxt))
+	if (ft_strchr("C1E", vars->matrix[y][x]))
+	{
+		if (code == 1)
+			obj->dir = 's';
 		return (obj->x / obj->wth);
+	}
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y1);
+	x_up = ft_ternary(((obj->x - SPEED) % obj->hgt) == 0, x, x + 1);
+	obj->mask_x1 = x_up * obj->wth;
 	return ((obj->x -= SPEED) / obj->wth);
 }
 
@@ -37,19 +45,20 @@ static int	ft_move_down(t_data *vars, struct s_img *obj, int code)
 	int 	y;
 	int 	y_up;
 	int 	x;
-	int 	x_up;
-	char	crt;
-	char	nxt;
 
 	y = (obj->y + SPEED) / obj->hgt;
 	y_up = ft_ternary(((obj->y + SPEED) % obj->hgt) == 0, y, y + 1);
 	x = obj->x / obj->wth;
-	x_up = ft_ternary((obj->x % obj->wth) == 0, x, x + 1);
-	crt = vars->matrix[y_up][x];
-	nxt = vars->matrix[y_up][x_up];
-	if (ft_strchr("C1E", crt) || ft_strchr("C1E", nxt))
+	if (ft_strchr("C1E", vars->matrix[y_up][x]))
+	{
+		if (code ==  1)
+			obj->dir = 'd';
 		return (obj->y / obj->hgt);
-	return ((obj->y += SPEED) / obj->hgt);
+	}
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y1);
+	obj->y += SPEED;
+	obj->mask_y1 = obj->y / obj->hgt * obj->hgt;
+	return (y);
 }
 
 static int	ft_move_right(t_data *vars, struct s_img *obj, int code)
