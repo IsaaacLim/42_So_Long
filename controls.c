@@ -58,20 +58,31 @@ void	ft_cover_trails(t_data *vars, struct s_img *obj)
 /*
 ** Contact Collectible (slight touch)
 ** 	if [y][x] == 'C'
-	if [y][x_up]
-	if [x_up][y]
-	if [y_up][x_up]
-
+**	if [y][x_up]
+**	if [y_up][x]
+**	if [y_up][x_up]
 */
+
+void	ft_contact_collectible(t_data *vars, int y, int x)
+{
+	if (vars->matrix[y][x] == 'C')
+		vars->matrix[y][x] = '0';
+	else if (vars->matrix[y][vars->pc.x_up] == 'C')
+		vars->matrix[y][vars->pc.x_up] = '0';
+	else if (vars->matrix[vars->pc.y_up][x] == 'C')
+		vars->matrix[vars->pc.y_up][x] = '0';
+	else if (vars->matrix[vars->pc.y_up][vars->pc.x_up] == 'C')
+		vars->matrix[vars->pc.y_up][vars->pc.x_up] = '0';
+	else
+		return ;
+	vars->items--;
+}
 void	ft_data_log(t_data *vars, int y, int x)
 {
 	ft_printf(" Move Count: %d Items: %d", vars->pc.count, vars->items);
 	ft_printf(" x:%d y:%d pc.x:%d pc.y:%d\n", x, y, vars->pc.x, vars->pc.y);
-	if (vars->matrix[y][x] == 'C')
-	{	
-		vars->items--;
-		vars->matrix[y][x] = '0';
-	}
+
+	ft_contact_collectible(vars, y, x);
 	if (vars->matrix[y][x] == 'E' && vars->items == 0)
 	{
 		ft_printf("EXITED IN -%d- steps\n", vars->pc.count);
@@ -97,9 +108,9 @@ int		ft_wasd(int keycode, t_data *vars)
 		y = ft_movement(keycode, vars, &vars->pc);
 	if ((keycode == 97 || keycode == 100) && !vars->ended) // a / d
 		x = ft_movement(keycode, vars, &vars->pc);
+	ft_data_log(vars, y, x);
 	ft_cover_trails(vars, &vars->pc);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x, vars->pc.y);
-	ft_data_log(vars, y, x);
 	return (0);
 }
 
