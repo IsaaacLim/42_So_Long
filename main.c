@@ -27,10 +27,14 @@ void	ft_en_move(t_data *vars, struct s_en *en)
 
 int	ft_en_loop(t_data *vars)
 {
-	ft_en_move(vars, &vars->en1);
-	ft_en_move(vars, &vars->en2);
-	ft_en_move(vars, &vars->en3);
-	ft_en_move(vars, &vars->en4);
+	if (vars->en1.rank)
+		ft_en_move(vars, &vars->en1);
+	if (vars->en2.rank)
+		ft_en_move(vars, &vars->en2);
+	if (vars->en3.rank)
+		ft_en_move(vars, &vars->en3);
+	if (vars->en4.rank)
+		ft_en_move(vars, &vars->en4);
 }
 
 void	ft_init_pc(t_data *vars) //change to accept struct s_pc
