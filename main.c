@@ -37,7 +37,7 @@ int	ft_en_loop(t_data *vars)
 		ft_en_move(vars, &vars->en4);
 }
 
-void	ft_init_pc(t_data *vars, struct s_pc *obj) //change to accept struct s_pc
+void	ft_init_pc(t_data *vars, struct s_pc *obj)
 {
 	int y;
 	int x;
@@ -53,6 +53,8 @@ void	ft_init_pc(t_data *vars, struct s_pc *obj) //change to accept struct s_pc
 	obj->m_y1 = y * vars->bg.hgt;
 	obj->m_y2 = ft_ternary(vars->matrix[y + 1][x] != '1', 
 		(y + 1) * vars->bg.hgt, obj->m_y1);
+	obj->x *= vars->pc_0.wth;
+	obj->y *= vars->pc_0.hgt;
 }
 
 void	ft_en_clone(t_data *vars, struct s_en *en, int y, int x, char c)

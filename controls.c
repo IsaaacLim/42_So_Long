@@ -8,49 +8,61 @@ int	ft_ternary(int yes, int i, int j)
 		return (j);
 }
 
+/*
+** Contact Exit - Mask Exit Image
+**	Conditions are for light contact 
+*/
+void	ft_contact_exit(t_data *vars, struct s_pc *obj)
+{
+	int y;
+	int x;
+	static int m_x_up;
+	static int m_y_up;
+	int m_y;
+	int m_x;
 
+	y = obj->m_y1 / 32;
+	x = obj->m_x1 / 32;
+	m_x = m_x_up * 32;
+	m_y = m_y_up * 32;
+	ft_printf("x   :%d, y   :%d\nm_x1:%d, m_y2:%d\n", x, y, obj->m_x1/32, obj->m_y1/32);
+	if (vars->matrix[y][x] == 'E')
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->m_x1, obj->m_y1);
+	else if (vars->matrix[y][m_x_up] == 'E')
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, m_x, obj->m_y1); // Prev Top right
+	else if (vars->matrix[m_y_up][x] == 'E')
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->m_x1, m_y); // Prev Bottom left
+	else if (vars->matrix[m_y_up][m_x_up] == 'E')
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, m_x, m_y); // Prev Bottom right
+
+	m_x_up = obj->x_up;
+	m_y_up = obj->y_up;
+}
+
+/*
+** m_x2 - 2nd quadrant: 
+**  if pc didn't enter next left zone, only cover it's x_quadrant
+** m_y2 - 3rd quadrant:
+**	if pc didn't enter next top zone, only cover it's y_quadrant
+*/
 void	ft_cover_trails(t_data *vars, struct s_pc *obj)
 {
 	int mtx_y;
 	int mtx_x;
 
-	mtx_y = obj->m_y1 / vars->pc_0.hgt;
-	mtx_x = obj->m_x1 / vars->pc_0.wth;
-	if (vars->matrix[mtx_y][mtx_x] != 'E')//if top left door
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x1, obj->m_y1); // Prev Top left
-	else
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->m_x1, obj->m_y1);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x1, obj->m_y1); // Prev Top left
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x2, obj->m_y1); // Prev Top right
-	if (vars->matrix[obj->m_y2 / vars->pc_0.hgt][mtx_x] != 'E') //if bottom left door
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x1, obj->m_y2); // Prev Bottom left
-	else
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->m_x1, obj->m_y2);
-	if (obj->m_bot_right)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x2, obj->m_y2); // Prev Bottom right
-	
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x1, obj->m_y2); // Prev Bottom left
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x2, obj->m_y2); // Prev Bottom right
+	ft_contact_exit(vars, obj);
 	mtx_x = obj->x / vars->pc_0.wth;
 	mtx_y = obj->y / vars->pc_0.hgt;
-	obj->m_bot_right = true;
-	// if (vars->matrix[mtx_y][mtx_x] != 'E')
 	obj->m_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
-	/*
-	** for left movement, if new x_coord rounded down + 1 != wall, cover up right side
-	*/
-	if (ft_strchr("C1E", vars->matrix[mtx_y][mtx_x + 1]))
-		obj->m_x2 = obj->m_x1;
-	else
-		obj->m_x2 = (mtx_x + 1) * vars->bg.wth;
-	
+	obj->m_x2 = ft_ternary((obj->x % vars->pc_0.wth == 0), mtx_x, mtx_x + 1);
+	obj->m_x2 *=  vars->bg.wth;
 	obj->m_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
-	/*
-	** for up movement, if new y_coord rounded down + 1 != wall, cover up bottom
-	*/
-	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x]))
-		obj->m_y2 = obj->m_y1;
-	else
-		obj->m_y2 = (mtx_y + 1) * vars->bg.hgt;
-	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x + 1])) // for Bottom right masking
-		obj->m_bot_right = false;
+	obj->m_y2 = ft_ternary((obj->y % vars->pc_0.hgt == 0), mtx_y, mtx_y + 1);
+	obj->m_y2 *= vars->bg.hgt;
 }
 
 /*
@@ -97,8 +109,8 @@ void	ft_data_log(t_data *vars, int y, int x)
 {
 	bool gameover;
 
-	ft_printf(" Move Count: %d Items: %d", vars->pc.count, vars->items);
-	ft_printf(" y:%d x:%d \npc.y:%d \tpc.x:%d\n", y, x, vars->pc.y, vars->pc.x);
+	// ft_printf(" Move Count: %d Items: %d", vars->pc.count, vars->items);
+	// ft_printf(" y:%d x:%d \npc.y:%d \tpc.x:%d\n", y, x, vars->pc.y, vars->pc.x);
 	ft_contact_collectible(vars, y, x);
 	// gameover = ft_contact_enemy(vars, vars->pc, vars->en);
 	// if (gameover)
@@ -124,7 +136,7 @@ int		ft_wasd(int keycode, t_data *vars)
 
 	x = vars->pc.x / vars->pc_0.wth;
 	y = vars->pc.y / vars->pc_0.hgt;
-	ft_printf("%d(%c)", keycode, keycode);
+	// ft_printf("%d(%c)", keycode, keycode);
 	if (keycode == 65307)
 		ft_close_window(vars);
 	if ((keycode == 119 || keycode == 115) && !vars->ended) // w / s
@@ -158,8 +170,6 @@ int		ft_redcross(int keycode, t_data *vars)
 
 int		ft_control(t_data *vars)
 {
-	vars->pc.x *= vars->pc_0.wth;
-	vars->pc.y *= vars->pc_0.hgt;
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc_0.ptr, vars->pc.x , vars->pc.y);
 	mlx_hook(vars->win, 2, 1L<<0, ft_wasd, vars); //similar to mlx_key_hook(vars->win, ft_wasd, vars) but now can hold;
 	mlx_hook(vars->win, 17, 1L<<2, ft_redcross, vars);

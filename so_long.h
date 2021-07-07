@@ -18,10 +18,9 @@ struct	s_img
 
 /*
 ** STRUCT FOR PLAYER CHARACTER
-** | x, y		| Current position
-** | x_up, y_up	| Current position (rounded up)
+** | x, y		| Current position (multiplied by image size)
+** | x_up, y_up	| Current position (rounded up matrix value)
 ** | m_*		| Previous position of 4 quarters used for masking
-** | m_bot_right| Checks if 4th quarter has object
 ** | count		| Movement count, also used for alternating between images
 */
 struct s_pc
@@ -34,7 +33,6 @@ struct s_pc
 	int		m_y1;
 	int		m_x2;
 	int		m_y2;
-	bool	m_bot_right;
 	int		count;
 };
 
