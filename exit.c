@@ -16,6 +16,7 @@ void	ft_close_window(t_data *vars)
 	ft_free_matrix(vars->matrix, vars->map_hgt);
 	mlx_destroy_image(vars->mlx, vars->en_0.ptr);
 	mlx_destroy_image(vars->mlx, vars->pc_0.ptr);
+	mlx_destroy_image(vars->mlx, vars->pc_r1.ptr);
 	mlx_destroy_image(vars->mlx, vars->bg.ptr);
 	mlx_destroy_image(vars->mlx, vars->wl.ptr);
 	mlx_destroy_image(vars->mlx, vars->ext.ptr);

@@ -11,8 +11,8 @@
 #  define NUM_OF_ENEMIES 10
 # endif
 
-# ifndef EN_NUM
-#  define EN_NUM 15
+# ifndef ENEMY_POSITION
+#  define ENEMY_POSITION 15
 # endif
 
 # define SPEED 8
@@ -86,6 +86,7 @@ typedef struct s_data
 	struct s_img	ext;
 	struct s_img	clt;
 	struct s_img	pc_0;
+	struct s_img	pc_r1;
 	struct s_img	en_0;
 	struct s_pc		pc;
 	struct s_en		en1;
@@ -131,9 +132,8 @@ TO DO:
 	if count / 10 % 10 = x && if count < 10 print 0
 	if count / 100 % 10 && if count < 100 print 0
 	if count / 100 = x && if count < 1000 print 0
-2. Add -D ENEMY_NUMBER & -D POSITION_NUMBER
-	- Substitude variables in file to accept
 3. Add make file to accept -D
 4. Make file print message to inform how to specify
-5. Simplify ft_init_enemy to take in 10 enemies
+6. initiate blank enemy variables
+7. check input file that ends with .ber
 */

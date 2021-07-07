@@ -127,7 +127,6 @@ void	ft_init_enemy(t_data *vars, int y, int x)
 		ft_en_clone(vars, &vars->en9, y, x, count);
 	else if (count == 10)
 		ft_en_clone(vars, &vars->en10, y, x, count);
-	ft_printf("Enemy: %d\n", count);
 }
 
 void	ft_background(t_data *vars)
@@ -150,7 +149,7 @@ void	ft_background(t_data *vars)
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->clt.ptr, x * vars->clt.wth, y * vars->clt.hgt);
 			else if (vars->matrix[y][x] == 'E')
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, x * vars->ext.wth, y * vars->ext.hgt);
-			else if (vars->matrix[y][x] == '0' && e % EN_NUM == 0)
+			else if (vars->matrix[y][x] == '0' && e % ENEMY_POSITION == 0)
 				ft_init_enemy(vars, y, x);
 			e++;
 		}
@@ -161,6 +160,7 @@ void	ft_xpm_file_to_image(t_data *vars)
 {
 	char	*bg = "images/grass_tile.xpm";
 	char	*pc_0 = "images/yoshi_f1.xpm";
+	char	*pc_r1 = "images/yoshi_r1.xpm";
 	char	*en_0 = "images/levi.xpm";
 	char	*wl = "images/rock.xpm";
 	char	*ext = "images/dome.xpm";
@@ -168,6 +168,7 @@ void	ft_xpm_file_to_image(t_data *vars)
 
 	vars->bg.ptr = mlx_xpm_file_to_image(vars->mlx, bg, &vars->bg.wth, &vars->bg.hgt);
 	vars->pc_0.ptr = mlx_xpm_file_to_image(vars->mlx, pc_0, &vars->pc_0.wth, &vars->pc_0.hgt);
+	vars->pc_r1.ptr = mlx_xpm_file_to_image(vars->mlx, pc_r1, &vars->pc_r1.wth, &vars->pc_r1.hgt);
 	vars->en_0.ptr = mlx_xpm_file_to_image(vars->mlx, en_0, &vars->en_0.wth, &vars->en_0.hgt);
 	vars->wl.ptr = mlx_xpm_file_to_image(vars->mlx, wl, &vars->wl.wth, &vars->wl.hgt);
 	vars->ext.ptr = mlx_xpm_file_to_image(vars->mlx, ext, &vars->ext.wth, &vars->ext.hgt);
@@ -193,11 +194,10 @@ int main(int argc, char **argv)
 	vars.win = mlx_new_window(vars.mlx, vars.win_wth, vars.win_hgt, "So_Long!");
 	vars.img = mlx_new_image(vars.mlx, vars.win_wth, vars.win_hgt);
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
+	vars.ended = false;
 	ft_background(&vars);
 	ft_init_pc(&vars, &vars.pc);
 	mlx_loop_hook(vars.mlx, ft_en_loop, &vars);
 	ft_control(&vars);
-	if (vars.ended)
-		ft_printf("GAME OVER\n");
 	mlx_loop(vars.mlx);
 }

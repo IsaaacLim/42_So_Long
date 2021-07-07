@@ -129,6 +129,12 @@ void	ft_data_log(t_data *vars, int y, int x)
 	}
 
 }
+
+// void 	ft_put_sprites(t_data *vars, struct s_pc *pc)
+// {
+// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc_0.ptr, vars->pc.x, vars->pc.y);
+// }
+
 /*
 ** Hooking intercepts functions calls, messages ot events
 ** keycode follows ASCII [prtinf("%d", keycode) for more]
@@ -147,9 +153,13 @@ int		ft_wasd(int keycode, t_data *vars)
 		y = ft_movement_pc(keycode, vars, &vars->pc);
 	if ((keycode == 97 || keycode == 100) && !vars->ended) // a / d
 		x = ft_movement_pc(keycode, vars, &vars->pc);
+	else if(vars->ended)
+		ft_printf("GAME OVER!!!\n");
 	ft_data_log(vars, y, x);
 	ft_cover_trails(vars, &vars->pc);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc_0.ptr, vars->pc.x, vars->pc.y);
+
+	// ft_put_sprites(vars, &vars->pc);
 	return (0);
 }
 
