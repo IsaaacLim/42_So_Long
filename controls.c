@@ -72,17 +72,17 @@ void	ft_contact_collectible(t_data *vars, int y, int x)
 	vars->items--;
 }
 
-bool	ft_contact_enemy(t_data *vars, struct s_pc pc, struct s_img en)
+bool	ft_contact_enemy(t_data *vars, struct s_pc pc, struct s_en en)
 {
 	bool a;
 	bool b;
 	bool c;
 	bool d;
 
-	a = ((pc.x > en.x) && (pc.x < (en.x + vars->en.wth)));
-	b = (((pc.x + vars->pc_0.wth) > en.x) && ((pc.x + vars->pc_0.wth) < (en.x + vars->en.wth)));
-	c = ((pc.y > en.y) && (pc.y < (en.y + vars->en.hgt)));
-	d = (((pc.y + vars->pc_0.hgt) > en.y) && (pc.y + vars->pc_0.hgt < (en.y + vars->en.hgt)));
+	a = ((pc.x > en.x) && (pc.x < (en.x + vars->en_0.wth)));
+	b = (((pc.x + vars->pc_0.wth) > en.x) && ((pc.x + vars->pc_0.wth) < (en.x + vars->en_0.wth)));
+	c = ((pc.y > en.y) && (pc.y < (en.y + vars->en_0.hgt)));
+	d = (((pc.y + vars->pc_0.hgt) > en.y) && (pc.y + vars->pc_0.hgt < (en.y + vars->en_0.hgt)));
 	if ((a || b) && (c || d))
 		return (true);
 	else if ((a || b) && pc.y == en.y)

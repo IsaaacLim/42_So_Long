@@ -11,11 +11,11 @@
 
 #include "so_long.h"
 
-void	ft_en_move(t_data *vars, struct s_img *en)
+void	ft_en_move(t_data *vars, struct s_en *en)
 {
 	bool gameover;
 
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, en->x, en->y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->en_0.ptr, en->x, en->y);
 	en->counter += 1;
 	if (en->counter % en->speed == 0 && !vars->ended)
 		ft_movement_en(vars, en);
@@ -51,10 +51,10 @@ void	ft_init_pc(t_data *vars) //change to accept struct s_pc
 		(y + 1) * vars->bg.hgt, vars->pc.m_y1);
 }
 
-void	ft_en_clone(t_data *vars, struct s_img *en, int y, int x, char c)
+void	ft_en_clone(t_data *vars, struct s_en *en, int y, int x, char c)
 {
-	en->y = y * vars->en.hgt;
-	en->x = x * vars->en.wth;
+	en->y = y * vars->en_0.hgt;
+	en->x = x * vars->en_0.wth;
 	en->mask_y1 = y * vars->bg.hgt;
 	en->mask_x1 = x * vars->bg.wth;
 	en->dir = c;
@@ -114,7 +114,6 @@ void	ft_background(t_data *vars)
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, x * vars->ext.wth, y * vars->ext.hgt);
 			else if (e % 50 == 0)
 				ft_init_enemy(vars, y, x);
-				// mlx_put_image_to_window(vars->mlx, vars->win, vars->en.ptr, x * vars->en.wth, y * vars->en.hgt);
 			e++;
 		}
 	}
@@ -124,14 +123,14 @@ void	ft_xpm_file_to_image(t_data *vars)
 {
 	char	*bg = "images/grass_tile.xpm";
 	char	*pc_0 = "images/yoshi_f1.xpm";
-	char	*en = "images/levi.xpm";
+	char	*en_0 = "images/levi.xpm";
 	char	*wl = "images/rock.xpm";
 	char	*ext = "images/dome.xpm";
 	char	*clt = "images/flower.xpm";
 
 	vars->bg.ptr = mlx_xpm_file_to_image(vars->mlx, bg, &vars->bg.wth, &vars->bg.hgt);
 	vars->pc_0.ptr = mlx_xpm_file_to_image(vars->mlx, pc_0, &vars->pc_0.wth, &vars->pc_0.hgt);
-	vars->en.ptr = mlx_xpm_file_to_image(vars->mlx, en, &vars->en.wth, &vars->en.hgt);
+	vars->en_0.ptr = mlx_xpm_file_to_image(vars->mlx, en_0, &vars->en_0.wth, &vars->en_0.hgt);
 	vars->wl.ptr = mlx_xpm_file_to_image(vars->mlx, wl, &vars->wl.wth, &vars->wl.hgt);
 	vars->ext.ptr = mlx_xpm_file_to_image(vars->mlx, ext, &vars->ext.wth, &vars->ext.hgt);
 	vars->clt.ptr = mlx_xpm_file_to_image(vars->mlx, clt, &vars->clt.wth, &vars->clt.hgt);
