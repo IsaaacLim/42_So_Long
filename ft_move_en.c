@@ -10,15 +10,14 @@ static int	ft_move_up(t_data *vars, struct s_en *en)
 	int		y;
 	int 	y_up;
 	int 	x;
+	char	*dir;
 
+	dir = "adsd";
 	y = (en->y - SPEED) / vars->en_0.hgt;
 	x = en->x / vars->en_0.wth;
 	if (ft_strchr("C1E", vars->matrix[y][x]))
 	{
-		if (en->rank % 2 == 0)
-			en->dir = 'a';
-		else
-			en->dir = 'd';
+		en->dir = dir[en->rank % 4];
 		return (en->y / vars->en_0.hgt);
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->m_x1, en->m_y1);
@@ -32,15 +31,14 @@ static int	ft_move_left(t_data *vars, struct s_en *en)
 	int 	y;
 	int 	x;
 	int 	x_up;
-	
+	char	*dir;
+
+	dir = "swds";
 	y = en->y / vars->en_0.hgt;
 	x = (en->x - SPEED) / vars->en_0.wth;
 	if (ft_strchr("C1E", vars->matrix[y][x]))
 	{
-		if (en->rank % 2 == 0)
-			en->dir = 's';
-		else
-			en->dir = 'w';
+		en->dir = dir[en->rank % 4];
 		return (en->x / vars->en_0.wth);
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->m_x1, en->m_y1);
@@ -54,16 +52,15 @@ static int	ft_move_down(t_data *vars, struct s_en *en)
 	int 	y;
 	int 	y_up;
 	int 	x;
+	char	*dir;
 
+	dir = "daaw";
 	y = (en->y + SPEED) / vars->en_0.hgt;
 	y_up = ft_ternary(((en->y + SPEED) % vars->en_0.hgt) == 0, y, y + 1);
 	x = en->x / vars->en_0.wth;
 	if (ft_strchr("C1E", vars->matrix[y_up][x]))
 	{
-		if (en->rank % 2 == 0)
-			en->dir = 'd';
-		else
-			en->dir = 'a';
+		en->dir = dir[en->rank % 4];
 		return (en->y / vars->en_0.hgt);
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->m_x1, en->m_y1);
@@ -77,16 +74,15 @@ static int	ft_move_right(t_data *vars, struct s_en *en)
 	int		y;
 	int		x;
 	int		x_up;
-
+	char	*dir;
+	
+	dir = "wswa";
 	y = en->y / vars->en_0.hgt;
 	x = (en->x + SPEED) / vars->en_0.wth;
 	x_up = ft_ternary(((en->x + SPEED) % vars->en_0.wth) == 0, x, x + 1);
 	if (ft_strchr("C1E", vars->matrix[y][x_up]))
 	{	
-		if (en->rank % 2 == 0)
-			en->dir = 'w';
-		else
-			en->dir = 's';
+		en->dir = dir[en->rank % 4];
 		return (en->x / vars->en_0.wth);
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->m_x1, en->m_y1);

@@ -40,10 +40,14 @@ void	ft_contact_exit(t_data *vars, struct s_pc *obj)
 }
 
 /*
+** m_x1 - 1st quadrant:
+**	it's rounded down x coord
 ** m_x2 - 2nd quadrant: 
-**  if pc didn't enter next left zone, only cover it's x_quadrant
+**  if pc didn't enter next left zone, no Q2, only cover Q1 and/or Q3
+** m_y1 - 
+** 	it's rounded down y coord
 ** m_y2 - 3rd quadrant:
-**	if pc didn't enter next top zone, only cover it's y_quadrant
+**	if pc didn't enter next top zone, no Q3, only cover Q1 and/or Q2
 */
 void	ft_cover_trails(t_data *vars, struct s_pc *obj)
 {

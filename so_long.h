@@ -109,5 +109,17 @@ void	my_mlx_pixel_put(t_data *vars, int x, int y, int color);
 
 #endif
 
-
-
+/*
+TO DO:
+1. Add window counter
+	Set 4 images to print
+	if count % 10 = x -> number
+	if count / 10 % 10 = x && if count < 10 print 0
+	if count / 100 % 10 && if count < 100 print 0
+	if count / 100 = x && if count < 1000 print 0
+2. Add -D ENEMY_NUMBER & -D POSITION_NUMBER
+	- Substitude variables in file to accept
+3. Add make file to accept -D
+4. Make file print message to inform how to specify
+5. Simplify ft_init_enemy to take in 10 enemies
+*/

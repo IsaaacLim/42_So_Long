@@ -57,13 +57,16 @@ void	ft_init_pc(t_data *vars, struct s_pc *obj)
 	obj->y *= vars->pc_0.hgt;
 }
 
-void	ft_en_clone(t_data *vars, struct s_en *en, int y, int x, char c)
+void	ft_en_clone(t_data *vars, struct s_en *en, int y, int x)
 {
+	char *dir;
+
+	dir = "wsad";
 	en->y = y * vars->en_0.hgt;
 	en->x = x * vars->en_0.wth;
 	en->m_y1 = y * vars->bg.hgt;
 	en->m_x1 = x * vars->bg.wth;
-	en->dir = c;
+	en->dir = dir[en->rank % 3];
 	en->counter = 1;
 }
 
@@ -74,25 +77,25 @@ void	ft_init_enemy(t_data *vars, int y, int x)
 	count++;
 	if (count == 1)
 	{
-		ft_en_clone(vars, &vars->en1, y, x, 'd');
+		ft_en_clone(vars, &vars->en1, y, x);
 		vars->en1.rank = count;
 		vars->en1.speed = 661;
 	}
 	if (count == 2)
 	{
-		ft_en_clone(vars, &vars->en2, y, x, 'd');
+		ft_en_clone(vars, &vars->en2, y, x);
 		vars->en2.rank = count;
 		vars->en2.speed = 283;
 	}
 	if (count == 3)
 	{
-		ft_en_clone(vars, &vars->en3, y, x, 'd');
+		ft_en_clone(vars, &vars->en3, y, x);
 		vars->en3.rank = count;
 		vars->en3.speed = 199;
 	}
 	if (count == 4)
 	{
-		ft_en_clone(vars, &vars->en4, y, x, 'd');
+		ft_en_clone(vars, &vars->en4, y, x);
 		vars->en4.rank = count;
 		vars->en4.speed = 97;
 	}
