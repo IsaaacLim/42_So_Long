@@ -9,48 +9,48 @@ int	ft_ternary(int yes, int i, int j)
 }
 
 
-void	ft_cover_trails(t_data *vars, struct s_img *obj)
+void	ft_cover_trails(t_data *vars, struct s_pc *obj)
 {
 	int mtx_y;
 	int mtx_x;
 
-	mtx_y = obj->mask_y1 / obj->hgt;
-	mtx_x = obj->mask_x1 / obj->wth;
+	mtx_y = obj->m_y1 / vars->pc_r1.hgt;
+	mtx_x = obj->m_x1 / vars->pc_r1.wth;
 	if (vars->matrix[mtx_y][mtx_x] != 'E')//if top left door
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y1); // Prev Top left
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x1, obj->m_y1); // Prev Top left
 	else
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->mask_x1, obj->mask_y1);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x2, obj->mask_y1); // Prev Top right
-	if (vars->matrix[obj->mask_y2 / obj->hgt][mtx_x] != 'E') //if bottom left door
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x1, obj->mask_y2); // Prev Bottom left
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->m_x1, obj->m_y1);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x2, obj->m_y1); // Prev Top right
+	if (vars->matrix[obj->m_y2 / vars->pc_r1.hgt][mtx_x] != 'E') //if bottom left door
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x1, obj->m_y2); // Prev Bottom left
 	else
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->mask_x1, obj->mask_y2);
-	if (obj->mask_bot_right)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->mask_x2, obj->mask_y2); // Prev Bottom right
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, obj->m_x1, obj->m_y2);
+	if (obj->m_bot_right)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, obj->m_x2, obj->m_y2); // Prev Bottom right
 	
-	mtx_x = obj->x / obj->wth;
-	mtx_y = obj->y / obj->hgt;
-	obj->mask_bot_right = true;
+	mtx_x = obj->x / vars->pc_r1.wth;
+	mtx_y = obj->y / vars->pc_r1.hgt;
+	obj->m_bot_right = true;
 	// if (vars->matrix[mtx_y][mtx_x] != 'E')
-	obj->mask_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
+	obj->m_x1 = mtx_x * vars->bg.wth; // New x_coord rounded down (for right movement)
 	/*
 	** for left movement, if new x_coord rounded down + 1 != wall, cover up right side
 	*/
 	if (ft_strchr("C1E", vars->matrix[mtx_y][mtx_x + 1]))
-		obj->mask_x2 = obj->mask_x1;
+		obj->m_x2 = obj->m_x1;
 	else
-		obj->mask_x2 = (mtx_x + 1) * vars->bg.wth;
+		obj->m_x2 = (mtx_x + 1) * vars->bg.wth;
 	
-	obj->mask_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
+	obj->m_y1 = mtx_y * vars->bg.hgt; // New y_coord rounded down (for down movement)
 	/*
 	** for up movement, if new y_coord rounded down + 1 != wall, cover up bottom
 	*/
 	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x]))
-		obj->mask_y2 = obj->mask_y1;
+		obj->m_y2 = obj->m_y1;
 	else
-		obj->mask_y2 = (mtx_y + 1) * vars->bg.hgt;
+		obj->m_y2 = (mtx_y + 1) * vars->bg.hgt;
 	if (ft_strchr("C1E", vars->matrix[mtx_y + 1][mtx_x + 1])) // for Bottom right masking
-		obj->mask_bot_right = false;
+		obj->m_bot_right = false;
 }
 
 /*
@@ -72,7 +72,7 @@ void	ft_contact_collectible(t_data *vars, int y, int x)
 	vars->items--;
 }
 
-bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en)
+bool	ft_contact_enemy(t_data *vars, struct s_pc pc, struct s_img en)
 {
 	bool a;
 	bool b;
@@ -80,9 +80,9 @@ bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en)
 	bool d;
 
 	a = ((pc.x > en.x) && (pc.x < (en.x + vars->en.wth)));
-	b = (((pc.x + pc.wth) > en.x) && ((pc.x + pc.wth) < (en.x + vars->en.wth)));
+	b = (((pc.x + vars->pc_r1.wth) > en.x) && ((pc.x + vars->pc_r1.wth) < (en.x + vars->en.wth)));
 	c = ((pc.y > en.y) && (pc.y < (en.y + vars->en.hgt)));
-	d = (((pc.y + pc.hgt) > en.y) && (pc.y + pc.hgt < (en.y + vars->en.hgt)));
+	d = (((pc.y + vars->pc_r1.hgt) > en.y) && (pc.y + vars->pc_r1.hgt < (en.y + vars->en.hgt)));
 	if ((a || b) && (c || d))
 		return (true);
 	else if ((a || b) && pc.y == en.y)
@@ -122,8 +122,8 @@ int		ft_wasd(int keycode, t_data *vars)
 	int x;
 	int y; //maybe remove?
 
-	x = vars->pc.x / vars->pc.wth;
-	y = vars->pc.y / vars->pc.hgt;
+	x = vars->pc.x / vars->pc_r1.wth;
+	y = vars->pc.y / vars->pc_r1.hgt;
 	ft_printf("%d(%c)", keycode, keycode);
 	if (keycode == 65307)
 		ft_close_window(vars);
@@ -133,7 +133,7 @@ int		ft_wasd(int keycode, t_data *vars)
 		x = ft_movement_pc(keycode, vars, &vars->pc);
 	ft_data_log(vars, y, x);
 	ft_cover_trails(vars, &vars->pc);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x, vars->pc.y);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc_r1.ptr, vars->pc.x, vars->pc.y);
 	return (0);
 }
 
@@ -158,9 +158,9 @@ int		ft_redcross(int keycode, t_data *vars)
 
 int		ft_control(t_data *vars)
 {
-	vars->pc.x *= vars->pc.wth;
-	vars->pc.y *= vars->pc.hgt;
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc.ptr, vars->pc.x , vars->pc.y);
+	vars->pc.x *= vars->pc_r1.wth;
+	vars->pc.y *= vars->pc_r1.hgt;
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->pc_r1.ptr, vars->pc.x , vars->pc.y);
 	mlx_hook(vars->win, 2, 1L<<0, ft_wasd, vars); //similar to mlx_key_hook(vars->win, ft_wasd, vars) but now can hold;
 	mlx_hook(vars->win, 17, 1L<<2, ft_redcross, vars);
 	//mlx_mouse_hook(vars->win, ft_mouse, vars);

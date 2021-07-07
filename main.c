@@ -33,7 +33,7 @@ int	ft_en_loop(t_data *vars)
 	ft_en_move(vars, &vars->en4);
 }
 
-void	ft_init_pc(t_data *vars)
+void	ft_init_pc(t_data *vars) //change to accept struct s_pc
 {
 	int y;
 	int x;
@@ -43,12 +43,12 @@ void	ft_init_pc(t_data *vars)
 	vars->pc.count = 0;
 	vars->pc.x_up = x;
 	vars->pc.y_up = y;
-	vars->pc.mask_x1 = x * vars->bg.wth;
-	vars->pc.mask_x2 = ft_ternary(vars->matrix[y][x + 1] != '1', 
-		(x + 1) * vars->bg.wth, vars->pc.mask_x1);
-	vars->pc.mask_y1 = y * vars->bg.hgt;
-	vars->pc.mask_y2 = ft_ternary(vars->matrix[y + 1][x] != '1', 
-		(y + 1) * vars->bg.hgt, vars->pc.mask_y1);
+	vars->pc.m_x1 = x * vars->bg.wth;
+	vars->pc.m_x2 = ft_ternary(vars->matrix[y][x + 1] != '1', 
+		(x + 1) * vars->bg.wth, vars->pc.m_x1);
+	vars->pc.m_y1 = y * vars->bg.hgt;
+	vars->pc.m_y2 = ft_ternary(vars->matrix[y + 1][x] != '1', 
+		(y + 1) * vars->bg.hgt, vars->pc.m_y1);
 }
 
 void	ft_en_clone(t_data *vars, struct s_img *en, int y, int x, char c)
@@ -123,14 +123,14 @@ void	ft_background(t_data *vars)
 void	ft_xpm_file_to_image(t_data *vars)
 {
 	char	*bg = "images/grass_tile.xpm";
-	char	*pc = "images/player.xpm";
+	char	*pc_r1 = "images/yoshi_f1.xpm";
 	char	*en = "images/levi.xpm";
 	char	*wl = "images/rock.xpm";
 	char	*ext = "images/dome.xpm";
 	char	*clt = "images/flower.xpm";
 
 	vars->bg.ptr = mlx_xpm_file_to_image(vars->mlx, bg, &vars->bg.wth, &vars->bg.hgt);
-	vars->pc.ptr = mlx_xpm_file_to_image(vars->mlx, pc, &vars->pc.wth, &vars->pc.hgt);
+	vars->pc_r1.ptr = mlx_xpm_file_to_image(vars->mlx, pc_r1, &vars->pc_r1.wth, &vars->pc_r1.hgt);
 	vars->en.ptr = mlx_xpm_file_to_image(vars->mlx, en, &vars->en.wth, &vars->en.hgt);
 	vars->wl.ptr = mlx_xpm_file_to_image(vars->mlx, wl, &vars->wl.wth, &vars->wl.hgt);
 	vars->ext.ptr = mlx_xpm_file_to_image(vars->mlx, ext, &vars->ext.wth, &vars->ext.hgt);

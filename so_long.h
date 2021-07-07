@@ -11,28 +11,38 @@
 
 struct	s_img
 {
-	//both used
+	//img
 	void	*ptr;
 	int		wth;
 	int		hgt;
+
+	// Both
 	int		x;
 	int		y;
-
-	//not sure
-	int		x_up;
-	int		y_up;
 	int		mask_x1;
 	int		mask_y1;
-	int		mask_x2;
-	int		mask_y2;
-	bool	mask_bot_right;
-	int		count;
+
+	
 
 	//only en
 	char	dir; //en movement starting direction
 	int		rank; //en movement type
 	int		speed; //en movement speed
 	int		counter; // counter to execute a movement
+};
+
+struct s_pc
+{
+	int		x;
+	int		y;
+	int		x_up;
+	int		y_up;
+	int		m_x1;
+	int		m_y1;
+	int		m_x2;
+	int		m_y2;
+	bool	m_bot_right;
+	int		count;
 };
 
 typedef struct s_data
@@ -52,7 +62,8 @@ typedef struct s_data
 	int				items;
 	bool			ended;
 	struct s_img	bg;
-	struct s_img	pc;
+	struct s_pc		pc;
+	struct s_img	pc_r1;
 	struct s_img	en;
 	struct s_img	en1;
 	struct s_img	en2;
@@ -72,13 +83,13 @@ void	ft_background(t_data *vars);
 void	ft_close_window(t_data *vars);
 void	ft_error(char *code, int i, t_data *vars);
 int		ft_control(t_data *vars);
-void	ft_cover_trails(t_data *vars, struct s_img *chr);
+void	ft_cover_trails(t_data *vars, struct s_pc *obj);
 
 // Utils
 int		ft_ternary(int yes, int i, int j);
-int		ft_movement_pc(int keycode, t_data *vars, struct s_img *obj);
+int		ft_movement_pc(int keycode, t_data *vars, struct s_pc *obj);
 int		ft_movement_en(t_data *vars, struct s_img *obj);
-bool	ft_contact_enemy(t_data *vars, struct s_img pc, struct s_img en);
+bool	ft_contact_enemy(t_data *vars, struct s_pc pc, struct s_img en);
 
 //Other Functions
 void	draw_square(t_data *vars);
