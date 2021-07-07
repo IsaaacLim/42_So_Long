@@ -16,6 +16,14 @@ struct	s_img
 	int		hgt;
 };
 
+/*
+** STRUCT FOR PLAYER CHARACTER
+** | x, y		| Current position
+** | x_up, y_up	| Current position (rounded up)
+** | m_*		| Previous position of 4 quarters used for masking
+** | m_bot_right| Checks if 4th quarter has object
+** | count		| Movement count, also used for alternating between images
+*/
 struct s_pc
 {
 	int		x;
@@ -30,16 +38,25 @@ struct s_pc
 	int		count;
 };
 
+/*
+** STRUCT FOR ENEMY CHARACTER
+** | x, y		| Current position
+** | m_*		| Previous position if x/y axis used for masking
+** | dir		| Movement direction
+** | rank		| Variation for <dir>, also used to check if en_clone exist
+** | counter	| Timer to execute a movement
+** | speed		| Movement Speed
+*/
 struct s_en
 {
 	int		x;
 	int		y;
 	int		m_x1;
 	int		m_y1;
-	char	dir; //en movement starting direction
-	int		rank; //en movement type
-	int		speed; //en movement speed
-	int		counter; // counter to execute a movement	
+	char	dir;
+	int		rank;
+	int		counter;
+	int		speed;
 };
 
 typedef struct s_data
@@ -59,16 +76,16 @@ typedef struct s_data
 	int				items;
 	bool			ended;
 	struct s_img	bg;
-	struct s_pc		pc;
+	struct s_img	wl;
+	struct s_img	ext;
+	struct s_img	clt;
 	struct s_img	pc_0;
 	struct s_img	en_0;
+	struct s_pc		pc;
 	struct s_en		en1;
 	struct s_en		en2;
 	struct s_en		en3;
 	struct s_en		en4;
-	struct s_img	wl;
-	struct s_img	ext;
-	struct s_img	clt;
 }	t_data;
 
 //Read file -> Get map
