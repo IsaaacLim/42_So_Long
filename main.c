@@ -55,8 +55,8 @@ void	ft_en_clone(t_data *vars, struct s_en *en, int y, int x, char c)
 {
 	en->y = y * vars->en_0.hgt;
 	en->x = x * vars->en_0.wth;
-	en->mask_y1 = y * vars->bg.hgt;
-	en->mask_x1 = x * vars->bg.wth;
+	en->m_y1 = y * vars->bg.hgt;
+	en->m_x1 = x * vars->bg.wth;
 	en->dir = c;
 	en->counter = 1;
 }

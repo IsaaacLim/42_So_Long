@@ -11,24 +11,9 @@
 
 struct	s_img
 {
-	//img
 	void	*ptr;
 	int		wth;
 	int		hgt;
-
-	// // Both
-	// int		x;
-	// int		y;
-	// int		mask_x1;
-	// int		mask_y1;
-
-	
-
-	// //only en
-	// char	dir; //en movement starting direction
-	// int		rank; //en movement type
-	// int		speed; //en movement speed
-	// int		counter; // counter to execute a movement
 };
 
 struct s_pc
@@ -47,13 +32,10 @@ struct s_pc
 
 struct s_en
 {
-	// Both
 	int		x;
 	int		y;
-	int		mask_x1;
-	int		mask_y1;
-
-	//only en
+	int		m_x1;
+	int		m_y1;
 	char	dir; //en movement starting direction
 	int		rank; //en movement type
 	int		speed; //en movement speed

@@ -21,9 +21,9 @@ static int	ft_move_up(t_data *vars, struct s_en *en)
 			en->dir = 'd';
 		return (en->y / vars->en_0.hgt);
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->mask_x1, en->mask_y1);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->m_x1, en->m_y1);
 	y_up = ft_ternary(((en->y - SPEED) % vars->en_0.hgt) == 0, y, y + 1);
-	en->mask_y1 = y_up * vars->en_0.hgt;
+	en->m_y1 = y_up * vars->en_0.hgt;
 	return ((en->y -= SPEED) / vars->en_0.hgt);
 }
 
@@ -43,9 +43,9 @@ static int	ft_move_left(t_data *vars, struct s_en *en)
 			en->dir = 'w';
 		return (en->x / vars->en_0.wth);
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->mask_x1, en->mask_y1);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->m_x1, en->m_y1);
 	x_up = ft_ternary(((en->x - SPEED) % vars->en_0.hgt) == 0, x, x + 1);
-	en->mask_x1 = x_up * vars->en_0.wth;
+	en->m_x1 = x_up * vars->en_0.wth;
 	return ((en->x -= SPEED) / vars->en_0.wth);
 }
 
@@ -66,9 +66,9 @@ static int	ft_move_down(t_data *vars, struct s_en *en)
 			en->dir = 'a';
 		return (en->y / vars->en_0.hgt);
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->mask_x1, en->mask_y1);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->m_x1, en->m_y1);
 	en->y += SPEED;
-	en->mask_y1 = en->y / vars->en_0.hgt * vars->en_0.hgt;
+	en->m_y1 = en->y / vars->en_0.hgt * vars->en_0.hgt;
 	return (y);
 }
 
@@ -89,9 +89,9 @@ static int	ft_move_right(t_data *vars, struct s_en *en)
 			en->dir = 's';
 		return (en->x / vars->en_0.wth);
 	}
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->mask_x1, en->mask_y1);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg.ptr, en->m_x1, en->m_y1);
 	en->x += SPEED;
-	en->mask_x1 = en->x / vars->en_0.wth * vars->en_0.wth;
+	en->m_x1 = en->x / vars->en_0.wth * vars->en_0.wth;
 	return (x);
 }
 
