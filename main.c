@@ -27,14 +27,26 @@ void	ft_en_move(t_data *vars, struct s_en *en)
 
 int	ft_en_loop(t_data *vars)
 {
-	if (vars->en1.rank)
+	if (vars->en1.rank == 1)
 		ft_en_move(vars, &vars->en1);
-	if (vars->en2.rank)
+	if (vars->en2.rank == 2)
 		ft_en_move(vars, &vars->en2);
-	if (vars->en3.rank)
+	if (vars->en3.rank == 3)
 		ft_en_move(vars, &vars->en3);
-	if (vars->en4.rank)
+	if (vars->en4.rank == 4)
 		ft_en_move(vars, &vars->en4);
+	if (vars->en5.rank == 5)
+		ft_en_move(vars, &vars->en5);
+	if (vars->en6.rank == 6)
+		ft_en_move(vars, &vars->en6);
+	if (vars->en7.rank == 7)
+		ft_en_move(vars, &vars->en7);
+	if (vars->en8.rank == 8)
+		ft_en_move(vars, &vars->en8);
+	if (vars->en9.rank == 9)
+		ft_en_move(vars, &vars->en9);
+	if (vars->en10.rank == 10)
+		ft_en_move(vars, &vars->en10);
 }
 
 void	ft_init_pc(t_data *vars, struct s_pc *obj)
@@ -57,17 +69,35 @@ void	ft_init_pc(t_data *vars, struct s_pc *obj)
 	obj->y *= vars->pc_0.hgt;
 }
 
-void	ft_en_clone(t_data *vars, struct s_en *en, int y, int x)
+void	ft_free_2d_arr(char **arr)
 {
-	char *dir;
+	int i;
+
+	while (arr[i])
+		i++;
+	while (--i >=0)
+		free(arr[i]);
+	free(arr);
+}
+
+void	ft_en_clone(t_data *vars, struct s_en *en, int y, int x, int count)
+{
+	char 	*dir;
+	char	*speeds;
+	char	**temp;
 
 	dir = "wsad";
+	speeds = "433,283,71,97,119,661,151,109,43,947";
+	temp = ft_split(speeds, ',');
+	en->rank = count;
 	en->y = y * vars->en_0.hgt;
 	en->x = x * vars->en_0.wth;
 	en->m_y1 = y * vars->bg.hgt;
 	en->m_x1 = x * vars->bg.wth;
-	en->dir = dir[en->rank % 3];
+	en->dir = dir[count % 4];
 	en->counter = 1;
+	en->speed = ft_atoi(temp[count - 1]);
+	ft_free_2d_arr(temp);
 }
 
 void	ft_init_enemy(t_data *vars, int y, int x)
@@ -75,30 +105,29 @@ void	ft_init_enemy(t_data *vars, int y, int x)
 	static int count;
 
 	count++;
-	if (count == 1)
-	{
-		ft_en_clone(vars, &vars->en1, y, x);
-		vars->en1.rank = count;
-		vars->en1.speed = 661;
-	}
-	if (count == 2)
-	{
-		ft_en_clone(vars, &vars->en2, y, x);
-		vars->en2.rank = count;
-		vars->en2.speed = 283;
-	}
-	if (count == 3)
-	{
-		ft_en_clone(vars, &vars->en3, y, x);
-		vars->en3.rank = count;
-		vars->en3.speed = 199;
-	}
-	if (count == 4)
-	{
-		ft_en_clone(vars, &vars->en4, y, x);
-		vars->en4.rank = count;
-		vars->en4.speed = 97;
-	}
+	if (count > NUM_OF_ENEMIES)
+		return;
+	else if (count == 1)
+		ft_en_clone(vars, &vars->en1, y, x, count);
+	else if (count == 2)
+		ft_en_clone(vars, &vars->en2, y, x, count);
+	else if (count == 3)
+		ft_en_clone(vars, &vars->en3, y, x, count);
+	else if (count == 4)
+		ft_en_clone(vars, &vars->en4, y, x, count);
+	else if (count == 5)
+		ft_en_clone(vars, &vars->en5, y, x, count);
+	else if (count == 6)
+		ft_en_clone(vars, &vars->en6, y, x, count);
+	else if (count == 7)
+		ft_en_clone(vars, &vars->en7, y, x, count);
+	else if (count == 8)
+		ft_en_clone(vars, &vars->en8, y, x, count);
+	else if (count == 9)
+		ft_en_clone(vars, &vars->en9, y, x, count);
+	else if (count == 10)
+		ft_en_clone(vars, &vars->en10, y, x, count);
+	ft_printf("Enemy: %d\n", count);
 }
 
 void	ft_background(t_data *vars)
@@ -121,7 +150,7 @@ void	ft_background(t_data *vars)
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->clt.ptr, x * vars->clt.wth, y * vars->clt.hgt);
 			else if (vars->matrix[y][x] == 'E')
 				mlx_put_image_to_window(vars->mlx, vars->win, vars->ext.ptr, x * vars->ext.wth, y * vars->ext.hgt);
-			else if (e % 50 == 0)
+			else if (vars->matrix[y][x] == '0' && e % EN_NUM == 0)
 				ft_init_enemy(vars, y, x);
 			e++;
 		}

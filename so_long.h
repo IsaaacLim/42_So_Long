@@ -7,6 +7,14 @@
 # include "Libft/libft.h"
 # include "Printf/includes/ft_printf.h"
 
+# ifndef NUM_OF_ENEMIES
+#  define NUM_OF_ENEMIES 10
+# endif
+
+# ifndef EN_NUM
+#  define EN_NUM 15
+# endif
+
 # define SPEED 8
 
 struct	s_img
@@ -84,6 +92,12 @@ typedef struct s_data
 	struct s_en		en2;
 	struct s_en		en3;
 	struct s_en		en4;
+	struct s_en		en5;
+	struct s_en		en6;
+	struct s_en		en7;
+	struct s_en		en8;
+	struct s_en		en9;
+	struct s_en		en10;
 }	t_data;
 
 //Read file -> Get map
