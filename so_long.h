@@ -61,6 +61,7 @@ struct s_en
 
 typedef struct s_data
 {
+	char			**matrix;
 	void			*mlx;
 	void			*win;
 	void			*img;
@@ -68,7 +69,6 @@ typedef struct s_data
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
-	char			**matrix;
 	int				win_wth;
 	int				win_hgt;
 	int				map_hgt;

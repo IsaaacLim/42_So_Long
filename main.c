@@ -37,22 +37,22 @@ int	ft_en_loop(t_data *vars)
 		ft_en_move(vars, &vars->en4);
 }
 
-void	ft_init_pc(t_data *vars) //change to accept struct s_pc
+void	ft_init_pc(t_data *vars, struct s_pc *obj) //change to accept struct s_pc
 {
 	int y;
 	int x;
 
-	y = vars->pc.y;
-	x = vars->pc.x;
-	vars->pc.count = 0;
-	vars->pc.x_up = x;
-	vars->pc.y_up = y;
-	vars->pc.m_x1 = x * vars->bg.wth;
-	vars->pc.m_x2 = ft_ternary(vars->matrix[y][x + 1] != '1', 
-		(x + 1) * vars->bg.wth, vars->pc.m_x1);
-	vars->pc.m_y1 = y * vars->bg.hgt;
-	vars->pc.m_y2 = ft_ternary(vars->matrix[y + 1][x] != '1', 
-		(y + 1) * vars->bg.hgt, vars->pc.m_y1);
+	y = obj->y;
+	x = obj->x;
+	obj->count = 0;
+	obj->x_up = x;
+	obj->y_up = y;
+	obj->m_x1 = x * vars->bg.wth;
+	obj->m_x2 = ft_ternary(vars->matrix[y][x + 1] != '1', 
+		(x + 1) * vars->bg.wth, obj->m_x1);
+	obj->m_y1 = y * vars->bg.hgt;
+	obj->m_y2 = ft_ternary(vars->matrix[y + 1][x] != '1', 
+		(y + 1) * vars->bg.hgt, obj->m_y1);
 }
 
 void	ft_en_clone(t_data *vars, struct s_en *en, int y, int x, char c)
@@ -160,7 +160,7 @@ int main(int argc, char **argv)
 	vars.img = mlx_new_image(vars.mlx, vars.win_wth, vars.win_hgt);
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel, &vars.line_length, &vars.endian);
 	ft_background(&vars);
-	ft_init_pc(&vars);
+	ft_init_pc(&vars, &vars.pc);
 	mlx_loop_hook(vars.mlx, ft_en_loop, &vars);
 	ft_control(&vars);
 	if (vars.ended)
