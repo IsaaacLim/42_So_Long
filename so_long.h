@@ -63,7 +63,7 @@ typedef struct s_data
 	bool			ended;
 	struct s_img	bg;
 	struct s_pc		pc;
-	struct s_img	pc_r1;
+	struct s_img	pc_0;
 	struct s_img	en;
 	struct s_img	en1;
 	struct s_img	en2;

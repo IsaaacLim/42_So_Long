@@ -14,14 +14,14 @@ static int	ft_move_up(t_data *vars, struct s_pc *obj)
 	int x;
 	int	y;
 
-	x = obj->x / vars->pc_r1.wth; //make b1/b2
-	y = (obj->y - SPEED) / vars->pc_r1.hgt;
+	x = obj->x / vars->pc_0.wth; //make b1/b2
+	y = (obj->y - SPEED) / vars->pc_0.hgt;
 	if (vars->matrix[y][x] == '1' || vars->matrix[y][obj->x_up] == '1')
-		return (obj->y / vars->pc_r1.hgt);
+		return (obj->y / vars->pc_0.hgt);
 	else
 		obj->count++;
 	obj->y -= SPEED;
-	obj->y_up = ft_ternary((obj->y % vars->pc_r1.hgt) == 0, y, y + 1);
+	obj->y_up = ft_ternary((obj->y % vars->pc_0.hgt) == 0, y, y + 1);
 	return (y);
 }
 
@@ -30,14 +30,14 @@ static int	ft_move_left(t_data *vars, struct s_pc *obj)
 	int y;
 	int x;
 	
-	y = obj->y / vars->pc_r1.hgt;
-	x = (obj->x - SPEED) / vars->pc_r1.wth;
+	y = obj->y / vars->pc_0.hgt;
+	x = (obj->x - SPEED) / vars->pc_0.wth;
 	if (vars->matrix[y][x] == '1' || vars->matrix[obj->y_up][x] == '1')
-		return ((obj->x) / vars->pc_r1.wth);
+		return ((obj->x) / vars->pc_0.wth);
 	else
 		obj->count++;
 	obj->x -= SPEED;
-	obj->x_up = ft_ternary((obj->x % vars->pc_r1.wth) == 0, x, x + 1); 
+	obj->x_up = ft_ternary((obj->x % vars->pc_0.wth) == 0, x, x + 1); 
 	return (x);
 }
 
@@ -47,11 +47,11 @@ static int	ft_move_down(t_data *vars, struct s_pc *obj)
 	int y_up;
 	int x;
 
-	y = (obj->y + SPEED) / vars->pc_r1.hgt;
-	y_up = ft_ternary(((obj->y + SPEED) % vars->pc_r1.hgt) == 0, y, y + 1);
-	x = obj->x / vars->pc_r1.wth;
+	y = (obj->y + SPEED) / vars->pc_0.hgt;
+	y_up = ft_ternary(((obj->y + SPEED) % vars->pc_0.hgt) == 0, y, y + 1);
+	x = obj->x / vars->pc_0.wth;
 	if (vars->matrix[y_up][x] == '1' || vars->matrix[y_up][obj->x_up] == '1')
-		return (obj->y / vars->pc_r1.hgt);
+		return (obj->y / vars->pc_0.hgt);
 	else
 		obj->count++;
 	obj->y += SPEED;
@@ -65,11 +65,11 @@ static int	ft_move_right(t_data *vars, struct s_pc *obj)
 	int x;
 	int x_up;
 
-	y = obj->y / vars->pc_r1.hgt;
-	x = (obj->x + SPEED) / vars->pc_r1.wth;
-	x_up = ft_ternary(((obj->x + SPEED) % vars->pc_r1.wth) == 0, x, x + 1);
+	y = obj->y / vars->pc_0.hgt;
+	x = (obj->x + SPEED) / vars->pc_0.wth;
+	x_up = ft_ternary(((obj->x + SPEED) % vars->pc_0.wth) == 0, x, x + 1);
 	if (vars->matrix[y][x_up] == '1' || vars->matrix[obj->y_up][x_up] == '1')
-		return (obj->x / vars->pc_r1.wth);
+		return (obj->x / vars->pc_0.wth);
 	else
 		obj->count++;
 	obj->x += SPEED;

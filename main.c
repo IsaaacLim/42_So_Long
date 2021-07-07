@@ -123,14 +123,14 @@ void	ft_background(t_data *vars)
 void	ft_xpm_file_to_image(t_data *vars)
 {
 	char	*bg = "images/grass_tile.xpm";
-	char	*pc_r1 = "images/yoshi_f1.xpm";
+	char	*pc_0 = "images/yoshi_f1.xpm";
 	char	*en = "images/levi.xpm";
 	char	*wl = "images/rock.xpm";
 	char	*ext = "images/dome.xpm";
 	char	*clt = "images/flower.xpm";
 
 	vars->bg.ptr = mlx_xpm_file_to_image(vars->mlx, bg, &vars->bg.wth, &vars->bg.hgt);
-	vars->pc_r1.ptr = mlx_xpm_file_to_image(vars->mlx, pc_r1, &vars->pc_r1.wth, &vars->pc_r1.hgt);
+	vars->pc_0.ptr = mlx_xpm_file_to_image(vars->mlx, pc_0, &vars->pc_0.wth, &vars->pc_0.hgt);
 	vars->en.ptr = mlx_xpm_file_to_image(vars->mlx, en, &vars->en.wth, &vars->en.hgt);
 	vars->wl.ptr = mlx_xpm_file_to_image(vars->mlx, wl, &vars->wl.wth, &vars->wl.hgt);
 	vars->ext.ptr = mlx_xpm_file_to_image(vars->mlx, ext, &vars->ext.wth, &vars->ext.hgt);
