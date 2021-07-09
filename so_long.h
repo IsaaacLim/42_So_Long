@@ -64,7 +64,7 @@ struct s_en
 	int		rank;
 	int		counter;
 	int		speed;
-	void*	img;
+	void	*img;
 };
 
 typedef struct s_data
@@ -74,8 +74,8 @@ typedef struct s_data
 	void			*win;
 	void			*img;
 	char			*addr;
-	int				bits_per_pixel;
-	int				line_length;
+	int				bbp;
+	int				len;
 	int				endian;
 	int				win_wth;
 	int				win_hgt;
@@ -115,9 +115,9 @@ typedef struct s_data
 	struct s_en		en9;
 	struct s_en		en10;
 
-	int	(*p)(const char *, ...);
-	int (*put_img)(void *, void *, void *, int, int);
-	void *(*xpm_img)(void *, char *, int *, int *);
+	int				(*p)(const char *, ...);
+	int				(*put_img)(void *, void *, void *, int, int);
+	void			*(*xpm_img)(void *, char *, int *, int *);
 }	t_data;
 
 //Read file -> Get map
@@ -126,7 +126,7 @@ void	ft_free_matrix(char **matrix, int height);
 
 //MLX
 void	ft_background(t_data *vars);
-int	ft_close_window(t_data *vars);
+int		ft_close_window(t_data *vars);
 void	ft_error( t_data *vars, char *code, bool has_matrix);
 int		ft_control_hook(t_data *vars);
 void	ft_cover_trails(t_data *vars, struct s_pc *obj);
@@ -143,6 +143,10 @@ void	ft_contact_collectible(t_data *vars, struct s_pc pc);
 // Enemy
 void	ft_create_enemy(t_data *vars, int y, int x);
 int		ft_en_loop(t_data *vars);
+//Others
+void	ft_map_img(t_data *vars);
+void	ft_open_doors(t_data vars);
+void	ft_put_steps(t_data vars);
 
 #endif
 
