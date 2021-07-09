@@ -1,23 +1,7 @@
 #include "so_long.h"
 
-void ft_open_doors(t_data vars)
-{
-	int y;
-	int x;
-
-	y = -1;
-	while (++y < vars.map_hgt)
-	{
-		x = -1;
-		while (++x < vars.map_wth)
-		{
-			if (vars.matrix[y][x] == 'E')
-				vars.put_img(vars.mlx, vars.win, vars.ext1.ptr, x * vars.ext1.wth, y * vars.ext1.hgt);
-		}
-	}
-}
 /*
-** Hooking intercepts functions calls, messages ot events
+** Hooking intercepts functions calls, messages or events
 ** keycode follows ASCII [prtinf("%d", keycode) for more]
 ** 119: w | 115: s | 97: a | 100: d
 **

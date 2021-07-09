@@ -152,9 +152,13 @@ void	ft_put_steps(t_data vars);
 
 /*
 TO DO:
+1. check get next line function
+2. check atoi
+2. change enemy picture to blue bomb
 3. Add make file to accept -D
 4. Make file print message to inform how to specify
 - Good setting with og map is Num of En >= 2 ; position = 15
+9. simply comments for submission
 
 // Map test
 111111111
