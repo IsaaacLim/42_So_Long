@@ -121,7 +121,7 @@ typedef struct s_data
 }	t_data;
 
 //Read file -> Get map
-void	ft_get_map(t_data *vars, char *file);
+void	ft_parse_map(t_data *vars, char *file);
 void	ft_free_matrix(char **matrix, int height);
 
 //MLX
@@ -150,5 +150,22 @@ int		ft_en_loop(t_data *vars);
 TO DO:
 3. Add make file to accept -D
 4. Make file print message to inform how to specify
-7. check input file that ends with .ber (ft_substr)?
+
+// Map test
+111111111
+100000001
+1CP00000111
+111111111
+
+square map
+
+map1.bergur
+
+Game test
+Exit only after collecting all collectibles
+Run all around the map for image rendering
+Random key presses
+Closes window cleanly
+Memory leaks
+
 */

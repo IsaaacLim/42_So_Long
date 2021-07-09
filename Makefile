@@ -2,8 +2,8 @@ NAME	=	so_long
 
 SRCDIR	=	./source
 
-SRCS	=	$(SRCDIR)/exit.c $(SRCDIR)/ft_xpm_img.c $(SRCDIR)/obj_enemy.c $(SRCDIR)/obj_player.c \
-			main.c controls.c ft_get_map.c ft_move_pc.c \
+SRCS	=	$(SRCDIR)/exit.c $(SRCDIR)/ft_parse_map.c $(SRCDIR)/ft_xpm_img.c $(SRCDIR)/obj_enemy.c $(SRCDIR)/obj_player.c \
+			main.c controls.c ft_move_pc.c \
 			ft_move_en.c  ft_init_vars.c 
 OBJS	=	$(SRCS:%.c=%.o)
 INCLUDE	=	so_long.h

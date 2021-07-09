@@ -93,27 +93,8 @@ int main(int argc, char **argv)
 	t_data	vars;
 	
 	if (argc != 2)
-	{
-		ft_printf("Input a file\n");
-		return (0);
-	}
-	int len;
-	len = ft_strlen(argv[1]);
-	char temp[4];
-	int i;
-	int j;
-	i = len - 4;
-	j = 0;
-	while (i < len)
-	{
-		temp[j] = argv[1][i];
-		j++;
-		i++;
-	}
-	ft_printf("temp: %s\n", temp);
-	if (!(ft_strnstr(temp, ".ber", 4)))
-		ft_error(&vars, "Input '.ber' file", false);
-	ft_get_map(&vars, argv[1]);
+		ft_error(&vars, "Input a file", false);
+	ft_parse_map(&vars, argv[1]);
 	ft_store_mlx_function(&vars);
 	vars.mlx = mlx_init();
 	ft_xpm_img(&vars);
