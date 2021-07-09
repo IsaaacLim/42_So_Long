@@ -1,14 +1,13 @@
 NAME	=	so_long
 
-SRCDIR	=	./source
+SRCDIR	=	./source/
 
-SRCS	=	$(SRCDIR)/exit.c			$(SRCDIR)/ft_control_hook.c	\
-			$(SRCDIR)/ft_init_vars.c 	$(SRCDIR)/ft_move_en.c		\
-			$(SRCDIR)/ft_move_pc.c		$(SRCDIR)/ft_parse_map.c	\
-			$(SRCDIR)/ft_xpm_img.c		$(SRCDIR)/obj_enemy.c		\
-			$(SRCDIR)/obj_others.c		$(SRCDIR)/obj_player.c		\
-			$(SRCDIR)/so_long.c      
-OBJS	=	$(SRCS:%.c=%.o)
+SRC_LIST=	exit.c			ft_control_hook.c	ft_init_vars.c 	ft_move_en.c \
+			ft_move_pc.c	ft_parse_map.c		ft_xpm_img.c	obj_enemy.c	 \
+			obj_others.c	obj_player.c		so_long.c      
+SRCS 	=	$(addprefix $(SRCDIR), $(SRC_LIST))
+
+OBJS	=	$(SRCS:.c=.o)
 INCLUDE	=	so_long.h
 
 CC		=	gcc -g #-g for debugging
@@ -30,7 +29,7 @@ PRINTF		=	$(PRINTFDIR)/libftprintf.a
 all : $(LIBFT) $(PRINTF) $(GNL) $(MLXLIB) $(NAME)
 
 $(NAME): $(OBJS) $(INCLUDE)
-	$(CC) $(SRCS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
+	$(CC) $(OBJS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
 #must be (OBJS)?
 
 $(LIBFT):
