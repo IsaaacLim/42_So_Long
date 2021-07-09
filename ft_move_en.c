@@ -8,8 +8,8 @@
 static int	ft_move_up(t_data vars, struct s_en *en)
 {
 	int		y;
-	int 	y_up;
-	int 	x;
+	int		y_up;
+	int		x;
 	char	*dir;
 
 	dir = "adsd";
@@ -20,7 +20,7 @@ static int	ft_move_up(t_data vars, struct s_en *en)
 		en->dir = dir[en->rank % 4];
 		return (en->y / vars.en_0.hgt);
 	}
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.bg.ptr, en->m_x1, en->m_y1);
+	vars.put_img(vars.mlx, vars.win, vars.bg.ptr, en->m_x1, en->m_y1);
 	y_up = ft_tco_int(((en->y - SPEED) % vars.en_0.hgt) == 0, y, y + 1);
 	en->m_y1 = y_up * vars.en_0.hgt;
 	return ((en->y -= SPEED) / vars.en_0.hgt);
@@ -28,9 +28,9 @@ static int	ft_move_up(t_data vars, struct s_en *en)
 
 static int	ft_move_left(t_data vars, struct s_en *en)
 {
-	int 	y;
-	int 	x;
-	int 	x_up;
+	int		y;
+	int		x;
+	int		x_up;
 	char	*dir;
 
 	dir = "swds";
@@ -41,7 +41,7 @@ static int	ft_move_left(t_data vars, struct s_en *en)
 		en->dir = dir[en->rank % 4];
 		return (en->x / vars.en_0.wth);
 	}
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.bg.ptr, en->m_x1, en->m_y1);
+	vars.put_img(vars.mlx, vars.win, vars.bg.ptr, en->m_x1, en->m_y1);
 	x_up = ft_tco_int(((en->x - SPEED) % vars.en_0.hgt) == 0, x, x + 1);
 	en->m_x1 = x_up * vars.en_0.wth;
 	return ((en->x -= SPEED) / vars.en_0.wth);
@@ -49,9 +49,9 @@ static int	ft_move_left(t_data vars, struct s_en *en)
 
 static int	ft_move_down(t_data vars, struct s_en *en)
 {
-	int 	y;
-	int 	y_up;
-	int 	x;
+	int		y;
+	int		y_up;
+	int		x;
 	char	*dir;
 
 	dir = "daaw";
@@ -63,7 +63,7 @@ static int	ft_move_down(t_data vars, struct s_en *en)
 		en->dir = dir[en->rank % 4];
 		return (en->y / vars.en_0.hgt);
 	}
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.bg.ptr, en->m_x1, en->m_y1);
+	vars.put_img(vars.mlx, vars.win, vars.bg.ptr, en->m_x1, en->m_y1);
 	en->y += SPEED;
 	en->m_y1 = en->y / vars.en_0.hgt * vars.en_0.hgt;
 	return (y);
@@ -75,7 +75,7 @@ static int	ft_move_right(t_data vars, struct s_en *en)
 	int		x;
 	int		x_up;
 	char	*dir;
-	
+
 	dir = "wswa";
 	y = en->y / vars.en_0.hgt;
 	x = (en->x + SPEED) / vars.en_0.wth;
@@ -85,7 +85,7 @@ static int	ft_move_right(t_data vars, struct s_en *en)
 		en->dir = dir[en->rank % 4];
 		return (en->x / vars.en_0.wth);
 	}
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.bg.ptr, en->m_x1, en->m_y1);
+	vars.put_img(vars.mlx, vars.win, vars.bg.ptr, en->m_x1, en->m_y1);
 	en->x += SPEED;
 	en->m_x1 = en->x / vars.en_0.wth * vars.en_0.wth;
 	return (x);

@@ -150,6 +150,7 @@ int		ft_en_loop(t_data *vars);
 TO DO:
 3. Add make file to accept -D
 4. Make file print message to inform how to specify
+- Good setting with og map is Num of En >= 2 ; position = 15
 
 // Map test
 111111111

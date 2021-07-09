@@ -11,7 +11,7 @@
 
 static int	ft_move_up(t_data vars, struct s_pc *pc)
 {
-	int x;
+	int	x;
 	int	y;
 
 	x = pc->x / vars.pc_0.wth;
@@ -26,24 +26,24 @@ static int	ft_move_up(t_data vars, struct s_pc *pc)
 
 static int	ft_move_left(t_data vars, struct s_pc *pc)
 {
-	int y;
-	int x;
-	
+	int	y;
+	int	x;
+
 	y = pc->y / vars.pc_0.hgt;
 	x = (pc->x - SPEED) / vars.pc_0.wth;
 	if (vars.matrix[y][x] == '1' || vars.matrix[pc->y_up][x] == '1')
 		return ((pc->x) / vars.pc_0.wth);
 	pc->move_count++;
 	pc->x -= SPEED;
-	pc->x_up = ft_tco_int((pc->x % vars.pc_0.wth) == 0, x, x + 1); 
+	pc->x_up = ft_tco_int((pc->x % vars.pc_0.wth) == 0, x, x + 1);
 	return (x);
 }
 
 static int	ft_move_down(t_data vars, struct s_pc *pc)
 {
-	int y;
-	int y_up;
-	int x;
+	int	y;
+	int	y_up;
+	int	x;
 
 	y = (pc->y + SPEED) / vars.pc_0.hgt;
 	y_up = ft_tco_int(((pc->y + SPEED) % vars.pc_0.hgt) == 0, y, y + 1);
@@ -52,15 +52,15 @@ static int	ft_move_down(t_data vars, struct s_pc *pc)
 		return (pc->y / vars.pc_0.hgt);
 	pc->move_count++;
 	pc->y += SPEED;
-	pc->y_up = y_up; 
+	pc->y_up = y_up;
 	return (y);
 }
 
 static int	ft_move_right(t_data vars, struct s_pc *pc)
 {
-	int y;
-	int x;
-	int x_up;
+	int	y;
+	int	x;
+	int	x_up;
 
 	y = pc->y / vars.pc_0.hgt;
 	x = (pc->x + SPEED) / vars.pc_0.wth;
