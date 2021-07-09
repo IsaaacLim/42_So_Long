@@ -7,11 +7,11 @@ SRC_LIST=	exit.c			ft_control_hook.c	ft_init_vars.c 	ft_move_en.c \
 SRCS 	=	$(addprefix $(SRCDIR), $(SRC_LIST))
 
 OBJS	=	$(SRCS:.c=.o)
-INCLUDE	=	./includes/so_long.h
+HEADER	=	./includes/so_long.h
 INCLUDES=	-I ./includes/
 
-CC		=	gcc -g
-CFLAGS	=	-Wall -Werror -Wextra $(INCLUDES)
+CC		=	gcc -g3
+CFLAGS	=	-Wall -Werror -Wextra
 
 MLX		=	-L. -lmlx -lm -lbsd -lX11 -lXext
 MLXDIR	=	mlx_linux
@@ -28,9 +28,11 @@ PRINTF		=	$(PRINTFDIR)/libftprintf.a
 
 all : $(LIBFT) $(PRINTF) $(GNL) $(MLXLIB) $(NAME)
 
-$(NAME): $(OBJS) $(INCLUDE)
-	$(CC) $(INCLUDES) $(OBJS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
-#must be (OBJS)?
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
+
+$(SRCDIR)%.o : $(SRCDIR)%.c $(HEADER)
+	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
 
 $(LIBFT):
 	make -C $(LIBDIR)
