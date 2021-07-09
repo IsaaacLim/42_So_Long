@@ -19,10 +19,10 @@ static void ft_verify_map(t_data *vars, int i, int j)
 			if (y == 0 || y == i - 1 || x == 0 || x == j - 1)
 			{
 				if (vars->matrix[y][x] != '1')
-					ft_error("Map not surrounded by walls", 1, vars);
+					ft_error(vars, "Map not surrounded by walls", true);
 			}
 			else if (!(ft_strchr("01CEP", vars->matrix[y][x])))
-				ft_error("Map contains invalid character", 1, vars);
+				ft_error(vars, "Map contains invalid character", true);
 			if (vars->matrix[y][x] == 'E')
 				has_exit = true;
 			if (vars->matrix[y][x] == 'C')
@@ -37,9 +37,9 @@ static void ft_verify_map(t_data *vars, int i, int j)
 		y++;
 	}
 	if (!(has_exit && vars->items > 0 && vars->pc.y > 0))
-		ft_error("Missing Exit/Collectible/Starting position", 1, vars);
+		ft_error(vars, "Missing Exit/Collectible/Starting position", true);
 	if (y == x)
-		ft_error("Map is square", 1, vars);
+		ft_error(vars, "Map is square", true);
 }
 
 static void ft_display_map(t_data *vars)
@@ -64,7 +64,7 @@ static void ft_display_map(t_data *vars)
 	ft_verify_map(vars, i, j);
 }
 
-static int	ft_fill_matrix(char *file, char **matrix, int height)
+static int	ft_fill_matrix(char *file, char **matrix)
 {
 	char	*line;	
 	char	*column;
@@ -112,13 +112,13 @@ void	ft_get_map(t_data *vars, char *file)
 	}
 	free(line);
 	if (ret == -1)
-		ft_error("Read file error", 0, vars);
+		ft_error(vars, "Read file error", false);
 	close(fd);
 	vars->matrix = (char **)malloc(vars->map_hgt * (sizeof(char *) + 1));
 	if (!vars->matrix)
-		ft_error("Matrix malloc error", 0, vars);
-	if (!(ft_fill_matrix(file, vars->matrix, vars->map_hgt)))
-		ft_error("Matrix fill error", 0, vars);
+		ft_error(vars, "Matrix malloc error", false);
+	if (!(ft_fill_matrix(file, vars->matrix)))
+		ft_error(vars, "Matrix fill error", false);
 	vars->matrix[vars->map_hgt] = NULL;
 	ft_display_map(vars);
 }

@@ -1,15 +1,15 @@
 NAME	=	so_long
 
-TEST	=	test
-TEST_S	=	test.c
-TEST_O	=	$(TEST_S:%.c=%.o)
+SRCDIR	=	./source
 
-SRCS	=	main.c controls.c extra_func.c ft_get_map.c ft_move.c ft_move_en.c exit.c
+SRCS	=	$(SRCDIR)/exit.c $(SRCDIR)/ft_xpm_img.c $(SRCDIR)/obj_enemy.c $(SRCDIR)/obj_player.c \
+			main.c controls.c ft_get_map.c ft_move_pc.c \
+			ft_move_en.c  ft_init_vars.c 
 OBJS	=	$(SRCS:%.c=%.o)
 INCLUDE	=	so_long.h
 
 CC		=	gcc -g #-g for debugging
-#CFLAGS	=	-c -Wall -Werror -Wextra -g3 #(exclude -c?)
+CFLAGS	=	-c -Wall -Werror -Wextra -I#-g3 #(exclude -c?)
 
 MLX		=	-L. -lmlx -lm -lbsd -lX11 -lXext
 MLXDIR	=	mlx_linux
@@ -24,7 +24,7 @@ LIBFT	=	$(LIBDIR)/libft.a
 PRINTFDIR	=	Printf
 PRINTF		=	$(PRINTFDIR)/libftprintf.a
 
-all : $(LIBFT) $(PRINTF) $(GNL) $(MLXLIB) $(NAME) #$(TEST)
+all : $(LIBFT) $(PRINTF) $(GNL) $(MLXLIB) $(NAME)
 
 $(NAME): $(OBJS) $(INCLUDE)
 	$(CC) $(SRCS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
@@ -40,23 +40,17 @@ $(PRINTF):
 	make -C $(PRINTFDIR)
 
 $(MLXLIB):
-	make -C $(MLXDIR)/
-
-$(TEST): $(TEST_O)
-	$(CC) $(TEST_S) $(MLX) $(LIBFT) -o $@
+	make -C $(MLXDIR)
 
 clean:
 	rm -f $(OBJS)
-	rm -f $(TEST_O)
 
 fclean: clean
-	make clean -C $(MLXDIR)/
+	make clean -C $(MLXDIR)
 	rm -f $(NAME)
-	rm -f $(TEST)
 	make fclean -C $(LIBDIR)
 	make fclean -C $(GNLDIR)
 	make fclean -C $(PRINTFDIR)
-#REMOVE TEST
 
 re: fclean all
 
