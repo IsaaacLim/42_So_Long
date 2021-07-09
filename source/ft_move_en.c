@@ -1,8 +1,10 @@
-#include "so_long.h"
+#include "../so_long.h"
 
 /*
 ** Simplified version of ft_movement. Only looks along its movement axis
-** Use this function by parsing different code number to have diff movements
+** Change direction if hit wall/collectible/Exit
+**	4 movement patterns are available, classified my en->rank
+** Function returns int to know current enemy posititons
 */
 
 static int	ft_move_up(t_data vars, struct s_en *en)
