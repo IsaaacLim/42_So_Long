@@ -1,4 +1,4 @@
-#include "../so_long.h"
+#include "so_long.h"
 
 /*
 ** Simplified version of ft_movement. Only looks along its movement axis

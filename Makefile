@@ -1,17 +1,17 @@
 NAME	=	so_long
 
 SRCDIR	=	./source/
-
 SRC_LIST=	exit.c			ft_control_hook.c	ft_init_vars.c 	ft_move_en.c \
 			ft_move_pc.c	ft_parse_map.c		ft_xpm_img.c	obj_enemy.c	 \
 			obj_others.c	obj_player.c		so_long.c      
 SRCS 	=	$(addprefix $(SRCDIR), $(SRC_LIST))
 
 OBJS	=	$(SRCS:.c=.o)
-INCLUDE	=	so_long.h
+INCLUDE	=	./includes/so_long.h
+INCLUDES=	-I ./includes/
 
-CC		=	gcc -g #-g for debugging
-CFLAGS	=	-c -Wall -Werror -Wextra -I#-g3 #(exclude -c?)
+CC		=	gcc -g
+CFLAGS	=	-Wall -Werror -Wextra $(INCLUDES)
 
 MLX		=	-L. -lmlx -lm -lbsd -lX11 -lXext
 MLXDIR	=	mlx_linux
@@ -29,7 +29,7 @@ PRINTF		=	$(PRINTFDIR)/libftprintf.a
 all : $(LIBFT) $(PRINTF) $(GNL) $(MLXLIB) $(NAME)
 
 $(NAME): $(OBJS) $(INCLUDE)
-	$(CC) $(OBJS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
+	$(CC) $(INCLUDES) $(OBJS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
 #must be (OBJS)?
 
 $(LIBFT):

@@ -1,4 +1,4 @@
-#include "../so_long.h"
+#include "so_long.h"
 
 /*
 ** Open Exits when all collectibles are collected

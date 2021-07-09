@@ -1,4 +1,4 @@
-#include "../so_long.h"
+#include "so_long.h"
 
 /*
 ** mlx_init() - Establish connection to the correct graphical system

@@ -1,4 +1,4 @@
-#include "../so_long.h"
+#include "so_long.h"
 
 /*
 ** Hooking intercepts functions calls, messages or events
