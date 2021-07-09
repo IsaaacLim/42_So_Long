@@ -122,10 +122,13 @@ typedef struct s_data
 
 //MLX
 void	ft_background(t_data *vars);
+
+//ft_init_vars.c
 void	ft_init_vars(t_data *vars);
 
 //ft_control_hook.c
 int		ft_control_hook(t_data *vars);
+
 //exit.c
 int		ft_close_window(t_data *vars);
 void	ft_error( t_data *vars, char *code, bool has_matrix);

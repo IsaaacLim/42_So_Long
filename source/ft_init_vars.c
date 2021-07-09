@@ -1,5 +1,11 @@
-#include "so_long.h"
+#include "../so_long.h"
 
+/*
+** Initiates struct variables
+**	PC - actual values
+**	EN - Empty values (not all clones will be used)
+**	also other struct variables
+*/
 static void	ft_init_pc(t_data vars, struct s_pc *pc)
 {
 	int		x;
@@ -37,7 +43,7 @@ static void	ft_init_en_clone(struct s_en *en)
 	en->img = NULL;
 }
 
-void	ft_init_en(t_data *vars)
+static void	ft_init_en(t_data *vars)
 {
 	ft_init_en_clone(&vars->en1);
 	ft_init_en_clone(&vars->en2);
