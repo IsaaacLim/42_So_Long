@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../so_long.h"
 
 /*
 ** Hooking intercepts functions calls, messages or events
@@ -10,8 +10,8 @@
 */
 static int	ft_wsad(int keycode, t_data *vars)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
 	y = vars->pc.y / vars->pc_0.hgt;
 	x = vars->pc.x / vars->pc_0.wth;
@@ -30,17 +30,22 @@ static int	ft_wsad(int keycode, t_data *vars)
 		vars->won = true;
 	if (!vars->lost && !vars->won)
 		ft_printf("Moves: %d Items: %d\n", vars->pc.move_count, vars->items);
-	else if(vars->lost)
+	else if (vars->lost)
 		ft_printf("GAME OVER!!!\n");
 	else if (vars->won)
 		ft_printf("YOU WON with -%d- steps\n", vars->pc.move_count);
 	return (0);
 }
 
-int		ft_control_hook(t_data *vars)
+int	ft_control_hook(t_data *vars)
 {
-	vars->put_img(vars->mlx, vars->win, vars->pc_0.ptr, vars->pc.x , vars->pc.y);
-	mlx_hook(vars->win, 2, 1L<<0, ft_wsad, vars);
-	mlx_hook(vars->win, 17, (1L<<2), ft_close_window, vars); //red cross
+	int	x;
+	int	y;
+
+	x = vars->pc.x;
+	y = vars->pc.y;
+	vars->put_img(vars->mlx, vars->win, vars->pc_0.ptr, x, y);
+	mlx_hook(vars->win, 2, (1L << 0), ft_wsad, vars);
+	mlx_hook(vars->win, 17, (1L << 2), ft_close_window, vars);
 	return (1);
 }

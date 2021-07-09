@@ -26,6 +26,7 @@ void	ft_open_doors(t_data vars)
 
 /*
 ** Display steps counter on screen
+** Called my mlx_loop_hook
 */
 void	ft_put_steps(t_data vars)
 {
