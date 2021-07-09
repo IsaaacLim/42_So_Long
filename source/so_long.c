@@ -1,15 +1,17 @@
-#include "so_long.h"
+#include "../so_long.h"
 
-// mlx_init() - Establish connection to the correct graphical system
-// mls_new_window() - Initialize a window
-// mlx_loop() - Allow display to remain open
-// mlx_new_image() - Initialize image in bbp (bit per pixel)
-// mlx_get_data_addr() - Pass vars by reference to set data
-//	based on the current data address
-// mlx_loop_hook() - Function will be running in a loop.
-//	May intercept function calls, messages or events
-// mlx_xpm_file_to_image() - Init and stores the pointer to an image
-// mlx_put_image_to_window() - prints the image of the specifed image pointer
+/*
+** mlx_init() - Establish connection to the correct graphical system
+** mls_new_window() - Initialize a window
+** mlx_loop() - Allow display to remain open
+** mlx_new_image() - Initialize image in bbp (bit per pixel)
+** mlx_get_data_addr() - Pass vars by reference to set data
+**	based on the current data address
+** mlx_loop_hook() - Function will be running in a loop.
+**	May intercept function calls, messages or events
+** mlx_xpm_file_to_image() - Init and stores the pointer to an image
+** mlx_put_image_to_window() - prints the image of the specifed image pointer
+*/
 
 /*
 ** Shorten mlx function names
@@ -21,7 +23,7 @@ void	ft_store_mlx_function(t_data *vars)
 }
 
 /*
-** Functions that are constantly looped
+** Functions that are constantly looped by mlx_loop_hook
 */
 int	ft_loops(t_data *vars)
 {

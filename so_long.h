@@ -120,8 +120,6 @@ typedef struct s_data
 	void			*(*xpm_img)(void *, char *, int *, int *);
 }	t_data;
 
-//MLX
-void	ft_background(t_data *vars);
 
 //ft_init_vars.c
 void	ft_init_vars(t_data *vars);

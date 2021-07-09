@@ -7,7 +7,7 @@ SRCS	=	$(SRCDIR)/exit.c			$(SRCDIR)/ft_control_hook.c	\
 			$(SRCDIR)/ft_move_pc.c		$(SRCDIR)/ft_parse_map.c	\
 			$(SRCDIR)/ft_xpm_img.c		$(SRCDIR)/obj_enemy.c		\
 			$(SRCDIR)/obj_others.c		$(SRCDIR)/obj_player.c		\
-			main.c      
+			$(SRCDIR)/so_long.c      
 OBJS	=	$(SRCS:%.c=%.o)
 INCLUDE	=	so_long.h
 
