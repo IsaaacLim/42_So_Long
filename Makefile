@@ -17,28 +17,22 @@ MLX		=	-L. -lmlx -lm -lbsd -lX11 -lXext
 MLXDIR	=	mlx_linux
 MLXLIB	=	$(MLXDIR)/libmlx.a
 
-GNLDIR	=	GetNextLine
-GNL		=	$(GNLDIR)/GNL.a
-
 LIBDIR	=	Libft
 LIBFT	=	$(LIBDIR)/libft.a
 
 PRINTFDIR	=	Printf
 PRINTF		=	$(PRINTFDIR)/libftprintf.a
 
-all : $(LIBFT) $(PRINTF) $(GNL) $(MLXLIB) $(NAME)
+all : $(LIBFT) $(PRINTF) $(MLXLIB) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX) $(GNL) $(PRINTF) $(LIBFT) -o $@ 
+	$(CC) $(CFLAGS) $(OBJS) $(MLX) $(PRINTF) $(LIBFT) -o $@ 
 
 $(SRCDIR)%.o : $(SRCDIR)%.c $(HEADER)
 	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
 
 $(LIBFT):
 	make -C $(LIBDIR)
-
-$(GNL):
-	make -C $(GNLDIR)
 
 $(PRINTF):
 	make -C $(PRINTFDIR)
@@ -53,7 +47,6 @@ fclean: clean
 	make clean -C $(MLXDIR)
 	rm -f $(NAME)
 	make fclean -C $(LIBDIR)
-	make fclean -C $(GNLDIR)
 	make fclean -C $(PRINTFDIR)
 
 re: fclean all

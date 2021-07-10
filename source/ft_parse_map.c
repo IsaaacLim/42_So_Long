@@ -1,5 +1,5 @@
 #include "so_long.h"
-#include "../GetNextLine/get_next_line.h"
+#include "../Libft/includes/get_next_line.h"
 #include <fcntl.h>
 
 /*

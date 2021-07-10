@@ -7,8 +7,9 @@ SRCS_LST	=	ft_atoi.c		ft_bzero.c		ft_calloc.c		ft_isdigit.c \
 				ft_substr.c
 SRCS_B_LST	=	ft_lltoa_bonus.c	ft_putchar_bonus.c	ft_putstr_bonus.c	 \
 				ft_strndup_bonus.c 	ft_tco_bonus.c		ft_toupper_bonus.c	 \
-				ft_ulltoa_bonus.c	ft_ulltoa_hex_bonus.c	
-SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST) $(SRCS_B_LST))
+				ft_ulltoa_bonus.c	ft_ulltoa_hex_bonus.c
+GNL_LST		=	get_next_line.c
+SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LST) $(SRCS_B_LST) $(GNL_LST))
 
 OBJS		= 	$(SRCS:.c=.o)
 
