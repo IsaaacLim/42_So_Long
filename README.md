@@ -1,5 +1,6 @@
-# 42_So_Long
-Simple 2D game using the MinilibX library
+# 42_So_Long  🦖
+Simple 2D game using the MinilibX library  
+Contains instructions on how to install the required program and dependancies.
 1. [Installing and Running X server](#install&runXsrv)
    - [Install an X server](#installXsrv)
    - [Starting up X server](#startXsrv)
@@ -62,4 +63,4 @@ No window will be displayed but you'll find the VcXsrv icon in your taskbar
 > sudo apt-get update && sudo apt-get install gcc make xorg libxext-dev libbsd-dev
 2. Set display environment variable accordingly
 > export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0
-3. Move to root of project directory, run `make`, and run `./so_long [map.ber]`
+3. All set!!!
