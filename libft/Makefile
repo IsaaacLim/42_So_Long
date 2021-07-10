@@ -32,7 +32,6 @@ $(NAME):	$(OBJS)
 	@ar rcs $@ $^
 	@echo " $(YELLOW)$(NAME) $(GREEN)object files created"
 	@echo " $(BLUE)$(NAME)$(GREEN) created$(RESET)"
-#make clean
 
 $(SRCS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS)
 	@$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@

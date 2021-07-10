@@ -19,7 +19,7 @@ MLX_DIR		=	./mlx_linux/
 MLX			=	$(MLX_DIR)libmlx.a
 MLX_LIB		=	-L. -lmlx -lm -lbsd -lX11 -lXext
 
-LIBFT_DIR	=	./Libft/
+LIBFT_DIR	=	./libft/
 LIBFT		=	$(LIBFT_DIR)/libft.a
 LIBFT_HDRS	=	$(LIBFT_DIR)includes/
 
