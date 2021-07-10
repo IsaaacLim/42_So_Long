@@ -5,7 +5,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include "../Libft/includes/libft.h"
-# include "../Printf/includes/ft_printf.h"
+# include "../Libft/includes/ft_printf.h"
 # include "../mlx_linux/mlx_int.h"
 
 # ifndef NUM_OF_ENEMIES

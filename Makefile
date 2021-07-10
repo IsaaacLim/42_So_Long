@@ -20,22 +20,16 @@ MLXLIB	=	$(MLXDIR)/libmlx.a
 LIBDIR	=	Libft
 LIBFT	=	$(LIBDIR)/libft.a
 
-PRINTFDIR	=	Printf
-PRINTF		=	$(PRINTFDIR)/libftprintf.a
-
-all : $(LIBFT) $(PRINTF) $(MLXLIB) $(NAME)
+all : $(LIBFT) $(MLXLIB) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX) $(PRINTF) $(LIBFT) -o $@ 
+	$(CC) $(CFLAGS) $(OBJS) $(MLX) $(LIBFT) -o $@ 
 
 $(SRCDIR)%.o : $(SRCDIR)%.c $(HEADER)
 	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
 
 $(LIBFT):
 	make -C $(LIBDIR)
-
-$(PRINTF):
-	make -C $(PRINTFDIR)
 
 $(MLXLIB):
 	make -C $(MLXDIR)
@@ -47,7 +41,6 @@ fclean: clean
 	make clean -C $(MLXDIR)
 	rm -f $(NAME)
 	make fclean -C $(LIBDIR)
-	make fclean -C $(PRINTFDIR)
 
 re: fclean all
 
