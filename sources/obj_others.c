@@ -57,18 +57,18 @@ static void	ft_create_collectibles(t_data vars, int y, int x)
 {
 	static int		count;
 	struct s_image	cl_0;
-	struct s_image	cl_l;
-	struct s_image	cl_r;
+	struct s_image	cl_1;
+	struct s_image	cl_2;
 
 	cl_0 = vars.clt_0;
-	cl_l = vars.clt_l;
-	cl_r = vars.clt_r;
+	cl_1 = vars.clt_1;
+	cl_2 = vars.clt_2;
 	if (count % 3 == 1)
 		vars.put_img(vars.mlx, vars.win, cl_0.ptr, x * cl_0.wth, y * cl_0.hgt);
 	else if (count % 3 == 2)
-		vars.put_img(vars.mlx, vars.win, cl_l.ptr, x * cl_l.wth, y * cl_l.hgt);
+		vars.put_img(vars.mlx, vars.win, cl_1.ptr, x * cl_1.wth, y * cl_1.hgt);
 	else
-		vars.put_img(vars.mlx, vars.win, cl_r.ptr, x * cl_r.wth, y * cl_r.hgt);
+		vars.put_img(vars.mlx, vars.win, cl_2.ptr, x * cl_2.wth, y * cl_2.hgt);
 	count++;
 }
 

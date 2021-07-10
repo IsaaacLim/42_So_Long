@@ -85,8 +85,8 @@ typedef struct s_data
 	struct s_image	bg;
 	struct s_image	wl;
 	struct s_image	clt_0;
-	struct s_image	clt_l;
-	struct s_image	clt_r;
+	struct s_image	clt_1;
+	struct s_image	clt_2;
 	struct s_image	ext0;
 	struct s_image	ext1;
 	struct s_image	en_0;
@@ -158,22 +158,6 @@ void	ft_put_sprites(t_data vars, struct s_pc pc, int keycode);
 #endif
 
 /*
-TO DO:
-3. Add make file to accept -D
-4. Make file print message to inform how to specify
-- Good setting with og map is Num of En >= 2 ; position = 15
-9. simply comments for submission
-
-// Map test
-111111111
-100000001
-1CP00000111
-111111111
-
-square map
-
-map1.bergur
-
 Game test
 Exit only after collecting all collectibles
 Run all around the map for image rendering

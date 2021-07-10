@@ -45,8 +45,8 @@ int	ft_close_window(t_data *vars)
 	mlx_destroy_image(vars->mlx, vars->bg.ptr);
 	mlx_destroy_image(vars->mlx, vars->wl.ptr);
 	mlx_destroy_image(vars->mlx, vars->clt_0.ptr);
-	mlx_destroy_image(vars->mlx, vars->clt_l.ptr);
-	mlx_destroy_image(vars->mlx, vars->clt_r.ptr);
+	mlx_destroy_image(vars->mlx, vars->clt_1.ptr);
+	mlx_destroy_image(vars->mlx, vars->clt_2.ptr);
 	mlx_destroy_image(vars->mlx, vars->ext0.ptr);
 	mlx_destroy_image(vars->mlx, vars->ext1.ptr);
 	mlx_destroy_image(vars->mlx, vars->en_0.ptr);

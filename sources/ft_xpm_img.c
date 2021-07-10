@@ -49,19 +49,19 @@ static void	ft_pc_sprites_2(t_data *v)
 static void	ft_contact_sprites(t_data *v)
 {
 	char	*clt_0;
-	char	*clt_l;
-	char	*clt_r;
+	char	*clt_1;
+	char	*clt_2;
 	char	*en_0;
 	char	*en_1;
 
 	clt_0 = "images/egg_green.xpm";
-	clt_l = "images/egg_blue.xpm";
-	clt_r = "images/egg_pink.xpm";
+	clt_1 = "images/egg_blue.xpm";
+	clt_2 = "images/egg_pink.xpm";
 	en_0 = "images/bomb1.xpm";
 	en_1 = "images/bomb2.xpm";
 	v->clt_0.ptr = v->xpm_img(v->mlx, clt_0, &v->clt_0.wth, &v->clt_0.hgt);
-	v->clt_l.ptr = v->xpm_img(v->mlx, clt_l, &v->clt_l.wth, &v->clt_l.hgt);
-	v->clt_r.ptr = v->xpm_img(v->mlx, clt_r, &v->clt_r.wth, &v->clt_r.hgt);
+	v->clt_1.ptr = v->xpm_img(v->mlx, clt_1, &v->clt_1.wth, &v->clt_1.hgt);
+	v->clt_2.ptr = v->xpm_img(v->mlx, clt_2, &v->clt_2.wth, &v->clt_2.hgt);
 	v->en_0.ptr = v->xpm_img(v->mlx, en_0, &v->en_0.wth, &v->en_0.hgt);
 	v->en_1.ptr = v->xpm_img(v->mlx, en_1, &v->en_1.wth, &v->en_1.hgt);
 }
