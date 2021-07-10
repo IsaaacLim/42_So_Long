@@ -54,11 +54,11 @@ static void	ft_contact_sprites(t_data *v)
 	char	*en_0;
 	char	*en_1;
 
-	clt_0 = "images/egg_up.xpm";
-	clt_l = "images/egg_left.xpm";
-	clt_r = "images/egg_right.xpm";
-	en_0 = "images/gomba1.xpm";
-	en_1 = "images/gomba2.xpm";
+	clt_0 = "images/egg_green.xpm";
+	clt_l = "images/egg_blue.xpm";
+	clt_r = "images/egg_pink.xpm";
+	en_0 = "images/bomb1.xpm";
+	en_1 = "images/bomb2.xpm";
 	v->clt_0.ptr = v->xpm_img(v->mlx, clt_0, &v->clt_0.wth, &v->clt_0.hgt);
 	v->clt_l.ptr = v->xpm_img(v->mlx, clt_l, &v->clt_l.wth, &v->clt_l.hgt);
 	v->clt_r.ptr = v->xpm_img(v->mlx, clt_r, &v->clt_r.wth, &v->clt_r.hgt);
