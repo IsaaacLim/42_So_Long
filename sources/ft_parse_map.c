@@ -65,22 +65,24 @@ static int	ft_fill_matrix(char *file, char **matrix)
 	char	*line;	
 	char	*column;
 	int		fd;
+	int		ret;
 	int		i;
 
 	fd = open(file, O_RDONLY);
 	i = 0;
-	while (get_next_line(fd, &line) > 0)
+	ret = get_next_line(fd, &line);
+	while (ret > 0)
 	{
 		column = ft_strdup(line);
 		matrix[i] = column;
 		i++;
 		free(line);
+		ret = get_next_line(fd, &line);
 	}
+	if (ret == -1)
+		return (-1);
 	column = ft_strdup(line);
 	matrix[i] = column;
-	free(line);
-	if (get_next_line(fd, &line) == -1)
-		return (-1);
 	free(line);
 	close(fd);
 	return (1);
@@ -103,11 +105,11 @@ static void	ft_get_map(t_data *vars, char *file)
 		free(line);
 		ret = get_next_line(fd, &line);
 	}
+	if (ret == -1)
+		ft_error(vars, "Read file error", false);
 	vars->map_hgt++;
 	vars->map_wth = ft_strlen(line);
 	free(line);
-	if (ret == -1)
-		ft_error(vars, "Read file error", false);
 	close(fd);
 	vars->matrix = (char **)malloc(vars->map_hgt * (sizeof(char *) + 1));
 	if (!vars->matrix)
