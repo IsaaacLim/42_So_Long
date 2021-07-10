@@ -29,11 +29,14 @@ CFLAGS		=	-Wall -Wextra -Werror -g3
 all:		$(NAME) 
 
 $(NAME):	$(OBJS)
-	ar rcs $@ $^
+	@ar rcs $@ $^
+	@echo " $(GREEN)created $(YELLOW)$(NAME) $(GREEN)object files"
+	@echo " $(BLUE)$(NAME)$(GREEN) created$(RESET)"
 #make clean
 
 $(SRCS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS)
-	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
+	@$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
+	@echo "$(GREEN).$(RESET)\c"
 
 clean:
 	rm -rf $(OBJS)
@@ -44,3 +47,9 @@ fclean:		clean
 re:			fclean all
 
 .PHONY:		all clean fclean re
+
+RED		=	\033[00;31m
+YELLOW	=	\033[03;33m
+GREEN	=	\033[00;32m
+BLUE	=	\033[01;36m
+RESET	=	\033[0m
