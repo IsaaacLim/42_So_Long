@@ -1,17 +1,17 @@
-NAME	=	so_long
+NAME		=	so_long
 
-SRCDIR	=	./source/
-SRC_LIST=	exit.c			ft_control_hook.c	ft_init_vars.c 	ft_move_en.c \
-			ft_move_pc.c	ft_parse_map.c		ft_xpm_img.c	obj_enemy.c	 \
-			obj_others.c	obj_player.c		so_long.c      
-SRCS 	=	$(addprefix $(SRCDIR), $(SRC_LIST))
+SRCS_DIR	=	./sources/
+SRCS_LST	=	exit.c			ft_control_hook.c	ft_init_vars.c 	\
+				ft_move_en.c 	ft_move_pc.c		ft_parse_map.c	\
+				ft_xpm_img.c	obj_enemy.c			obj_others.c	\
+				obj_player.c	so_long.c      
+SRCS 		=	$(addprefix $(SRCS_DIR), $(SRCS_LST))
 
-OBJS	=	$(SRCS:.c=.o)
-HEADER	=	./includes/so_long.h
-INCLUDES=	-I ./includes/
+OBJS		=	$(SRCS:.c=.o)
 
-CC		=	gcc -g3
-CFLAGS	=	-Wall -Werror -Wextra
+HDRS_DIR	=	./includes/
+HEADER		=	./includes/so_long.h
+INCLUDES	=	-I ./includes/
 
 MLX		=	-L. -lmlx -lm -lbsd -lX11 -lXext
 MLXDIR	=	mlx_linux
@@ -19,6 +19,9 @@ MLXLIB	=	$(MLXDIR)/libmlx.a
 
 LIBDIR	=	Libft
 LIBFT	=	$(LIBDIR)/libft.a
+
+CC		=	gcc -g3
+CFLAGS	=	-Wall -Werror -Wextra
 
 all : $(LIBFT) $(MLXLIB) $(NAME)
 
