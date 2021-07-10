@@ -30,7 +30,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS)
 	@ar rcs $@ $^
-	@echo " $(GREEN)created $(YELLOW)$(NAME) $(GREEN)object files"
+	@echo " $(YELLOW)$(NAME) $(GREEN)object files created"
 	@echo " $(BLUE)$(NAME)$(GREEN) created$(RESET)"
 #make clean
 
@@ -39,10 +39,12 @@ $(SRCS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS)
 	@echo "$(GREEN).$(RESET)\c"
 
 clean:
-	rm -rf $(OBJS)
+	@rm -rf $(OBJS)
+	@echo "$(RED)removed $(YELLOW)$(NAME) $(RED)object files $(RESET)"
 
 fclean:		clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
+	@echo "$(RED)removed $(BLUE)$(NAME)$(RESET)"
 
 re:			fclean all
 

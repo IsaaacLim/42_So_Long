@@ -32,7 +32,7 @@ all : $(MLX) $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(LIBFT) -o $@
-	@echo " $(GREEN)created $(YELLOW)$(NAME) $(GREEN)object files"
+	@echo " $(YELLOW)$(NAME) $(GREEN)object files created"
 	@echo " $(BLUE)$(NAME)$(GREEN) created$(RESET)"
 
 $(SRCS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS)
@@ -48,14 +48,15 @@ $(MLX):
 bonus:	re
 
 clean:
+	@make clean -C $(LIBFT_DIR)
 	@rm -f $(OBJS)
-	@echo "$(RED)removed $(NAME) object files $(RESET)"
+	@echo "$(RED)removed $(YELLOW)$(NAME) $(RED)object files $(RESET)"
 
 fclean: clean
+	@make clean -C $(MLX_DIR)
+	@make fclean -C $(LIBFT_DIR)
 	@rm -f $(NAME)
 	@echo "$(RED)removed $(BLUE)$(NAME)$(RESET)"
-	@make clean -C $(MLX_DIR)
-	make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
