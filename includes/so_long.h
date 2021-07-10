@@ -159,9 +159,6 @@ void	ft_put_sprites(t_data vars, struct s_pc pc, int keycode);
 
 /*
 TO DO:
-1. check get next line function
-2. check atoi
-2. change enemy picture to blue bomb
 3. Add make file to accept -D
 4. Make file print message to inform how to specify
 - Good setting with og map is Num of En >= 2 ; position = 15
