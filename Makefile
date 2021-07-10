@@ -13,8 +13,6 @@ HDRS_DIR	=	./includes/
 HRDS_LST	=	so_long.h
 HDRS		=	$(addprefix $(HDRS_DIR), $(HRDS_LST))
 
-INCLUDES	=	-I $(HDRS_DIR)
-
 MLX_DIR		=	./mlx_linux/
 MLX			=	$(MLX_DIR)libmlx.a
 MLX_LIB		=	-L. -lmlx -lm -lbsd -lX11 -lXext
@@ -23,7 +21,8 @@ LIBFT_DIR	=	./libft/
 LIBFT		=	$(LIBFT_DIR)/libft.a
 LIBFT_HDRS	=	$(LIBFT_DIR)includes/
 
-INCLUDES	=	-I $(HDRS_DIR) -I $(LIBFT_HDRS) -I $(MLX_DIR)
+INC	=	-I $(HDRS_DIR) -I $(LIBFT_HDRS) -I $(MLX_DIR)
+# INCLUDES	=	-I $(HDRS_DIR) -I $(LIBFT_HDRS) -I $(MLX_DIR)
 
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g3
@@ -35,8 +34,8 @@ $(NAME): $(LIBFT) $(OBJS)
 	@echo " $(YELLOW)$(NAME) $(GREEN)object files created"
 	@echo " $(BLUE)$(NAME)$(GREEN) created$(RESET)"
 
-$(SRCS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS)
-	@$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
+$(SRCS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS) $(CFLAGS)
+	@$(CC) $(CFLAGS) -c $<  $(INC) -o $@
 	@echo "$(GREEN).$(RESET)\c"
 
 $(LIBFT):

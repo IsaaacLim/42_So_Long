@@ -118,34 +118,28 @@ typedef struct s_data
 	void			*(*xpm_img)(void *, char *, int *, int *);
 }	t_data;
 
-
-//ft_init_vars.c
-void	ft_init_vars(t_data *vars);
-
-//ft_control_hook.c
-int		ft_control_hook(t_data *vars);
-
 //exit.c
 int		ft_close_window(t_data *vars);
 void	ft_error( t_data *vars, char *code, bool has_matrix);
 void	ft_free_matrix(char **matrix, int height);
 
-//ft_move_pc.c
-int		ft_move_pc(t_data vars, struct s_pc *pc, int keycode);
+//ft_control_hook.c
+int		ft_control_hook(t_data *vars);
+
+//ft_init_vars.c
+void	ft_init_vars(t_data *vars);
 
 //ft_move_en.c
 int		ft_movement_en(t_data vars, struct s_en *obj);
+
+//ft_move_pc.c
+int		ft_move_pc(t_data vars, struct s_pc *pc, int keycode);
 
 //ft_parse_map.c
 void	ft_parse_map(t_data *vars, char *file);
 
 //ft_xpm_img.c
 void	ft_xpm_img(t_data *vars);
-
-//obj_player.c
-void	ft_contact_collectible(t_data *vars, struct s_pc pc);
-void	ft_cover_trails(t_data *vars, struct s_pc *pc);
-void	ft_put_sprites(t_data vars, struct s_pc pc, int keycode);
 
 //obj_enemy.c
 void	ft_create_enemy(t_data *vars, int y, int x);
@@ -155,6 +149,11 @@ int		ft_en_loop(t_data *vars);
 void	ft_map_img(t_data *vars);
 void	ft_open_doors(t_data vars);
 void	ft_put_steps(t_data vars);
+
+//obj_player.c
+void	ft_contact_collectible(t_data *vars, struct s_pc pc);
+void	ft_cover_trails(t_data *vars, struct s_pc *pc);
+void	ft_put_sprites(t_data vars, struct s_pc pc, int keycode);
 
 #endif
 
