@@ -4,7 +4,7 @@
 # include <mlx.h>
 # include <stdlib.h>
 # include <stdbool.h>
-# include "../Libft/libft.h"
+# include "../Libft/includes/libft.h"
 # include "../Printf/includes/ft_printf.h"
 # include "../mlx_linux/mlx_int.h"
 
