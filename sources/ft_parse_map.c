@@ -51,7 +51,7 @@ static void	ft_verify_map(t_data *vars)
 		if (x != vars->map_wth)
 			ft_error(vars, "Map length is inconsistent", true);
 	}
-	if (!(has_exit && vars->items > 0 && vars->pc.y > 0))
+	if (!(has_exit && vars->items > 0 && vars->pc.x > 0))
 		ft_error(vars, "Missing Exit/Collectible/Starting position", true);
 	if (y == x)
 		ft_error(vars, "Map is square", true);

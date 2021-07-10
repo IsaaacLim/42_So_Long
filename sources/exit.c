@@ -1,6 +1,7 @@
 #include "so_long.h"
 #include "libft.h"
 #include "ft_printf.h"
+#include <stdio.h>
 
 /*
 ** EXIT.c
@@ -27,7 +28,7 @@ void	ft_free_matrix(char **matrix, int height)
 */
 void	ft_error( t_data *vars, char *code, bool has_matrix)
 {
-	ft_printf("Error\n");
+	perror("Error");
 	ft_printf("%s\n", code);
 	if (has_matrix)
 		ft_free_matrix(vars->matrix, vars->map_hgt);
