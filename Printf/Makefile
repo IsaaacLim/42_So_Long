@@ -5,9 +5,9 @@ SRCDIR	=	./source
 INCLUDES = 	./includes
 
 SRCS	=	$(SRCDIR)/ft_printf.c	\
-			$(SRCDIR)/src_format.c	$(SRCDIR)/src_length_mod.c \
-			$(SRCDIR)/src_modify.c	$(SRCDIR)/src_output_alpha.c \
-			$(SRCDIR)/src_output_num.c
+			$(SRCDIR)/pf_format.c	$(SRCDIR)/pf_length_mod.c \
+			$(SRCDIR)/pf_modify.c	$(SRCDIR)/pf_output_alpha.c \
+			$(SRCDIR)/pf_output_num.c
 
 OBJS	=	$(SRCS:.c=.o)
 
