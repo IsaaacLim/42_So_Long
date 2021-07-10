@@ -38,7 +38,6 @@ void				ft_output_nothing(t_print *info);
 void				ft_output_pointer(t_print *info);
 void				ft_output_string(t_print *info);
 void				ft_output_unsigned(t_print *info);
-void				ft_reset_arg_info(t_print *info);
 long long			ft_length_modifier_id(t_print *info);
 unsigned long long	ft_length_modifier_uxX(t_print *info);
 

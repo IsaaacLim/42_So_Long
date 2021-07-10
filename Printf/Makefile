@@ -4,7 +4,7 @@ LIBDIR	=	./libft
 SRCDIR	=	./source
 INCLUDES = 	./includes
 
-SRCS	=	$(SRCDIR)/ft_printf.c	$(SRCDIR)/ft_reset_arg_info.c \
+SRCS	=	$(SRCDIR)/ft_printf.c	\
 			$(SRCDIR)/src_format.c	$(SRCDIR)/src_length_mod.c \
 			$(SRCDIR)/src_modify.c	$(SRCDIR)/src_output_alpha.c \
 			$(SRCDIR)/src_output_num.c
