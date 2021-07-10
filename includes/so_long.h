@@ -4,8 +4,6 @@
 # include <mlx.h>
 # include <stdlib.h>
 # include <stdbool.h>
-# include "libft.h"
-# include "ft_printf.h"
 # include "mlx_int.h"
 
 # ifndef NUM_OF_ENEMIES

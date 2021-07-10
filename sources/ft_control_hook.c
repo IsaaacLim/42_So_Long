@@ -1,4 +1,5 @@
 #include "so_long.h"
+#include "ft_printf.h"
 
 /*
 ** Hooking intercepts functions calls, messages or events

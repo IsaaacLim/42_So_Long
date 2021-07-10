@@ -1,4 +1,5 @@
 #include "so_long.h"
+#include "libft.h"
 
 /*
 ** Open Exits when all collectibles are collected
