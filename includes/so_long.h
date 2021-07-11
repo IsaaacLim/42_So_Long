@@ -113,7 +113,6 @@ typedef struct s_data
 	struct s_en		en9;
 	struct s_en		en10;
 
-	int				(*p)(const char *, ...);
 	int				(*put_img)(void *, void *, void *, int, int);
 	void			*(*xpm_img)(void *, char *, int *, int *);
 }	t_data;

@@ -15,7 +15,7 @@ HDRS		=	$(addprefix $(HDRS_DIR), $(HRDS_LST))
 
 MLX_DIR		=	./mlx_linux/
 MLX			=	$(MLX_DIR)libmlx.a
-MLX_LIB		=	-L. -lmlx -lm -lbsd -lX11 -lXext
+MLX_LIB		=	-L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext
 
 LIBFT_DIR	=	./libft/
 LIBFT		=	$(LIBFT_DIR)libft.a
