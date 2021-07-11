@@ -79,11 +79,9 @@ static int	ft_fill_matrix(char *file, char **matrix)
 		free(line);
 		ret = get_next_line(fd, &line);
 	}
+	free(line);
 	if (ret == -1)
 		return (-1);
-	column = ft_strdup(line);
-	matrix[i] = column;
-	free(line);
 	close(fd);
 	return (1);
 }
@@ -99,17 +97,16 @@ static void	ft_get_map(t_data *vars, char *file)
 
 	fd = open(file, O_RDONLY);
 	ret = get_next_line(fd, &line);
+	vars->map_wth = ft_strlen(line);
 	while (ret > 0)
 	{
 		vars->map_hgt++;
 		free(line);
 		ret = get_next_line(fd, &line);
 	}
+	free(line);
 	if (ret == -1)
 		ft_error(vars, "Read file error", false);
-	vars->map_hgt++;
-	vars->map_wth = ft_strlen(line);
-	free(line);
 	close(fd);
 	vars->matrix = (char **)malloc(vars->map_hgt * (sizeof(char *) + 1));
 	if (!vars->matrix)
@@ -150,5 +147,6 @@ void	ft_parse_map(t_data *vars, char *file)
 			ft_printf("%c", vars->matrix[y][x]);
 		ft_printf("\n");
 	}
+	ft_printf("hgt: %d, wth: %d\n", vars->map_hgt, vars->map_wth);
 	ft_verify_map(vars);
 }
