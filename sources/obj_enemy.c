@@ -101,7 +101,7 @@ static void	ft_en_clone(t_data vars, struct s_en *en, int y, int x)
 
 	count++;
 	dir = "wsad";
-	speeds = "211,151,43,71,109,127,101,97,31,23";
+	speeds = "151,43,23,71,109,117,101,97,31,23";
 	temp = ft_split(speeds, ',');
 	i = 0;
 	en->rank = count;
