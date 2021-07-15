@@ -4,6 +4,7 @@ Contains instructions on how to install the required program and dependancies.
 1. [Installing and Running X server](#install&runXsrv)
    - [Install an X server](#installXsrv)
    - [Starting up X server](#startXsrv)
+   - [Test X server](#testXsrv)
 2. [Running the program](#runProgram)
  
 <a name="install&runXsrv"></a>
@@ -56,11 +57,23 @@ There are various X servers. VcXsrv is for **Windows**.
 ![Screenshot 2021-07-11 012648](https://user-images.githubusercontent.com/75291303/125171516-3a7e9000-e1e7-11eb-8353-099ecfa6fc13.png)  
 No window will be displayed but you'll find the VcXsrv icon in your taskbar
 
+<a name"testXsrv"></a>
+### Test that X server running accordingly 
+1. Set display enviroment variable  
+  - for WSL2  
+> export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0
+   - for WSL1  
+> export DISPLAY=:0
+2. Install and run X applications
+> sudo apt install x11-apps -y  
+> xeyes  
+> xclock
+
+*An appication should pop out in a separate window*
 
 <a name="runProgram"></a>
 ## To run program in terminal
 1. Install required dependencies into system (Ubuntu/Debian)
 > sudo apt-get update && sudo apt-get install gcc make xorg libxext-dev libbsd-dev
-2. Set display environment variable accordingly
-> export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0
-3. All set!!!
+2. Set display environment variable(if haven't done so).
+3. I think that's it. Continue project following [this guide](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
