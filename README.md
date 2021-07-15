@@ -57,7 +57,7 @@ There are various X servers. VcXsrv is for **Windows**.
 ![Screenshot 2021-07-11 012648](https://user-images.githubusercontent.com/75291303/125171516-3a7e9000-e1e7-11eb-8353-099ecfa6fc13.png)  
 No window will be displayed but you'll find the VcXsrv icon in your taskbar
 
-<a name"testXsrv"></a>
+<a name="testXsrv"></a>
 ### Test that X server running accordingly 
 1. Set display enviroment variable  
   - for WSL2  
