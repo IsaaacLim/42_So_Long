@@ -8,6 +8,10 @@
 **
 ** mlx_key_hook(vars->win, ft_wasd, vars); - one key press
 ** mlx_hook(vars->win, 2, 1L<<0, ft_wsad, vars); - variable mask, can hold key
+**
+** --- Commented out codes are for the project sharing session ---
+**	To show what it looks like to constantly clear & rerender images on each
+**	character movement
 */
 static int	ft_wsad(int keycode, t_data *vars)
 {
@@ -24,6 +28,8 @@ static int	ft_wsad(int keycode, t_data *vars)
 		x = ft_move_pc(*vars, &vars->pc, keycode);
 	ft_contact_collectible(vars, vars->pc);
 	ft_cover_trails(vars, &vars->pc);
+	// mlx_clear_window(vars->mlx, vars->win); //to refresh screen
+	// ft_map_img(vars); // to replace images on screen
 	ft_put_sprites(*vars, vars->pc, keycode);
 	if (vars->items == 0)
 		ft_open_doors(*vars);

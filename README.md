@@ -6,6 +6,37 @@ Simple 2D game using the MinilibX library
 
 ---
 
+## Note (modifications made)
+
+This repo contains additional files used for project sharing, such as:
+
+- images - for concept demonstration
+- functions - for different project execution method (all commented out)
+- maps - for clearer demonstration of specific scenarios
+- compiled programs - to be ran with specific maps to demonstrate various concepts
+  (didn't use 01_actual_showGrids)
+
+Aliases prepared for the project sharing session
+
+```
+alias display="export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0"
+alias valrun="valgrind --leak-check=full --show-leak-kinds=all ./so_long map1.ber"
+alias valmap="valgrind --leak-check=full --show-leak-kinds=all ./so_long"
+alias demo0="./program/00_actual maps/0_pacman.ber";
+alias demo1="./program/02_basic_showGrids maps/1_smallMap.ber";
+alias demo2="./program/10_basic_trails maps/4_blank.ber";
+alias demo3="./program/11_basic_refresh maps/2_bigMap.ber";
+alias demo4="./program/12_basic_mask maps/4_blank.ber";
+alias demo5="./program/20_normal_manualMask maps/4_blank.ber";
+alias demo6="./program/21_normal_trails maps/4_blank.ber";
+alias demo7="./program/22_normal_manual2 maps/4_blank.ber";
+alias demo8="./program/23_normal_quartMask maps/4_blank.ber";
+alias demo9="./program/30_walkThroughWalls maps/5_walls.ber";
+alias demoz="./program/40_incorrectRender maps/1_smallMap.ber";
+```
+
+---
+
 ## Instructions on how to install the required program and dependancies.
 
 1. [Installing and Running X server](#install&runXsrv)

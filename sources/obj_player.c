@@ -62,6 +62,33 @@ static void	ft_cover_exit(t_data vars, struct s_pc pc)
 }
 
 /*
+** IF Walked through walls
+** Demonstration for project sharign purposes only
+** similar built as ft_cover_exit
+*/
+/*
+static void	ft_cover_wall(t_data vars, struct s_pc pc)
+{
+	static int	m_y_up;
+	static int	m_x_up;
+	int			y;
+	int			x;
+
+	y = m_y_up * vars.pc_0.hgt;
+	x = m_x_up * vars.pc_0.wth;
+	if (vars.matrix[pc.m_y1 / vars.pc_0.hgt][pc.m_x1 / vars.pc_0.wth] == '1')
+		vars.put_img(vars.mlx, vars.win, vars.wl.ptr, pc.m_x1, pc.m_y1);
+	else if (vars.matrix[pc.m_y1 / vars.pc_0.hgt][m_x_up] == '1')
+		vars.put_img(vars.mlx, vars.win, vars.wl.ptr, x, pc.m_y1);
+	else if (vars.matrix[m_y_up][pc.m_x1 / vars.pc_0.wth] == '1')
+		vars.put_img(vars.mlx, vars.win, vars.wl.ptr, pc.m_x1, y);
+	else if (vars.matrix[m_y_up][m_x_up] == '1')
+		vars.put_img(vars.mlx, vars.win, vars.wl.ptr, x, y);
+	m_x_up = pc.x_up;
+	m_y_up = pc.y_up;
+}
+*/
+/*
 ** COVER TRAILS OF PREVIOUS POSITION
 ** m_x1 & m_y1:
 **	Rounded down x & y coord. Always true for 1st quadrant
@@ -82,6 +109,7 @@ void	ft_cover_trails(t_data *vars, struct s_pc *pc)
 	vars->put_img(vars->mlx, vars->win, vars->bg.ptr, pc->m_x1, pc->m_y2);
 	vars->put_img(vars->mlx, vars->win, vars->bg.ptr, pc->m_x2, pc->m_y2);
 	ft_cover_exit(*vars, *pc);
+	// ft_cover_wall(*vars, *pc); //To demonstrate walking through walls
 	mtx_y = pc->y / vars->pc_0.hgt;
 	mtx_x = pc->x / vars->pc_0.wth;
 	pc->m_x1 = mtx_x * vars->bg.wth;
