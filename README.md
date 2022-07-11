@@ -1,16 +1,27 @@
-# 42_So_Long  🦖
-Simple 2D game using the MinilibX library  
-Contains instructions on how to install the required program and dependancies.
+# 42_So_Long 🎮
+
+Simple 2D game using the MinilibX library
+
+## Grades: 120/100
+
+---
+
+## Instructions on how to install the required program and dependancies.
+
 1. [Installing and Running X server](#install&runXsrv)
    - [Install an X server](#installXsrv)
    - [Starting up X server](#startXsrv)
    - [Test X server](#testXsrv)
 2. [Running the program](#runProgram)
- 
+
 <a name="install&runXsrv"></a>
+
 ## Installing and Running X server
+
 <a name="installXsrv"></a>
+
 ### Install an X server (VcXsrv)
+
 There are various X servers. VcXsrv is for **Windows**.  
 [Download here](https://sourceforge.net/projects/vcxsrv/)
 
@@ -32,7 +43,9 @@ There are various X servers. VcXsrv is for **Windows**.
 </div>
 
 <a name="startXsrv"></a>
+
 ### Starting up VcXsrv
+
 <div>
   <img src="https://user-images.githubusercontent.com/75291303/125172663-7ddbfd00-e1ed-11eb-932c-0f9bb86c2a21.png" height="200"/>
   <p>Run <i>XLaunch</i></p>
@@ -58,22 +71,28 @@ There are various X servers. VcXsrv is for **Windows**.
 No window will be displayed but you'll find the VcXsrv icon in your taskbar
 
 <a name="testXsrv"></a>
-### Test that X server running accordingly 
-1. Set display enviroment variable  
-  - for WSL2  
-> export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0
-   - for WSL1  
-> export DISPLAY=:0
-2. Install and run X applications
-> sudo apt install x11-apps -y  
-> xeyes  
-> xclock
 
-*An appication should pop out in a separate window*
+### Test that X server running accordingly
+
+1. Set display enviroment variable
+
+- for WSL2
+  > export DISPLAY=$(grep -oP "(?<=nameserver ).+" /etc/resolv.conf):0
+- for WSL1
+  > export DISPLAY=:0
+
+2. Install and run X applications
+   > sudo apt install x11-apps -y  
+   > xeyes  
+   > xclock
+
+_An appication should pop out in a separate window_
 
 <a name="runProgram"></a>
+
 ## To run program in terminal
+
 1. Install required dependencies into system (Ubuntu/Debian)
-> sudo apt-get update && sudo apt-get install gcc make xorg libxext-dev libbsd-dev
+   > sudo apt-get update && sudo apt-get install gcc make xorg libxext-dev libbsd-dev
 2. Set display environment variable(if haven't done so).
-3. I think that's it. Continue project following [this guide](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
+3. I think that's it. Continue to implement the minlibX libray to your project using [this guide](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
